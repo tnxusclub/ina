@@ -8,17 +8,12 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background-color: #000; color: #fff; min-height: 200vh; }
 
-        /* === FOOTER ATAS WARNA BERUBAH & STICKY === */
+        /* === BANNER ATAS === */
         .top-notice {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 12px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 15px;
-            z-index: 999;
+            top: 0; left: 0; width: 100%;
+            padding: 12px; text-align: center;
+            font-weight: bold; font-size: 15px; z-index: 999;
             background: linear-gradient(45deg, red, blue, green, yellow, purple);
             background-size: 400% 400%;
             animation: gradientShift 8s ease infinite;
@@ -29,181 +24,128 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* === TOMBOL MENU & KERANJANG STICKY === */
+        /* === TOMBOL HEADER === */
         .header-buttons {
-            position: fixed;
-            top: 48px;
-            right: 15px;
-            z-index: 998;
-            display: flex;
-            gap: 10px;
+            position: fixed; top: 48px; right: 15px; z-index: 998;
+            display: flex; gap: 10px;
         }
         .btn-header {
-            background: #222;
-            border: 1px solid #444;
-            color: white;
-            padding: 10px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
+            background: #222; border: 1px solid #444; color: white;
+            padding: 10px 16px; border-radius: 6px; cursor: pointer;
+            font-weight: bold; transition: 0.3s;
         }
         .btn-header:hover { background: #ff0055; border-color: #ff0055; }
 
-        /* === MENU SAMPING ANIMASI KANAN === */
+        /* === MENU SAMPING === */
         .side-menu {
-            position: fixed;
-            top: 48px;
-            right: -320px;
-            width: 300px;
-            height: calc(100vh - 48px);
-            background: #111;
-            z-index: 997;
-            padding: 30px 20px;
-            transition: right 0.4s ease;
+            position: fixed; top: 48px; right: -320px;
+            width: 300px; height: calc(100vh - 48px);
+            background: #111; z-index: 997;
+            padding: 30px 20px; transition: right 0.4s ease;
         }
         .side-menu.active { right: 0; }
         .side-menu a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 14px 0;
-            border-bottom: 1px solid #222;
-            font-size: 18px;
+            display: block; color: white; text-decoration: none;
+            padding: 14px 0; border-bottom: 1px solid #222; font-size: 18px;
         }
         .side-menu a:hover { color: #ff0055; padding-left: 8px; }
 
         /* === KONTEN UTAMA === */
         main {
-            margin-top: 90px;
-            padding: 20px;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-top: 90px; padding: 20px;
+            max-width: 1200px; margin-left: auto; margin-right: auto;
         }
         .page { display: none; }
         .page.active { display: block; }
 
-        /* === KOTAK VIDEO LOGO (KECIL) === */
+        /* === KOTAK VIDEO LOGO === */
         .box-logo {
-            width: 100%;
-            max-width: 280px;
+            width: 100%; max-width: 280px;
             aspect-ratio: 1 / 1;
-            margin: 20px auto;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #111;
+            margin: 20px auto; border-radius: 12px; overflow: hidden; background: #111;
         }
-        /* === KOTAK FOTO SLIDER === */
-        .box-slider {
-            width: 100%;
-            max-width: 450px;
-            aspect-ratio: 1 / 1;
-            margin: 20px auto;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #111;
-        }
-        video, .slide-img { width: 100%; height: 100%; object-fit: cover; }
-        h1 { text-align: center; color: #ff0055; margin: 15px 0; font-size: 28px; }
-        .desc { text-align: center; color: #aaa; margin-bottom: 30px; }
 
-        /* === SLIDE FOTO ✅ DIPERLAMBAT (20 DETIK) === */
-        .slider { position: relative; overflow: hidden; }
-        .slides { display: flex; width: 300%; height: 100%; animation: slide 20s infinite ease-in-out; }
-        .slide { width: 100%; flex-shrink: 0; }
-        @keyframes slide {
-            0%, 28% { transform: translateX(0); }
-            33%, 61% { transform: translateX(-100%); }
-            66%, 95% { transform: translateX(-200%); }
+        /* === ✅ KOTAK SLIDER: 1:1 === */
+        .box-slider {
+            width: 100%; max-width: 450px;
+            aspect-ratio: 1 / 1;
+            margin: 20px auto; border-radius: 12px; overflow: hidden; background: #111;
+        }
+        .slider { position: relative; width: 100%; height: 100%; overflow: hidden; }
+        .slides {
+            display: flex; width: 400%; height: 100%;
+            animation: slideNormal 16s infinite ease-in-out;
+        }
+        .slide { width: 25%; height: 100%; flex-shrink: 0; }
+        .slide-img {
+            width: 100%; height: 100%;
+            object-fit: cover; display: block;
+        }
+        @keyframes slideNormal {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(0); }
+            25% { transform: translateX(-25%); }
+            45% { transform: translateX(-25%); }
+            50% { transform: translateX(-50%); }
+            70% { transform: translateX(-50%); }
+            75% { transform: translateX(-75%); }
+            95% { transform: translateX(-75%); }
             100% { transform: translateX(0); }
         }
 
-        /* === TIMER DI BERANDA DENGAN KOTAK === */
+        video { width: 100%; height: 100%; object-fit: cover; }
+        h1 { text-align: center; color: #ff0055; margin: 15px 0; font-size: 28px; }
+        .desc { text-align: center; color: #aaa; margin-bottom: 30px; }
+
+        /* === TIMER === */
         .timer-wrapper {
             background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
-            border: 2px solid #ff0055;
-            border-radius: 15px;
-            padding: 20px 30px;
-            margin: 20px auto;
-            max-width: 350px;
-            text-align: center;
-            box-shadow: 0 0 15px rgba(255, 0, 85, 0.3), inset 0 0 10px rgba(0,0,0,0.5);
+            border: 2px solid #ff0055; border-radius: 15px;
+            padding: 20px 30px; margin: 20px auto; max-width: 350px;
+            text-align: center; box-shadow: 0 0 15px rgba(255,0,85,0.3);
         }
         .timer-label-header {
-            color: #ff6699;
-            font-size: 14px;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            color: #ff6699; font-size: 14px; margin-bottom: 10px;
+            letter-spacing: 2px; text-transform: uppercase;
         }
         .preorder-timer {
-            font-size: 26px;
-            color: #fff;
-            font-weight: bold;
-            text-shadow: 0 0 8px #ff0055;
-            font-family: monospace;
+            font-size: 26px; color: #fff; font-weight: bold;
+            text-shadow: 0 0 8px #ff0055; font-family: monospace;
         }
 
-        /* === TIMER LABEL DI PRODUK === */
+        /* === LABEL STOK/PREORDER === */
         .timer-label {
-            background: rgba(255, 0, 0, 0.85);
-            color: white;
-            font-size: 13px;
-            padding: 4px 8px;
-            border-radius: 4px;
-            position: absolute;
-            top: 10px;
-            left: 10px;
+            background: rgba(255,0,0,0.85); color: white; font-size: 13px;
+            padding: 4px 8px; border-radius: 4px;
+            position: absolute; top: 10px; left: 10px;
         }
         .stok-label {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0,200,80,0.9);
-            color: white;
-            font-size: 12px;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-weight: bold;
+            position: absolute; top: 10px; right: 10px;
+            background: rgba(0,200,80,0.9); color: white; font-size: 12px;
+            padding: 4px 8px; border-radius: 4px; font-weight: bold;
         }
-        .stok-habis {
-            background: rgba(100,100,100,0.9);
-        }
+        .stok-habis { background: rgba(100,100,100,0.9); }
         .habis-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0,0,0,0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ff4444;
-            font-size: 22px;
-            font-weight: bold;
-            z-index: 2;
+            position: absolute; inset: 0; background: rgba(0,0,0,0.6);
+            display: flex; align-items: center; justify-content: center;
+            color: #ff4444; font-size: 22px; font-weight: bold; z-index: 2;
         }
 
-        /* === KARTU PRODUK & FOTO 1:1 === */
+        /* === ✅ BINGKAI SERAGAM: PRODUK & AKSESORIS SAMA PERSIS === */
         .produk-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; margin: 40px 0; }
         .kartu-produk {
-            background: #111;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #222;
-            transition: 0.3s;
+            background: #111; border-radius: 12px; overflow: hidden;
+            border: 1px solid #222; transition: 0.3s;
         }
         .kartu-produk:hover { border-color: #ff0055; transform: translateY(-5px); }
         .kartu-produk.habis { opacity: 0.7; border-color: #333; }
-        .kartu-media { 
-            position: relative; 
-            aspect-ratio: 1/1; /* ✅ PERSIS 1:1 */
-            overflow: hidden; 
-            background: #000;
+        .kartu-media {
+            position: relative;
+            aspect-ratio: 1 / 1; /* ✅ 1:1 SAMA SEMUA */
+            overflow: hidden; background: #000;
         }
         .foto-produk {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* ✅ RAPI TIDAK PECAH */
+            width: 100%; height: 100%; object-fit: cover;
         }
         .kartu-info { padding: 15px; }
         .kartu-info h3 { margin-bottom: 8px; color: #fff; }
@@ -211,167 +153,113 @@
         .info-stok { font-size: 14px; margin: 8px 0; color: #4ec96e; }
         .info-stok.habis { color: #888; }
         .ukuran { margin: 10px 0; }
-        .ukuran select { width: 100%; padding: 8px; background: #222; color: white; border: 1px solid #333; border-radius: 6px; }
+        .ukuran select {
+            width: 100%; padding: 8px; background: #222; color: white;
+            border: 1px solid #333; border-radius: 6px;
+        }
         .ukuran select:disabled { opacity: 0.5; cursor: not-allowed; }
         .harga { font-size: 20px; font-weight: bold; color: #ff0055; margin: 12px 0; }
 
-        /* ✅ TOMBOL JUMLAH PLUS MINUS */
-        .jumlah-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 15px 0;
-        }
+        /* === TOMBOL JUMLAH === */
+        .jumlah-group { display: flex; align-items: center; gap: 10px; margin: 15px 0; }
         .jumlah-btn {
-            width: 36px;
-            height: 36px;
-            background: #222;
-            border: 1px solid #444;
-            color: white;
-            font-size: 18px;
-            border-radius: 6px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 36px; height: 36px; background: #222; border: 1px solid #444;
+            color: white; font-size: 18px; border-radius: 6px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
         }
         .jumlah-btn:disabled { opacity: 0.4; cursor: not-allowed; }
         .jumlah-btn:not(:disabled):hover { background: #ff0055; border-color: #ff0055; }
         .jumlah-input {
-            width: 50px;
-            height: 36px;
-            text-align: center;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            color: white;
-            border-radius: 6px;
-            font-size: 16px;
+            width: 50px; height: 36px; text-align: center;
+            background: #1a1a1a; border: 1px solid #333; color: white;
+            border-radius: 6px; font-size: 16px;
         }
         .btn-cart {
-            width: 100%;
-            background: #ff0055;
-            border: none;
-            color: white;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
+            width: 100%; background: #ff0055; border: none; color: white;
+            padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer;
         }
         .btn-cart:disabled { background: #444; cursor: not-allowed; }
         .btn-cart:not(:disabled):hover { background: #ff3377; }
 
-        /* === KERANJANG DENGAN FOTO === */
+        /* === KERANJANG === */
         #keranjang-list { margin: 20px 0; }
         .item-keranjang {
-            background: #111;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #222;
-            display: flex;
-            gap: 15px;
-            align-items: flex-start;
+            background: #111; padding: 15px; border-radius: 10px;
+            margin-bottom: 15px; border: 1px solid #222;
+            display: flex; gap: 15px; align-items: flex-start;
         }
         .foto-keranjang {
-            width: 80px;
-            height: 80px;
-            aspect-ratio: 1/1; /* ✅ 1:1 DI KERANJANG */
-            border-radius: 8px;
-            object-fit: cover;
-            background: #000;
+            width: 80px; height: 80px; aspect-ratio: 1/1; border-radius: 8px;
+            object-fit: cover; background: #000;
         }
         .info-item { flex: 1; }
         .info-item strong { color: #fff; font-size: 16px; }
         .info-item p { color: #aaa; font-size: 14px; margin: 4px 0; }
         .hapus-btn {
-            background: none;
-            border: none;
-            color: #ff4444;
-            font-size: 14px;
-            cursor: pointer;
-            margin-top: 8px;
+            background: none; border: none; color: #ff4444;
+            font-size: 14px; cursor: pointer; margin-top: 8px;
         }
         .hapus-btn:hover { color: #ff0000; text-decoration: underline; }
 
         .form-group { margin: 12px 0; }
         .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            background: #111;
-            border: 1px solid #333;
-            border-radius: 6px;
-            color: white;
-            font-size: 15px;
+            width: 100%; padding: 12px; background: #111;
+            border: 1px solid #333; border-radius: 6px;
+            color: white; font-size: 15px;
         }
         .btn-checkout {
-            background: #25d366;
-            border: none;
-            width: 100%;
-            padding: 14px;
-            border-radius: 8px;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
+            background: #25d366; border: none; width: 100%; padding: 14px;
+            border-radius: 8px; color: white; font-size: 16px;
+            font-weight: bold; cursor: pointer;
         }
         .btn-checkout:disabled { background: #222; cursor: not-allowed; }
 
-        /* === FOOTER BAWAH === */
+        /* === FOOTER === */
         footer {
-            background: #0a0a0a;
-            padding: 30px;
-            margin-top: 60px;
+            background: #0a0a0a; padding: 30px; margin-top: 60px;
             border-top: 1px solid #222;
         }
         .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 25px;
         }
-        .footer-links a {
-            color: #aaa;
-            text-decoration: none;
-        }
+        .footer-links a { color: #aaa; text-decoration: none; }
         .footer-links a:hover { color: #ff0055; }
     </style>
 </head>
 <body>
 
-<!-- FOOTER ATAS BERUBAH WARNA -->
-<div class="top-notice">
-    PREMIUM HIGH QUALITY 100% ORIGINAL
-</div>
+<div class="top-notice">PREMIUM HIGH QUALITY 100% ORIGINAL</div>
 
-<!-- TOMBOL MENU & KERANJANG -->
 <div class="header-buttons">
     <button class="btn-header" onclick="tampilkanMenu()">MENU</button>
     <button class="btn-header" onclick="tampilkanHalaman('keranjang')">KERANJANG (<span id="jumlah-keranjang">0</span>)</button>
 </div>
 
-<!-- MENU SAMPING -->
 <div id="sideMenu" class="side-menu">
     <a href="#" onclick="tampilkanHalaman('beranda'); return false;">BERANDA</a>
     <a href="#" onclick="tampilkanHalaman('produk'); return false;">PRODUK & BRAND</a>
     <a href="#" onclick="tampilkanHalaman('aksesoris'); return false;">AKSESORIS</a>
 </div>
 
-<!-- KONTEN UTAMA -->
 <main>
     <!-- BERANDA -->
     <section id="beranda" class="page active">
         <div class="box-logo">
             <video autoplay loop muted playsinline>
-                <source src="https://raw.githubusercontent.com/tnxusclub/ina/8b6ce38a19a99258ee60a5f1ca68af308601e605/video-logo.mp4" type="video/mp4"></video>
+                <source src="https://raw.githubusercontent.com/tnxusclub/ina/main/video-logo.mp4" type="video/mp4">
+            </video>
         </div>
         <h1>TNXUS CLUB</h1>
         <p class="desc">Kaos Premium • Bahan Berkualitas • Desain Eksklusif</p>
 
-        <div class="box-slider slider">
-            <div class="slides">
-                <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/USERNAME/REPO/main/foto1.jpg" alt="Foto 1"></div>
-                <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/USERNAME/REPO/main/foto2.jpg" alt="Foto 2"></div>
-                <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/USERNAME/REPO/main/foto3.jpg" alt="Foto 3"></div>
+        <div class="box-slider">
+            <div class="slider">
+                <div class="slides">
+                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto1.jpg" alt="Foto 1"></div>
+                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto2.jpg" alt="Foto 2"></div>
+                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto3.jpg" alt="Foto 3"></div>
+                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto1.jpg" alt="Foto 1"></div>
+                </div>
             </div>
         </div>
 
@@ -383,11 +271,11 @@
         </div>
 
         <div class="produk-grid">
-            <div class="kartu-produk" data-stok="15"> <!-- ✅ UBAH ANGKA STOK DI SINI -->
+            <div class="kartu-produk" data-stok="15">
                 <div class="kartu-media">
                     <span class="timer-label">PRE ORDER</span>
                     <span class="stok-label">Stok: <span class="stok-val">15</span></span>
-                    <img class="foto-produk" src="https://raw.githubusercontent.com/USERNAME/REPO/main/po1.jpg" alt="Produk">
+                    <img class="foto-produk" src="https://raw.githubusercontent.com/tnxusclub/ina/main/po1.jpg" alt="Produk">
                 </div>
                 <div class="kartu-info">
                     <h3>Kaos TNXUS Edisi Spesial</h3>
@@ -407,7 +295,7 @@
                         <input type="number" class="jumlah-input" value="1" min="1" readonly>
                         <button class="jumlah-btn" onclick="ubahJumlah(this, 1)">+</button>
                     </div>
-                    <button class="btn-cart" onclick="tambahKeKeranjang('Kaos TNXUS Edisi Spesial', this, 'https://raw.githubusercontent.com/USERNAME/REPO/main/po1.jpg')">+ Keranjang</button>
+                    <button class="btn-cart" onclick="tambahKeKeranjang('Kaos TNXUS Edisi Spesial', this, 'https://raw.githubusercontent.com/tnxusclub/ina/main/po1.jpg')">+ Keranjang</button>
                 </div>
             </div>
         </div>
@@ -416,18 +304,17 @@
     <!-- PRODUK & BRAND -->
     <section id="produk" class="page">
         <h1>PRODUK & BRAND</h1>
-
         <h2 style="margin:40px 0 20px;">PRE ORDER</h2>
         <div class="produk-grid">
-            <div class="kartu-produk" data-stok="8"> <!-- ✅ UBAH STOK -->
+            <div class="kartu-produk" data-stok="8">
                 <div class="kartu-media">
                     <span class="timer-label">PRE ORDER • <span id="timer-produk">00:00</span></span>
                     <span class="stok-label">Stok: <span class="stok-val">8</span></span>
-                    <img class="foto-produk" src="https://raw.githubusercontent.com/USERNAME/REPO/main/po1.jpg" alt="Produk">
+                    <img class="foto-produk" src="https://raw.githubusercontent.com/tnxusclub/ina/main/po1.jpg" alt="Produk">
                 </div>
                 <div class="kartu-info">
                     <h3>Kaos TNXUS PO 01</h3>
-                    <p class="desk">Bahan Tebal Nyaman</p>
+                    <p class="desc">Bahan Tebal Nyaman</p>
                     <p class="info-stok">✅ Tersedia: <span class="stok-val">8</span> pcs</p>
                     <div class="ukuran">
                         <select onchange="gantiHarga(this)">
@@ -442,21 +329,20 @@
                         <input type="number" class="jumlah-input" value="1" min="1" readonly>
                         <button class="jumlah-btn" onclick="ubahJumlah(this, 1)">+</button>
                     </div>
-                    <button class="btn-cart" onclick="tambahKeKeranjang('Kaos TNXUS PO 01', this, 'https://raw.githubusercontent.com/USERNAME/REPO/main/po1.jpg')">+ Keranjang</button>
+                    <button class="btn-cart" onclick="tambahKeKeranjang('Kaos TNXUS PO 01', this, 'https://raw.githubusercontent.com/tnxusclub/ina/main/po1.jpg')">+ Keranjang</button>
                 </div>
             </div>
         </div>
-
         <h2 style="margin:60px 0 20px;">READY STOCK</h2>
         <div class="produk-grid">
-            <div class="kartu-produk" data-stok="25"> <!-- ✅ UBAH STOK -->
+            <div class="kartu-produk" data-stok="25">
                 <div class="kartu-media">
                     <span class="stok-label">Stok: <span class="stok-val">25</span></span>
-                    <img class="foto-produk" src="https://raw.githubusercontent.com/USERNAME/REPO/main/ready1.jpg" alt="Produk">
+                    <img class="foto-produk" src="https://raw.githubusercontent.com/tnxusclub/ina/main/ready1.jpg" alt="Produk">
                 </div>
                 <div class="kartu-info">
                     <h3>Kaos TNXUS Basic</h3>
-                    <p class="desk">Tersedia Langsung</p>
+                    <p class="desc">Tersedia Langsung</p>
                     <p class="info-stok">✅ Tersedia: <span class="stok-val">25</span> pcs</p>
                     <div class="ukuran">
                         <select onchange="gantiHarga(this)">
@@ -470,25 +356,25 @@
                         <input type="number" class="jumlah-input" value="1" min="1" readonly>
                         <button class="jumlah-btn" onclick="ubahJumlah(this, 1)">+</button>
                     </div>
-                    <button class="btn-cart" onclick="tambahKeKeranjang('Kaos TNXUS Basic', this, 'https://raw.githubusercontent.com/USERNAME/REPO/main/ready1.jpg')">+ Keranjang</button>
+                    <button class="btn-cart" onclick="tambahKeKeranjang('Kaos TNXUS Basic', this, 'https://raw.githubusercontent.com/tnxusclub/ina/main/ready1.jpg')">+ Keranjang</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- AKSESORIS -->
+    <!-- AKSESORIS ✅ BINGKAI SAMA PERSIS -->
     <section id="aksesoris" class="page">
         <h1>AKSESORIS</h1>
         <div class="produk-grid">
-            <div class="kartu-produk" data-stok="0"> <!-- ✅ CONTOH STOK HABIS -->
+            <div class="kartu-produk" data-stok="0">
                 <div class="kartu-media">
                     <span class="stok-label stok-habis">Stok: <span class="stok-val">0</span></span>
-                    <img class="foto-produk" src="https://raw.githubusercontent.com/USERNAME/REPO/main/topi.jpg" alt="Aksesoris">
-                    <div class="habis-overlay" style="display:flex;">HABIS</div>
+                    <img class="foto-produk" src="https://raw.githubusercontent.com/tnxusclub/ina/main/topi.jpg" alt="Aksesoris">
+                    <div class="habis-overlay">HABIS</div>
                 </div>
                 <div class="kartu-info">
                     <h3>Topi TNXUS</h3>
-                    <p class="desk">Bahan Kuat & Stylish</p>
+                    <p class="desc">Bahan Kuat & Stylish</p>
                     <p class="info-stok habis">❌ Stok Habis</p>
                     <div class="harga">Rp<span>35.000</span></div>
                     <div class="jumlah-group">
@@ -496,17 +382,17 @@
                         <input type="number" class="jumlah-input" value="1" min="1" readonly disabled>
                         <button class="jumlah-btn" onclick="ubahJumlah(this, 1)" disabled>+</button>
                     </div>
-                    <button class="btn-cart" onclick="tambahKeKeranjang('Topi TNXUS', this, 'https://raw.githubusercontent.com/USERNAME/REPO/main/topi.jpg')" disabled>HABIS</button>
+                    <button class="btn-cart" onclick="tambahKeKeranjang('Topi TNXUS', this, 'https://raw.githubusercontent.com/tnxusclub/ina/main/topi.jpg')" disabled>HABIS</button>
                 </div>
             </div>
-            <div class="kartu-produk" data-stok="12"> <!-- ✅ UBAH STOK -->
+            <div class="kartu-produk" data-stok="12">
                 <div class="kartu-media">
                     <span class="stok-label">Stok: <span class="stok-val">12</span></span>
-                    <img class="foto-produk" src="https://raw.githubusercontent.com/USERNAME/REPO/main/tas.jpg" alt="Aksesoris">
+                    <img class="foto-produk" src="https://raw.githubusercontent.com/tnxusclub/ina/main/tas.jpg" alt="Aksesoris">
                 </div>
                 <div class="kartu-info">
                     <h3>Tas TNXUS</h3>
-                    <p class="desk">Tahan Air</p>
+                    <p class="desc">Tahan Air</p>
                     <p class="info-stok">✅ Tersedia: <span class="stok-val">12</span> pcs</p>
                     <div class="harga">Rp<span>50.000</span></div>
                     <div class="jumlah-group">
@@ -514,7 +400,7 @@
                         <input type="number" class="jumlah-input" value="1" min="1" readonly>
                         <button class="jumlah-btn" onclick="ubahJumlah(this, 1)">+</button>
                     </div>
-                    <button class="btn-cart" onclick="tambahKeKeranjang('Tas TNXUS', this, 'https://raw.githubusercontent.com/USERNAME/REPO/main/tas.jpg')">+ Keranjang</button>
+                    <button class="btn-cart" onclick="tambahKeKeranjang('Tas TNXUS', this, 'https://raw.githubusercontent.com/tnxusclub/ina/main/tas.jpg')">+ Keranjang</button>
                 </div>
             </div>
         </div>
@@ -524,28 +410,16 @@
     <section id="keranjang" class="page">
         <h1>KERANJANG BELANJA</h1>
         <p style="color:#aaa;">Nomor Pesanan: <strong id="no-pesanan"></strong> | Tanggal: <span id="tgl"></span></p>
-
         <div id="keranjang-list"></div>
-
         <h3 style="margin:30px 0 15px;">DATA PENGIRIMAN</h3>
-        <div class="form-group">
-            <input type="text" id="nama" placeholder="Nama Lengkap">
-        </div>
-        <div class="form-group">
-            <input type="text" id="wa" placeholder="Nomor WhatsApp">
-        </div>
-        <div class="form-group">
-            <textarea id="alamat" placeholder="Alamat Lengkap"></textarea>
-        </div>
-        <div class="form-group">
-            <input type="email" id="gmail" placeholder="Email">
-        </div>
-
+        <div class="form-group"><input type="text" id="nama" placeholder="Nama Lengkap"></div>
+        <div class="form-group"><input type="text" id="wa" placeholder="Nomor WhatsApp"></div>
+        <div class="form-group"><textarea id="alamat" placeholder="Alamat Lengkap"></textarea></div>
+        <div class="form-group"><input type="email" id="gmail" placeholder="Email"></div>
         <button class="btn-checkout" onclick="kirimKeWA()">✅ KIRIM KE WHATSAPP</button>
     </section>
 </main>
 
-<!-- FOOTER BAWAH -->
 <footer>
     <div class="footer-links">
         <a href="https://instagram.com/tnxusclub" target="_blank">Instagram</a>
@@ -561,12 +435,10 @@ let noPesanan = 'TNX' + Date.now();
 document.getElementById('no-pesanan').textContent = noPesanan;
 document.getElementById('tgl').textContent = new Date().toLocaleDateString('id-ID');
 
-// INISIALISASI CEK STOK SAAT BUKA
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.kartu-produk').forEach(kartu => cekStokKartu(kartu));
 });
 
-// TAMPILKAN HALAMAN & TUTUP MENU
 function tampilkanHalaman(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
@@ -577,14 +449,12 @@ function tampilkanMenu() {
     document.getElementById('sideMenu').classList.toggle('active');
 }
 
-// GANTI HARGA BERDASARKAN UKURAN
 function gantiHarga(pilih) {
     let harga = pilih.value;
     let spanHarga = pilih.closest('.kartu-info').querySelector('.harga span');
     spanHarga.textContent = parseInt(harga).toLocaleString('id-ID');
 }
 
-// ✅ CEK STATUS STOK SATU KARTU
 function cekStokKartu(kartu) {
     let stok = parseInt(kartu.dataset.stok);
     let info = kartu.querySelector('.kartu-info');
@@ -624,7 +494,6 @@ function cekStokKartu(kartu) {
     }
 }
 
-// ✅ UBAH JUMLAH DENGAN BATAS STOK
 function ubahJumlah(tombol, langkah) {
     let kartu = tombol.closest('.kartu-produk');
     let stok = parseInt(kartu.dataset.stok);
@@ -634,7 +503,6 @@ function ubahJumlah(tombol, langkah) {
     else if (nilai > stok) alert(`⚠️ Maksimal beli ${stok} pcs`);
 }
 
-// ✅ TAMBAH KE KERANJANG DENGAN FOTO & VALIDASI STOK
 function tambahKeKeranjang(nama, tombol, foto) {
     let info = tombol.closest('.kartu-info');
     let kartu = tombol.closest('.kartu-produk');
@@ -654,7 +522,6 @@ function tambahKeKeranjang(nama, tombol, foto) {
     updateJumlahKeranjang();
 }
 
-// ✅ TAMPILKAN KERANJANG DENGAN FOTO
 function tampilkanKeranjang() {
     let area = document.getElementById('keranjang-list');
     if (keranjang.length === 0) {
@@ -677,16 +544,14 @@ function tampilkanKeranjang() {
 }
 function hapusItem(i) { keranjang.splice(i,1); tampilkanKeranjang(); updateJumlahKeranjang(); }
 
-// ✅ UPDATE ANGKA IKON KERANJANG
 function updateJumlahKeranjang() {
     let total = keranjang.reduce((sum, item) => sum + item.jumlah, 0);
     document.getElementById('jumlah-keranjang').textContent = total;
 }
 
-// TIMER PRE ORDER
 function setTimer(elId) {
     let akhir = new Date();
-    akhir.setDate(akhir.getDate() + 7); // 7 hari lagi
+    akhir.setDate(akhir.getDate() + 7);
     function hitung() {
         let sekarang = new Date();
         let selisih = akhir - sekarang;
@@ -702,7 +567,6 @@ function setTimer(elId) {
 setTimer('timer-beranda');
 setTimer('timer-produk');
 
-// KIRIM KE WHATSAPP
 function kirimKeWA() {
     let nama = document.getElementById('nama').value;
     let wa = document.getElementById('wa').value;
