@@ -108,14 +108,15 @@
         h1 { text-align: center; color: #ff0055; margin: 15px 0; font-size: 28px; }
         .desc { text-align: center; color: #aaa; margin-bottom: 30px; }
 
-        /* === SLIDE FOTO === */
+        /* === SLIDE FOTO ✅ DIPERLAMBAT (20 DETIK) === */
         .slider { position: relative; overflow: hidden; }
-        .slides { display: flex; width: 300%; height: 100%; animation: slide 12s infinite; }
+        .slides { display: flex; width: 300%; height: 100%; animation: slide 20s infinite ease-in-out; }
         .slide { width: 100%; flex-shrink: 0; }
         @keyframes slide {
-            0%, 33% { transform: translateX(0); }
-            34%, 66% { transform: translateX(-100%); }
-            67%, 100% { transform: translateX(-200%); }
+            0%, 28% { transform: translateX(0); }
+            33%, 61% { transform: translateX(-100%); }
+            66%, 95% { transform: translateX(-200%); }
+            100% { transform: translateX(0); }
         }
 
         /* === TIMER DI BERANDA DENGAN KOTAK === */
@@ -361,7 +362,7 @@
     <section id="beranda" class="page active">
         <div class="box-logo">
             <video autoplay loop muted playsinline>
-                <source src="https://github.com/tnxusclub/ina/blob/4dcbd5186e16f3b6aeb02e5930e41972d38269b8/video%20logo.mp4" type="video/mp4">
+                <source src="https://raw.githubusercontent.com/USERNAME/REPO/main/video-logo.mp4" type="video/mp4">
             </video>
         </div>
         <h1>TNXUS CLUB</h1>
@@ -391,7 +392,7 @@
                 </div>
                 <div class="kartu-info">
                     <h3>Kaos TNXUS Edisi Spesial</h3>
-                    <p class="desk">Katun 24s • Sablon DTF</p>
+                    <p class="desc">Katun 24s • Sablon DTF</p>
                     <p class="info-stok">✅ Tersedia: <span class="stok-val">15</span> pcs</p>
                     <div class="ukuran">
                         <select onchange="gantiHarga(this)">
