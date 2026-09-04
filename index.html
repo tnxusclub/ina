@@ -84,7 +84,7 @@
             margin: 20px auto; border-radius: 12px; overflow: hidden; background: #111;
         }
 
-        /* === SLIDER UTAMA (USAP) === */
+        /* === SLIDER UTAMA === */
         .box-slider {
             width: 100%; max-width: 450px;
             aspect-ratio: 1 / 1;
@@ -109,21 +109,26 @@
         h1 { text-align: center; color: #ff0055; margin: 15px 0; font-size: 28px; }
         .desc { text-align: center; color: #aaa; margin-bottom: 30px; }
 
-        /* === TIMER === */
+        /* === TIMER (D:H:M:S) === */
         .timer-wrapper {
             background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
             border: 2px solid #ff0055; border-radius: 15px;
-            padding: 20px 30px; margin: 20px auto; max-width: 350px;
+            padding: 20px 30px; margin: 20px auto; max-width: 400px;
             text-align: center; box-shadow: 0 0 15px rgba(255,0,85,0.3);
         }
         .timer-label-header {
-            color: #ff6699; font-size: 14px; margin-bottom: 10px;
+            color: #ff6699; font-size: 14px; margin-bottom: 15px;
             letter-spacing: 2px; text-transform: uppercase;
         }
         .preorder-timer {
-            font-size: 26px; color: #fff; font-weight: bold;
+            font-size: 28px; color: #fff; font-weight: bold;
             text-shadow: 0 0 8px #ff0055; font-family: monospace;
+            display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
         }
+        .timer-bagian {
+            background: #111; padding: 8px 12px; border-radius: 8px; min-width: 55px;
+        }
+        .timer-label { font-size: 11px; color: #aaa; margin-top: 4px; }
 
         /* === LABEL STOK/PREORDER === */
         .timer-label {
@@ -143,7 +148,7 @@
             color: #ff4444; font-size: 22px; font-weight: bold;
         }
 
-        /* === PRODUK & AKSESORIS: SEMUA SLIDE USAP === */
+        /* === PRODUK & AKSESORIS === */
         .produk-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; margin: 40px 0; }
         .kartu-produk {
             background: #111; border-radius: 12px; overflow: hidden;
@@ -152,7 +157,6 @@
         .kartu-produk:hover { border-color: #ff0055; transform: translateY(-5px); }
         .kartu-produk.habis { opacity: 0.7; border-color: #333; }
         
-        /* ✅ SLIDER DI DALAM SETIAP KARTU */
         .kartu-media {
             position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: #000;
             touch-action: pan-y;
@@ -205,7 +209,7 @@
         .btn-cart:disabled { background: #444; cursor: not-allowed; }
         .btn-cart:not(:disabled):hover { background: #ff3377; }
 
-        /* === KERANJANG === */
+        /* === KERANJANG & KODE DISKON === */
         #keranjang-list { margin: 20px 0; }
         .item-keranjang {
             background: #111; padding: 15px; border-radius: 10px;
@@ -224,6 +228,34 @@
             font-size: 14px; cursor: pointer; margin-top: 8px;
         }
         .hapus-btn:hover { color: #ff0000; text-decoration: underline; }
+
+        .kotak-diskon {
+            background: #111; border: 1px solid #222; border-radius: 10px;
+            padding: 15px; margin: 20px 0;
+        }
+        .kotak-diskon input {
+            width: 100%; padding: 12px; background: #0a0a0a; border: 1px solid #333;
+            border-radius: 6px; color: white; font-size: 15px; margin-bottom: 10px;
+        }
+        .btn-diskon {
+            background: #ff9500; border: none; padding: 10px 18px;
+            border-radius: 6px; color: black; font-weight: bold; cursor: pointer;
+        }
+        .btn-diskon:hover { background: #ffb340; }
+        .pesan-diskon { font-size: 14px; margin-top: 8px; }
+        .berhasil { color: #4ec96e; }
+        .gagal { color: #ff4444; }
+        .rincian-harga {
+            background: #0f0f0f; padding: 15px; border-radius: 8px; margin: 15px 0;
+            border: 1px solid #222;
+        }
+        .baris-harga {
+            display: flex; justify-content: space-between; padding: 6px 0;
+            color: #ccc; font-size: 15px;
+        }
+        .baris-harga.total {
+            font-size: 19px; font-weight: bold; color: #ff0055; border-top: 1px solid #222; padding-top: 10px;
+        }
 
         .form-group { margin: 12px 0; }
         .form-group input, .form-group textarea {
@@ -351,12 +383,17 @@
         <h2 style="text-align:center; margin:30px 0; color:#fff;">⏳ PRODUK PRE ORDER</h2>
         
         <div class="timer-wrapper">
-            <div class="timer-label-header">Waktu Tersisa</div>
-            <div class="preorder-timer" id="timer-beranda">00:00:00</div>
+            <div class="timer-label-header">WAKTU TERSISA</div>
+            <div class="preorder-timer" id="timer-beranda">
+                <div class="timer-bagian"><span id="d">00</span><div class="timer-label">Hari</div></div>
+                <div class="timer-bagian"><span id="h">00</span><div class="timer-label">Jam</div></div>
+                <div class="timer-bagian"><span id="m">00</span><div class="timer-label">Menit</div></div>
+                <div class="timer-bagian"><span id="s">00</span><div class="timer-label">Detik</div></div>
+            </div>
         </div>
 
         <div class="produk-grid">
-            <!-- PRODUK 1: BISA BANYAK FOTO -->
+            <!-- PRODUK 1 -->
             <div class="kartu-produk" data-stok="15">
                 <div class="kartu-media" data-slider="kartu">
                     <span class="timer-label">PRE ORDER</span>
@@ -400,7 +437,7 @@
         <div class="produk-grid">
             <div class="kartu-produk" data-stok="8">
                 <div class="kartu-media" data-slider="kartu">
-                    <span class="timer-label">PRE ORDER • <span id="timer-produk">00:00</span></span>
+                    <span class="timer-label">PRE ORDER • <span id="timer-produk"></span></span>
                     <span class="stok-label">Stok: <span class="stok-val">8</span></span>
                     <div class="kartu-slider">
                         <div class="kartu-slides">
@@ -520,7 +557,7 @@
         </div>
     </section>
 
-    <!-- ✅ HALAMAN AFILIASI (SUDAH DIPERBAIKI) -->
+    <!-- ✅ HALAMAN AFILIASI -->
     <section id="afiliasi" class="page">
         <header class="pt-12 pb-8 text-center">
             <h1 class="font-bold text-white mb-2">🏆 Papan Peringkat Afiliasi</h1>
@@ -536,9 +573,7 @@
         </footer>
 
         <script>
-            // ==================================================
-            // ✏️ DATA PENGGUNA - EDIT BAGIAN INI SAJA
-            // ==================================================
+            // DATA PENGGUNA AFILIASI
             const daftarPengguna = [
                 { no:1, nama:"Budi Santoso", poin:18500, foto:"https://i.pravatar.cc/150?img=11" },
                 { no:2, nama:"Siti Aminah", poin:17200, foto:"https://i.pravatar.cc/150?img=5" },
@@ -562,9 +597,7 @@
                 { no:20, nama:"Tio Pratama", poin:4200, foto:"https://i.pravatar.cc/150?img=50" },
             ];
 
-            // ==================================================
-            // 🔧 FUNGSI - JANGAN DIUBAH
-            // ==================================================
+            // FUNGSI SENSOR NAMA
             function sensorNama(nama) {
                 nama = nama.trim().toLowerCase();
                 if (nama.length <= 2) return nama;
@@ -624,11 +657,27 @@
         </script>
     </section>
 
-    <!-- KERANJANG -->
+    <!-- KERANJANG (DENGAN KODE DISKON) -->
     <section id="keranjang" class="page">
         <h1>KERANJANG BELANJA</h1>
         <p style="color:#aaa;">Nomor Pesanan: <strong id="no-pesanan"></strong> | Tanggal: <span id="tgl"></span></p>
+        
         <div id="keranjang-list"></div>
+
+        <!-- ✅ BAGIAN KODE DISKON (MUDAH DIATUR) -->
+        <div class="kotak-diskon">
+            <h3 style="margin-bottom:12px; color:#fff;">🎁 Kode Diskon</h3>
+            <input type="text" id="input-kode" placeholder="Masukkan kode unik..." style="text-transform:uppercase;">
+            <button class="btn-diskon" onclick="cekKodeDiskon()">Gunakan</button>
+            <div id="pesan-diskon" class="pesan-diskon"></div>
+        </div>
+
+        <div class="rincian-harga">
+            <div class="baris-harga">Subtotal: <span id="subtotal">Rp0</span></div>
+            <div class="baris-harga" id="baris-potongan" style="display:none;">Diskon: <span id="potongan">-Rp0</span></div>
+            <div class="baris-harga total">TOTAL: <span id="total-bayar">Rp0</span></div>
+        </div>
+
         <h3 style="margin:30px 0 15px; color:#fff;">DATA PENGIRIMAN</h3>
         <div class="form-group"><input type="text" id="nama" placeholder="Nama Lengkap"></div>
         <div class="form-group"><input type="text" id="wa" placeholder="Nomor WhatsApp"></div>
@@ -648,7 +697,19 @@
 </footer>
 
 <script>
-// === KODE SLIDER SEMUA: UTAMA & KARTU PRODUK ===
+// ==================================================
+// ⚙️ PENGATURAN KODE DISKON (EDIT DISINI SESUAI KEINGINAN)
+// ==================================================
+const DAFTAR_KODE_DISKON = {
+    "TNXUS10": 10000,      // Kode: TNXUS10 → Potong Rp10.000
+    "HEMAT5000": 5000,     // Kode: HEMAT5000 → Potong Rp5.000
+    "BARU15": 15000,       // Kode: BARU15 → Potong Rp15.000
+    "VIP20": 20000         // Tambah sendiri: "KODE": NOMINAL
+};
+let kodeTerpakai = null;
+let nilaiDiskon = 0;
+
+// === KODE SLIDER SEMUA ===
 class SliderUsap {
     constructor(elemen) {
         this.wadah = elemen;
@@ -771,6 +832,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const noPesanan = 'TNX' + Date.now();
     document.getElementById('no-pesanan').textContent = noPesanan;
     document.getElementById('tgl').textContent = new Date().toLocaleDateString('id-ID');
+    
+    perbaruiKeranjang();
 });
 
 // === FUNGSI UTAMA ===
@@ -788,7 +851,8 @@ function tampilkanMenu() {
     document.getElementById('sideMenu').classList.toggle('active');
 }
 
-function gantiHarga(pilih) {let harga = pilih.value;
+function gantiHarga(pilih) {
+    let harga = pilih.value;
     let spanHarga = pilih.closest('.kartu-info').querySelector('.harga span');
     spanHarga.textContent = parseInt(harga).toLocaleString('id-ID');
 }
@@ -865,12 +929,42 @@ function tambahKeKeranjang(nama, tombol, foto) {
     alert(`✅ ${nama} (${ukuran}) x${jumlah} dimasukkan!`);
 }
 
+function cekKodeDiskon() {
+    const input = document.getElementById('input-kode').value.trim().toUpperCase();
+    const pesan = document.getElementById('pesan-diskon');
+    
+    if (!input) {
+        pesan.textContent = '⚠️ Masukkan kode terlebih dahulu';
+        pesan.className = 'pesan-diskon gagal';
+        return;
+    }
+    
+    if (kodeTerpakai) {
+        pesan.textContent = '⚠️ Kode sudah dipakai, muat ulang halaman untuk ganti';
+        pesan.className = 'pesan-diskon gagal';
+        return;
+    }
+    
+    if (DAFTAR_KODE_DISKON.hasOwnProperty(input)) {
+        nilaiDiskon = DAFTAR_KODE_DISKON[input];
+        kodeTerpakai = input;
+        pesan.textContent = `✅ Kode "${input}" berlaku! Hemat Rp${nilaiDiskon.toLocaleString('id-ID')}`;
+        pesan.className = 'pesan-diskon berhasil';
+    } else {
+        nilaiDiskon = 0;
+        kodeTerpakai = null;
+        pesan.textContent = '❌ Kode tidak valid';
+        pesan.className = 'pesan-diskon gagal';
+    }
+    perbaruiKeranjang();
+}
+
 function perbaruiKeranjang() {
     let wadah = document.getElementById('keranjang-list');
     wadah.innerHTML = '';
-    let total = 0;
+    let subtotal = 0;
     keranjang.forEach((barang, i) => {
-        total += barang.harga * barang.jumlah;
+        subtotal += barang.harga * barang.jumlah;
         wadah.innerHTML += `
         <div class="item-keranjang">
             <img src="${barang.foto}" class="foto-keranjang" alt="${barang.nama}">
@@ -885,7 +979,20 @@ function perbaruiKeranjang() {
         </div>`;
     });
     if (keranjang.length === 0) wadah.innerHTML = '<p style="color:#aaa;text-align:center;">Keranjang masih kosong</p>';
-    wadah.innerHTML += `<p style="text-align:right; font-size:18px; margin-top:20px; color:#fff;">TOTAL: <strong style="color:#ff0055;">Rp${total.toLocaleString('id-ID')}</strong></p>`;
+    
+    // Hitung & Tampilkan Rincian
+    const total = Math.max(0, subtotal - nilaiDiskon);
+    document.getElementById('subtotal').textContent = `Rp${subtotal.toLocaleString('id-ID')}`;
+    
+    const barisPotongan = document.getElementById('baris-potongan');
+    if (nilaiDiskon > 0) {
+        barisPotongan.style.display = 'flex';
+        document.getElementById('potongan').textContent = `-Rp${nilaiDiskon.toLocaleString('id-ID')}`;
+    } else {
+        barisPotongan.style.display = 'none';
+    }
+    
+    document.getElementById('total-bayar').textContent = `Rp${total.toLocaleString('id-ID')}`;
     document.getElementById('jumlah-keranjang').textContent = keranjang.reduce((s,b)=>s+b.jumlah,0);
 }
 
@@ -900,7 +1007,7 @@ function kirimKeWA() {
     let alamat = document.getElementById('alamat').value.trim();
     let gmail = document.getElementById('gmail').value.trim();
     let noPesanan = document.getElementById('no-pesanan').textContent;
-    let tgl = document.getElementById('tgl').textContent;
+    let tgl = document.getElementById('tgl').textContent();
 
     if (!nama || !wa || !alamat) { alert('❌ Isi Nama, No WA & Alamat Lengkap!'); return; }
     if (keranjang.length === 0) { alert('❌ Keranjang kosong!'); return; }
@@ -916,13 +1023,18 @@ function kirimKeWA() {
     teks += gmail ? `📧 Email: ${gmail}%0A` : '';
     teks += `──────────────────────%0A`;
     teks += `📦 DAFTAR BARANG:%0A`;
-    let total = 0;
+    let subtotal = 0;
     keranjang.forEach(b => {
         let sub = b.harga * b.jumlah;
-        total += sub;
+        subtotal += sub;
         teks += `• ${b.nama} [${b.ukuran}] x${b.jumlah} = Rp${sub.toLocaleString('id-ID')}%0A`;
     });
     teks += `──────────────────────%0A`;
+    if (nilaiDiskon > 0) {
+        teks += `💸 Subtotal: Rp${subtotal.toLocaleString('id-ID')}%0A`;
+        teks += `🎁 Diskon (${kodeTerpakai}): -Rp${nilaiDiskon.toLocaleString('id-ID')}%0A`;
+    }
+    const total = Math.max(0, subtotal - nilaiDiskon);
     teks += `💰 TOTAL BAYAR: *Rp${total.toLocaleString('id-ID')}*%0A`;
     teks += `──────────────────────%0A`;
     teks += `Terima kasih telah berbelanja di TNXUS CLUB! 🙏`;
@@ -930,23 +1042,30 @@ function kirimKeWA() {
     window.open(`https://wa.me/6281234567890?text=${teks}`, '_blank');
 }
 
-// === TIMER HITUNG MUNDUR (1 Hari) ===
+// === TIMER HITUNG MUNDUR (HARI:JAM:MENIT:DETIK) ===
 function aturTimer() {
     let akhir = new Date();
-    akhir.setDate(akhir.getDate() + 1);
+    akhir.setDate(akhir.getDate() + 7); // Bisa ganti durasi (misal: 7 hari)
 
     function hitung() {
         let sekarang = new Date();
         let selisih = akhir - sekarang;
         if (selisih <= 0) {
-            document.querySelectorAll('.preorder-timer').forEach(el => el.textContent = "SELESAI");
+            document.getElementById('d').textContent = '00';
+            document.getElementById('h').textContent = '00';
+            document.getElementById('m').textContent = '00';
+            document.getElementById('s').textContent = '00';
             return;
         }
-        let jam = Math.floor(selisih/(1000*60*60));
+        let hari = Math.floor(selisih/(1000*60*60*24));
+        let jam = Math.floor((selisih%(1000*60*60*24))/(1000*60*60));
         let menit = Math.floor((selisih%(1000*60*60))/(1000*60));
         let detik = Math.floor((selisih%(1000*60))/1000);
-        let format = `${String(jam).padStart(2,'0')}:${String(menit).padStart(2,'0')}:${String(detik).padStart(2,'0')}`;
-        document.querySelectorAll('.preorder-timer').forEach(el => el.textContent = format);
+        
+        document.getElementById('d').textContent = String(hari).padStart(2,'0');
+        document.getElementById('h').textContent = String(jam).padStart(2,'0');
+        document.getElementById('m').textContent = String(menit).padStart(2,'0');
+        document.getElementById('s').textContent = String(detik).padStart(2,'0');
     }
     hitung();
     setInterval(hitung, 1000);
