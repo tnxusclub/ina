@@ -10,8 +10,7 @@
 
         /* === BANNER ATAS === */
         .top-notice {
-            position: fixed;
-            top: 0; left: 0; width: 100%;
+            position: fixed; top: 0; left: 0; width: 100%;
             padding: 12px; text-align: center;
             font-weight: bold; font-size: 15px; z-index: 999;
             background: linear-gradient(45deg, red, blue, green, yellow, purple);
@@ -65,33 +64,26 @@
             margin: 20px auto; border-radius: 12px; overflow: hidden; background: #111;
         }
 
-        /* === ✅ KOTAK SLIDER: 1:1 === */
+        /* === SLIDER UTAMA (USAP) === */
         .box-slider {
             width: 100%; max-width: 450px;
             aspect-ratio: 1 / 1;
             margin: 20px auto; border-radius: 12px; overflow: hidden; background: #111;
+            position: relative; touch-action: pan-y;
         }
-        .slider { position: relative; width: 100%; height: 100%; overflow: hidden; }
-        .slides {
-            display: flex; width: 400%; height: 100%;
-            animation: slideNormal 16s infinite ease-in-out;
+        .slider { width: 100%; height: 100%; overflow: hidden; }
+        .slides { display: flex; height: 100%; transition: transform 0.5s ease; }
+        .slide { width: 100%; flex-shrink: 0; }
+        .slide-img { width: 100%; height: 100%; object-fit: cover; display: block; user-select: none; }
+        .slider-dots {
+            position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 6px; z-index: 5;
         }
-        .slide { width: 25%; height: 100%; flex-shrink: 0; }
-        .slide-img {
-            width: 100%; height: 100%;
-            object-fit: cover; display: block;
+        .dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: rgba(255,255,255,0.4); border: none; cursor: pointer;
         }
-        @keyframes slideNormal {
-            0% { transform: translateX(0); }
-            20% { transform: translateX(0); }
-            25% { transform: translateX(-25%); }
-            45% { transform: translateX(-25%); }
-            50% { transform: translateX(-50%); }
-            70% { transform: translateX(-50%); }
-            75% { transform: translateX(-75%); }
-            95% { transform: translateX(-75%); }
-            100% { transform: translateX(0); }
-        }
+        .dot.active { background: #ff0055; width: 18px; border-radius: 4px; }
 
         video { width: 100%; height: 100%; object-fit: cover; }
         h1 { text-align: center; color: #ff0055; margin: 15px 0; font-size: 28px; }
@@ -117,21 +109,21 @@
         .timer-label {
             background: rgba(255,0,0,0.85); color: white; font-size: 13px;
             padding: 4px 8px; border-radius: 4px;
-            position: absolute; top: 10px; left: 10px;
+            position: absolute; top: 10px; left: 10px; z-index: 3;
         }
         .stok-label {
-            position: absolute; top: 10px; right: 10px;
+            position: absolute; top: 10px; right: 10px; z-index: 3;
             background: rgba(0,200,80,0.9); color: white; font-size: 12px;
             padding: 4px 8px; border-radius: 4px; font-weight: bold;
         }
         .stok-habis { background: rgba(100,100,100,0.9); }
         .habis-overlay {
-            position: absolute; inset: 0; background: rgba(0,0,0,0.6);
+            position: absolute; inset: 0; background: rgba(0,0,0,0.6); z-index: 4;
             display: flex; align-items: center; justify-content: center;
-            color: #ff4444; font-size: 22px; font-weight: bold; z-index: 2;
+            color: #ff4444; font-size: 22px; font-weight: bold;
         }
 
-        /* === ✅ BINGKAI SERAGAM: PRODUK & AKSESORIS SAMA PERSIS === */
+        /* === PRODUK & AKSESORIS: SEMUA SLIDE USAP === */
         .produk-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; margin: 40px 0; }
         .kartu-produk {
             background: #111; border-radius: 12px; overflow: hidden;
@@ -139,14 +131,26 @@
         }
         .kartu-produk:hover { border-color: #ff0055; transform: translateY(-5px); }
         .kartu-produk.habis { opacity: 0.7; border-color: #333; }
+        
+        /* ✅ SLIDER DI DALAM SETIAP KARTU */
         .kartu-media {
-            position: relative;
-            aspect-ratio: 1 / 1; /* ✅ 1:1 SAMA SEMUA */
-            overflow: hidden; background: #000;
+            position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: #000;
+            touch-action: pan-y;
         }
-        .foto-produk {
-            width: 100%; height: 100%; object-fit: cover;
+        .kartu-slider { width: 100%; height: 100%; overflow: hidden; }
+        .kartu-slides { display: flex; height: 100%; transition: transform 0.5s ease; }
+        .kartu-slide { width: 100%; flex-shrink: 0; }
+        .kartu-slide-img { width: 100%; height: 100%; object-fit: cover; display: block; user-select: none; }
+        .kartu-dots {
+            position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 4px; z-index: 3;
         }
+        .kartu-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: rgba(255,255,255,0.4); border: none; cursor: pointer;
+        }
+        .kartu-dot.active { background: #ff0055; width: 14px; border-radius: 3px; }
+
         .kartu-info { padding: 15px; }
         .kartu-info h3 { margin-bottom: 8px; color: #fff; }
         .desk { color: #aaa; font-size: 14px; margin-bottom: 10px; }
@@ -252,14 +256,16 @@
         <h1>TNXUS CLUB</h1>
         <p class="desc">Kaos Premium • Bahan Berkualitas • Desain Eksklusif</p>
 
-        <div class="box-slider">
+        <!-- SLIDER UTAMA -->
+        <div class="box-slider" data-slider="utama">
             <div class="slider">
                 <div class="slides">
-                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-slide-1.jpeg" alt="Foto 1"></div>
-                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-slide-2.jpeg" alt="Foto 2"></div>
-                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-slide-3.jpeg" alt="Foto 3"></div>
+                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto1.jpg"></div>
+                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto2.jpg"></div>
+                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto3.jpg"></div>
                 </div>
             </div>
+            <div class="slider-dots"></div>
         </div>
 
         <h2 style="text-align:center; margin:30px 0;">⏳ PRODUK PRE ORDER</h2>
@@ -270,11 +276,18 @@
         </div>
 
         <div class="produk-grid">
+            <!-- PRODUK 1: BISA BANYAK FOTO -->
             <div class="kartu-produk" data-stok="15">
-                <div class="kartu-media">
+                <div class="kartu-media" data-slider="kartu">
                     <span class="timer-label">PRE ORDER</span>
                     <span class="stok-label">Stok: <span class="stok-val">15</span></span>
-                    <img class="foto-produk" src="https://raw.githubusercontent.com/tnxusclub/ina/main/po1.jpg" alt="Produk">
+                    <div class="kartu-slider">
+                        <div class="kartu-slides">
+                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/po1.jpg"></div>
+                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto2.jpg"></div>
+                        </div>
+                    </div>
+                    <div class="kartu-dots"></div>
                 </div>
                 <div class="kartu-info">
                     <h3>Kaos TNXUS Edisi Spesial</h3>
@@ -306,10 +319,15 @@
         <h2 style="margin:40px 0 20px;">PRE ORDER</h2>
         <div class="produk-grid">
             <div class="kartu-produk" data-stok="8">
-                <div class="kartu-media">
+                <div class="kartu-media" data-slider="kartu">
                     <span class="timer-label">PRE ORDER • <span id="timer-produk">00:00</span></span>
                     <span class="stok-label">Stok: <span class="stok-val">8</span></span>
-                    <img class="foto-produk" src="https://raw.githubusercontent.com/tnxusclub/ina/main/po1.jpg" alt="Produk">
+                    <div class="kartu-slider">
+                        <div class="kartu-slides">
+                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/po1.jpg"></div>
+                        </div>
+                    </div>
+                    <div class="kartu-dots"></div>
                 </div>
                 <div class="kartu-info">
                     <h3>Kaos TNXUS PO 01</h3>
@@ -335,9 +353,15 @@
         <h2 style="margin:60px 0 20px;">READY STOCK</h2>
         <div class="produk-grid">
             <div class="kartu-produk" data-stok="25">
-                <div class="kartu-media">
+                <div class="kartu-media" data-slider="kartu">
                     <span class="stok-label">Stok: <span class="stok-val">25</span></span>
-                    <img class="foto-produk" src="https://raw.githubusercontent.com/tnxusclub/ina/main/ready1.jpg" alt="Produk">
+                    <div class="kartu-slider">
+                        <div class="kartu-slides">
+                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/ready1.jpg"></div>
+                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto3.jpg"></div>
+                        </div>
+                    </div>
+                    <div class="kartu-dots"></div>
                 </div>
                 <div class="kartu-info">
                     <h3>Kaos TNXUS Basic</h3>
@@ -361,15 +385,20 @@
         </div>
     </section>
 
-    <!-- AKSESORIS ✅ BINGKAI SAMA PERSIS -->
+    <!-- AKSESORIS -->
     <section id="aksesoris" class="page">
         <h1>AKSESORIS</h1>
         <div class="produk-grid">
             <div class="kartu-produk" data-stok="0">
-                <div class="kartu-media">
+                <div class="kartu-media" data-slider="kartu">
                     <span class="stok-label stok-habis">Stok: <span class="stok-val">0</span></span>
-                    <img class="foto-produk" src="https://raw.githubusercontent.com/tnxusclub/ina/main/topi.jpg" alt="Aksesoris">
+                    <div class="kartu-slider">
+                        <div class="kartu-slides">
+                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/topi.jpg"></div>
+                        </div>
+                    </div>
                     <div class="habis-overlay">HABIS</div>
+                    <div class="kartu-dots"></div>
                 </div>
                 <div class="kartu-info">
                     <h3>Topi TNXUS</h3>
@@ -385,9 +414,15 @@
                 </div>
             </div>
             <div class="kartu-produk" data-stok="12">
-                <div class="kartu-media">
+                <div class="kartu-media" data-slider="kartu">
                     <span class="stok-label">Stok: <span class="stok-val">12</span></span>
-                    <img class="foto-produk" src="https://raw.githubusercontent.com/tnxusclub/ina/main/tas.jpg" alt="Aksesoris">
+                    <div class="kartu-slider">
+                        <div class="kartu-slides">
+                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/tas.jpg"></div>
+                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto1.jpg"></div>
+                        </div>
+                    </div>
+                    <div class="kartu-dots"></div>
                 </div>
                 <div class="kartu-info">
                     <h3>Tas TNXUS</h3>
@@ -429,14 +464,131 @@
 </footer>
 
 <script>
+// === KODE SLIDER SEMUA: UTAMA & KARTU PRODUK ===
+class SliderUsap {
+    constructor(elemen) {
+        this.wadah = elemen;
+        this.slides = this.wadah.querySelector('.slides, .kartu-slides');
+        this.wadahDots = this.wadah.querySelector('.slider-dots, .kartu-dots');
+        this.indeks = 0;
+        this.jumlah = this.slides.querySelectorAll('.slide, .kartu-slide').length;
+        this.awalX = 0; this.akhirX = 0; this.sedangGeser = false;
+
+        this.buatTitik();
+        this.aturEvent();
+        this.perbarui();
+    }
+
+    buatTitik() {
+        for(let i=0; i<this.jumlah; i++) {
+            const titik = document.createElement('button');
+            titik.className = this.wadah.classList.contains('box-slider') ? 'dot' : 'kartu-dot';
+            titik.addEventListener('click', () => this.pindah(i));
+            this.wadahDots.appendChild(titik);
+        }
+    }
+
+    aturEvent() {
+        // Sentuh HP
+        this.wadah.addEventListener('touchstart', e => {
+            this.awalX = e.touches[0].clientX;
+            this.sedangGeser = true;
+            this.slides.style.transition = 'none';
+        }, {passive:true});
+
+        this.wadah.addEventListener('touchmove', e => {
+            if(!this.sedangGeser) return;
+            this.akhirX = e.touches[0].clientX;
+            this.geserSementara();
+        }, {passive:true});
+
+        this.wadah.addEventListener('touchend', () => {
+            if(!this.sedangGeser) return;
+            this.sedangGeser = false;
+            this.slides.style.transition = 'transform 0.5s ease';
+            this.tentukanArah();
+        });
+
+        // Mouse Komputer
+        this.wadah.addEventListener('mousedown', e => {
+            this.awalX = e.clientX;
+            this.sedangGeser = true;
+            this.slides.style.transition = 'none';
+            this.wadah.style.cursor = 'grabbing';
+        });
+
+        this.wadah.addEventListener('mousemove', e => {
+            if(!this.sedangGeser) return;
+            this.akhirX = e.clientX;
+            this.geserSementara();
+        });
+
+        this.wadah.addEventListener('mouseup', () => {
+            this.sedangGeser = false;
+            this.slides.style.transition = 'transform 0.5s ease';
+            this.wadah.style.cursor = 'grab';
+            this.tentukanArah();
+        });
+
+        this.wadah.addEventListener('mouseleave', () => {
+            if(this.sedangGeser) {
+                this.sedangGeser = false;
+                this.slides.style.transition = 'transform 0.5s ease';
+                this.tentukanArah();
+            }
+            this.wadah.style.cursor = 'grab';
+        });
+    }
+
+    geserSementara() {
+        const beda = this.awalX - this.akhirX;
+        const lebar = this.wadah.offsetWidth;
+        const posisi = -this.indeks * 100 - (beda / lebar) * 100;
+        this.slides.style.transform = `translateX(${posisi}%)`;
+    }
+
+    tentukanArah() {
+        const beda = this.awalX - this.akhirX;
+        const ambang = 50;
+        if(beda > ambang) this.geser(1);
+        else if(beda < -ambang) this.geser(-1);
+        else this.perbarui();
+    }
+
+    geser(langkah) {
+        this.indeks += langkah;
+        if(this.indeks >= this.jumlah) this.indeks = 0;
+        if(this.indeks < 0) this.indeks = this.jumlah - 1;
+        this.perbarui();
+    }
+
+    pindah(ke) { this.indeks = ke; this.perbarui(); }
+
+    perbarui() {
+        this.slides.style.transform = `translateX(-${this.indeks * 100}%)`;
+        this.wadahDots.querySelectorAll('.dot, .kartu-dot').forEach((d,i) => {
+            d.classList.toggle('active', i === this.indeks);
+        });
+    }
+}
+
+// Jalankan SEMUA slider saat halaman siap
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.box-slider, .kartu-media').forEach(el => {
+        new SliderUsap(el);
+    });
+    document.querySelectorAll('.kartu-produk').forEach(kartu => cekStokKartu(kartu));
+});
+
+// === CARA TAMBAH FOTO TIAP PRODUK ===
+// Cari: <div class="kartu-slides">
+// Tambah: <div class="kartu-slide"><img class="kartu-slide-img" src="link-foto.jpg"></div>
+// Titik & usap otomatis berfungsi
+
 let keranjang = [];
 let noPesanan = 'TNX' + Date.now();
 document.getElementById('no-pesanan').textContent = noPesanan;
 document.getElementById('tgl').textContent = new Date().toLocaleDateString('id-ID');
-
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.kartu-produk').forEach(kartu => cekStokKartu(kartu));
-});
 
 function tampilkanHalaman(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
