@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TNXUS CLUB</title>
-    <!-- Sumber untuk halaman Afiliasi -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -239,7 +238,7 @@
         }
         .btn-checkout:disabled { background: #222; cursor: not-allowed; }
 
-        /* === HALAMAN AFILIASI (GAYA DIPERBAIKI AGAR TIDAK BENTROK) === */
+        /* === HALAMAN AFILIASI === */
         #afiliasi {
             background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 100%);
             margin: -20px -20px -60px -20px;
@@ -247,7 +246,6 @@
             min-height: calc(100vh - 90px);
         }
         #afiliasi h1 { color: #fff; font-size: clamp(1.7rem,4vw,2.4rem); }
-        #afiliasi h2 { color: #fff; }
         #afiliasi p { color: #cbd5e1; }
         .kartu-peringkat { transition: transform 0.2s, box-shadow 0.2s; }
         .kartu-peringkat:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
@@ -522,17 +520,15 @@
         </div>
     </section>
 
-    <!-- ✅ HALAMAN BARU: PERINGKAT AFILIASI (DIPERBAIKI) -->
+    <!-- ✅ HALAMAN AFILIASI (SUDAH DIPERBAIKI) -->
     <section id="afiliasi" class="page">
         <header class="pt-12 pb-8 text-center">
             <h1 class="font-bold text-white mb-2">🏆 Papan Peringkat Afiliasi</h1>
-            <p class="text-slate-300">Peringkat 1–100 • Siapakah yang terbaik bulan ini?</p>
+            <p class="text-slate-300">Hanya 20 Terbaik • Nama Disensor</p>
         </header>
 
         <main class="max-w-3xl mx-auto px-4 pb-16">
-            <div id="daftar-peringkat" class="space-y-3">
-                <!-- Data dimuat di sini -->
-            </div>
+            <div id="daftar-peringkat" class="space-y-3"></div>
         </main>
 
         <footer class="text-center text-slate-500 text-sm py-8">
@@ -544,33 +540,38 @@
             // ✏️ DATA PENGGUNA - EDIT BAGIAN INI SAJA
             // ==================================================
             const daftarPengguna = [
-                { no:1, nama:"Budi Santoso", hp:"081234567890", poin:18500, foto:"https://i.pravatar.cc/150?img=11" },
-                { no:2, nama:"Siti Aminah", hp:"089876543210", poin:17200, foto:"https://i.pravatar.cc/150?img=5" },
-                { no:3, nama:"Andi Wijaya", hp:"085678901234", poin:16800, foto:"https://i.pravatar.cc/150?img=3" },
-                { no:4, nama:"Dewi Lestari", hp:"081122334455", poin:14500, foto:"https://i.pravatar.cc/150?img=9" },
-                { no:5, nama:"Eko Prasetyo", hp:"082233445566", poin:13900, foto:"https://i.pravatar.cc/150?img=12" },
-                { no:6, nama:"Fani Oktavia", hp:"083344556677", poin:12700, foto:"https://i.pravatar.cc/150?img=15" },
-                { no:7, nama:"Galih Nugroho", hp:"084455667788", poin:11500, foto:"https://i.pravatar.cc/150?img=18" },
-                { no:8, nama:"Hani Rahmawati", hp:"085566778899", poin:10200, foto:"https://i.pravatar.cc/150?img=22" },
-                { no:9, nama:"Iwan Setiawan", hp:"086677889900", poin:9800, foto:"https://i.pravatar.cc/150?img=25" },
-                { no:10, nama:"Juli Handayani", hp:"087788990011", poin:9100, foto:"https://i.pravatar.cc/150?img=28" },
-                { no:50, nama:"Peringkat Lima Puluh", hp:"0812505050", poin:2100, foto:"https://i.pravatar.cc/150?img=50" },
-                { no:99, nama:"Peringkat Sembilan Puluh Sembilan", hp:"0812999999", poin:650, foto:"https://i.pravatar.cc/150?img=90" },
-                { no:100, nama:"Peringkat Seratus", hp:"0812100100", poin:580, foto:"https://i.pravatar.cc/150?img=95" },
+                { no:1, nama:"Budi Santoso", poin:18500, foto:"https://i.pravatar.cc/150?img=11" },
+                { no:2, nama:"Siti Aminah", poin:17200, foto:"https://i.pravatar.cc/150?img=5" },
+                { no:3, nama:"Andi Wijaya", poin:16800, foto:"https://i.pravatar.cc/150?img=3" },
+                { no:4, nama:"Dewi Lestari", poin:14500, foto:"https://i.pravatar.cc/150?img=9" },
+                { no:5, nama:"Eko Prasetyo", poin:13900, foto:"https://i.pravatar.cc/150?img=12" },
+                { no:6, nama:"Fani Oktavia", poin:12700, foto:"https://i.pravatar.cc/150?img=15" },
+                { no:7, nama:"Galih Nugroho", poin:11500, foto:"https://i.pravatar.cc/150?img=18" },
+                { no:8, nama:"Hani Rahmawati", poin:10200, foto:"https://i.pravatar.cc/150?img=22" },
+                { no:9, nama:"Iwan Setiawan", poin:9800, foto:"https://i.pravatar.cc/150?img=25" },
+                { no:10, nama:"Juli Handayani", poin:9100, foto:"https://i.pravatar.cc/150?img=28" },
+                { no:11, nama:"Kiki Amalia", poin:8700, foto:"https://i.pravatar.cc/150?img=31" },
+                { no:12, nama:"Lukman Hakim", poin:8200, foto:"https://i.pravatar.cc/150?img=33" },
+                { no:13, nama:"Maya Sari", poin:7900, foto:"https://i.pravatar.cc/150?img=35" },
+                { no:14, nama:"Nando Firmansyah", poin:7400, foto:"https://i.pravatar.cc/150?img=38" },
+                { no:15, nama:"Oki Rahmat", poin:6800, foto:"https://i.pravatar.cc/150?img=40" },
+                { no:16, nama:"Putri Wulandari", poin:6200, foto:"https://i.pravatar.cc/150?img=42" },
+                { no:17, nama:"Qori Aini", poin:5700, foto:"https://i.pravatar.cc/150?img=44" },
+                { no:18, nama:"Riko Saputra", poin:5100, foto:"https://i.pravatar.cc/150?img=46" },
+                { no:19, nama:"Sari Dewi", poin:4600, foto:"https://i.pravatar.cc/150?img=48" },
+                { no:20, nama:"Tio Pratama", poin:4200, foto:"https://i.pravatar.cc/150?img=50" },
             ];
 
             // ==================================================
             // 🔧 FUNGSI - JANGAN DIUBAH
             // ==================================================
-            function sensor(nilai, jenis) {
-                if (jenis === 'nama') {
-                    let bagian = nilai.split(' ');
-                    return bagian[0] + ' ***';
-                }
-                if (jenis === 'hp') {
-                    return nilai.slice(0,4) + '****' + nilai.slice(-3);
-                }
-                return nilai;
+            function sensorNama(nama) {
+                nama = nama.trim().toLowerCase();
+                if (nama.length <= 2) return nama;
+                const depan = nama[0];
+                const belakang = nama[nama.length - 1];
+                const bintang = '*'.repeat(Math.max(8, nama.length - 2));
+                return `${depan}${bintang}${belakang}`;
             }
 
             daftarPengguna.sort((a,b) => b.poin - a.poin);
@@ -579,7 +580,7 @@
 
             daftarPengguna.forEach(orang => {
                 const no = orang.no;
-                if (no > 100) return;
+                if (no > 20) return;
 
                 let kelasKartu = 'kartu-peringkat bg-kartu border border-slate-700 rounded-xl p-4 flex items-center gap-4';
                 let kelasFoto = 'p-1 rounded-full bg-slate-500';
@@ -611,8 +612,7 @@
                         ${mahkota}
                     </div>
                     <div class="flex-grow">
-                        <h3 class="font-semibold text-white">${sensor(orang.nama, 'nama')}</h3>
-                        <p class="text-slate-400 text-sm">${sensor(orang.hp, 'hp')}</p>
+                        <h3 class="font-semibold text-white">${sensorNama(orang.nama)}</h3>
                     </div>
                     <div class="text-right">
                         <div class="text-xl font-bold text-white">${orang.poin.toLocaleString()}</div>
@@ -784,13 +784,11 @@ function tampilkanHalaman(id) {
     window.scrollTo(0,0);
 }
 
-function tampilkanMenu()
-    {
+function tampilkanMenu() {
     document.getElementById('sideMenu').classList.toggle('active');
 }
 
-function gantiHarga(pilih) {
-    let harga = pilih.value;
+function gantiHarga(pilih) {let harga = pilih.value;
     let spanHarga = pilih.closest('.kartu-info').querySelector('.harga span');
     spanHarga.textContent = parseInt(harga).toLocaleString('id-ID');
 }
@@ -932,10 +930,10 @@ function kirimKeWA() {
     window.open(`https://wa.me/6281234567890?text=${teks}`, '_blank');
 }
 
-// === TIMER HITUNG MUNDUR (Contoh: 1 Hari) ===
+// === TIMER HITUNG MUNDUR (1 Hari) ===
 function aturTimer() {
     let akhir = new Date();
-    akhir.setDate(akhir.getDate() + 1); // 24 jam dari sekarang
+    akhir.setDate(akhir.getDate() + 1);
 
     function hitung() {
         let sekarang = new Date();
@@ -958,7 +956,7 @@ aturTimer();
 // === SLIDER OTOMATIS UTAMA ===
 setInterval(() => {
     const sliderUtama = document.querySelector('.box-slider');
-    if (sliderUtama && sliderUtama.sliderInst) sliderUtama.sliderInst.geser(1);
+    if (sliderUtama && sliderUtama.SliderUsap) sliderUtama.SliderUsap.geser(1);
 }, 4000);
 </script>
 
