@@ -4,9 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TNXUS CLUB</title>
+    <!-- Sumber untuk halaman Afiliasi -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        rank1: '#FFD700',
+                        rank2: '#C0C0C0',
+                        rank3: '#CD7F32',
+                        gelap: '#0F172A',
+                        kartu: '#1E293B',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: #000; color: #fff; min-height: 200vh; }
+        body { background-color: #000; color: #fff; min-height: 100vh; padding-top: 48px; }
 
         /* === BANNER ATAS === */
         .top-notice {
@@ -48,11 +66,14 @@
             padding: 14px 0; border-bottom: 1px solid #222; font-size: 18px;
         }
         .side-menu a:hover { color: #ff0055; padding-left: 8px; }
+        .side-menu a.afiliasi-link { color: #ffcc00; }
+        .side-menu a.afiliasi-link:hover { color: #ffdd44; }
 
         /* === KONTEN UTAMA === */
         main {
-            margin-top: 90px; padding: 20px;
-            max-width: 1200px; margin-left: auto; margin-right: auto;
+            padding: 20px;
+            max-width: 1200px; margin: 90px auto 0;
+            min-height: calc(100vh - 140px);
         }
         .page { display: none; }
         .page.active { display: block; }
@@ -218,6 +239,66 @@
         }
         .btn-checkout:disabled { background: #222; cursor: not-allowed; }
 
+        /* === HALAMAN AFILIASI (GAYA DIPERBAIKI AGAR TIDAK BENTROK) === */
+        #afiliasi {
+            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 100%);
+            margin: -20px -20px -60px -20px;
+            padding: 20px;
+            min-height: calc(100vh - 90px);
+        }
+        #afiliasi h1 { color: #fff; font-size: clamp(1.7rem,4vw,2.4rem); }
+        #afiliasi h2 { color: #fff; }
+        #afiliasi p { color: #cbd5e1; }
+        .kartu-peringkat { transition: transform 0.2s, box-shadow 0.2s; }
+        .kartu-peringkat:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .bingkai-1 { box-shadow: 0 0 22px rgba(255,215,0,0.5); border-color: #FFD700 !important; }
+        .bingkai-2 { box-shadow: 0 0 18px rgba(192,192,192,0.5); border-color: #C0C0C0 !important; }
+        .bingkai-3 { box-shadow: 0 0 18px rgba(205,127,50,0.5); border-color: #CD7F32 !important; }
+        .bg-kartu { background-color: #1E293B; }
+        .text-slate-300 { color: #cbd5e1; }
+        .text-slate-400 { color: #94a3b8; }
+        .text-slate-500 { color: #64748b; }
+        .bg-slate-500 { background-color: #64748b; }
+        .bg-rank1 { background-color: #FFD700; }
+        .bg-rank2 { background-color: #C0C0C0; }
+        .bg-rank3 { background-color: #CD7F32; }
+        .text-rank1 { color: #FFD700; }
+        .text-rank2 { color: #C0C0C0; }
+        .text-rank3 { color: #CD7F32; }
+        .space-y-3 > * + * { margin-top: 0.75rem; }
+        .relative { position: relative; }
+        .absolute { position: absolute; }
+        .-top-3 { top: -0.75rem; }
+        .left-1\/2 { left: 50%; }
+        .-translate-x-1\/2 { transform: translateX(-50%); }
+        .text-2xl { font-size: 1.5rem; }
+        .w-10 { width: 2.5rem; }
+        .w-12 { width: 3rem; height: 3rem; }
+        .h-12 { height: 3rem; }
+        .p-1 { padding: 0.25rem; }
+        .rounded-full { border-radius: 9999px; }
+        .border-slate-700 { border-color: #334155; }
+        .rounded-xl { border-radius: 0.75rem; }
+        .p-4 { padding: 1rem; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .gap-4 { gap: 1rem; }
+        .flex-grow { flex-grow: 1; }
+        .text-right { text-align: right; }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-sm { font-size: 0.875rem; }
+        .text-xs { font-size: 0.75rem; }
+        .object-cover { object-fit: cover; }
+        .max-w-3xl { max-width: 48rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+        .pb-16 { padding-bottom: 4rem; }
+        .pt-12 { padding-top: 3rem; }
+
         /* === FOOTER === */
         footer {
             background: #0a0a0a; padding: 30px; margin-top: 60px;
@@ -243,6 +324,7 @@
     <a href="#" onclick="tampilkanHalaman('beranda'); return false;">BERANDA</a>
     <a href="#" onclick="tampilkanHalaman('produk'); return false;">PRODUK & BRAND</a>
     <a href="#" onclick="tampilkanHalaman('aksesoris'); return false;">AKSESORIS</a>
+    <a href="#" onclick="tampilkanHalaman('afiliasi'); return false;" class="afiliasi-link">⭐ PERINGKAT AFILIASI</a>
 </div>
 
 <main>
@@ -260,15 +342,15 @@
         <div class="box-slider" data-slider="utama">
             <div class="slider">
                 <div class="slides">
-                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto1.jpg"></div>
-                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto2.jpg"></div>
-                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto3.jpg"></div>
+                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto1.jpg" alt="Foto 1"></div>
+                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto2.jpg" alt="Foto 2"></div>
+                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto3.jpg" alt="Foto 3"></div>
                 </div>
             </div>
             <div class="slider-dots"></div>
         </div>
 
-        <h2 style="text-align:center; margin:30px 0;">⏳ PRODUK PRE ORDER</h2>
+        <h2 style="text-align:center; margin:30px 0; color:#fff;">⏳ PRODUK PRE ORDER</h2>
         
         <div class="timer-wrapper">
             <div class="timer-label-header">Waktu Tersisa</div>
@@ -283,8 +365,8 @@
                     <span class="stok-label">Stok: <span class="stok-val">15</span></span>
                     <div class="kartu-slider">
                         <div class="kartu-slides">
-                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/po1.jpg"></div>
-                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto2.jpg"></div>
+                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/po1.jpg" alt="Produk 1"></div>
+                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto2.jpg" alt="Produk 2"></div>
                         </div>
                     </div>
                     <div class="kartu-dots"></div>
@@ -316,7 +398,7 @@
     <!-- PRODUK & BRAND -->
     <section id="produk" class="page">
         <h1>PRODUK & BRAND</h1>
-        <h2 style="margin:40px 0 20px;">PRE ORDER</h2>
+        <h2 style="margin:40px 0 20px; color:#fff;">PRE ORDER</h2>
         <div class="produk-grid">
             <div class="kartu-produk" data-stok="8">
                 <div class="kartu-media" data-slider="kartu">
@@ -324,7 +406,7 @@
                     <span class="stok-label">Stok: <span class="stok-val">8</span></span>
                     <div class="kartu-slider">
                         <div class="kartu-slides">
-                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/po1.jpg"></div>
+                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/po1.jpg" alt="Produk PO"></div>
                         </div>
                     </div>
                     <div class="kartu-dots"></div>
@@ -350,15 +432,15 @@
                 </div>
             </div>
         </div>
-        <h2 style="margin:60px 0 20px;">READY STOCK</h2>
+        <h2 style="margin:60px 0 20px; color:#fff;">READY STOCK</h2>
         <div class="produk-grid">
             <div class="kartu-produk" data-stok="25">
                 <div class="kartu-media" data-slider="kartu">
                     <span class="stok-label">Stok: <span class="stok-val">25</span></span>
                     <div class="kartu-slider">
                         <div class="kartu-slides">
-                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/ready1.jpg"></div>
-                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto3.jpg"></div>
+                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/ready1.jpg" alt="Ready 1"></div>
+                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto3.jpg" alt="Ready 2"></div>
                         </div>
                     </div>
                     <div class="kartu-dots"></div>
@@ -394,7 +476,7 @@
                     <span class="stok-label stok-habis">Stok: <span class="stok-val">0</span></span>
                     <div class="kartu-slider">
                         <div class="kartu-slides">
-                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/topi.jpg"></div>
+                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/topi.jpg" alt="Topi"></div>
                         </div>
                     </div>
                     <div class="habis-overlay">HABIS</div>
@@ -418,8 +500,8 @@
                     <span class="stok-label">Stok: <span class="stok-val">12</span></span>
                     <div class="kartu-slider">
                         <div class="kartu-slides">
-                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/tas.jpg"></div>
-                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto1.jpg"></div>
+                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/tas.jpg" alt="Tas"></div>
+                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto1.jpg" alt="Tas 2"></div>
                         </div>
                     </div>
                     <div class="kartu-dots"></div>
@@ -440,12 +522,114 @@
         </div>
     </section>
 
+    <!-- ✅ HALAMAN BARU: PERINGKAT AFILIASI (DIPERBAIKI) -->
+    <section id="afiliasi" class="page">
+        <header class="pt-12 pb-8 text-center">
+            <h1 class="font-bold text-white mb-2">🏆 Papan Peringkat Afiliasi</h1>
+            <p class="text-slate-300">Peringkat 1–100 • Siapakah yang terbaik bulan ini?</p>
+        </header>
+
+        <main class="max-w-3xl mx-auto px-4 pb-16">
+            <div id="daftar-peringkat" class="space-y-3">
+                <!-- Data dimuat di sini -->
+            </div>
+        </main>
+
+        <footer class="text-center text-slate-500 text-sm py-8">
+            Sistem Afiliasi Toko Kaos • Semarang
+        </footer>
+
+        <script>
+            // ==================================================
+            // ✏️ DATA PENGGUNA - EDIT BAGIAN INI SAJA
+            // ==================================================
+            const daftarPengguna = [
+                { no:1, nama:"Budi Santoso", hp:"081234567890", poin:18500, foto:"https://i.pravatar.cc/150?img=11" },
+                { no:2, nama:"Siti Aminah", hp:"089876543210", poin:17200, foto:"https://i.pravatar.cc/150?img=5" },
+                { no:3, nama:"Andi Wijaya", hp:"085678901234", poin:16800, foto:"https://i.pravatar.cc/150?img=3" },
+                { no:4, nama:"Dewi Lestari", hp:"081122334455", poin:14500, foto:"https://i.pravatar.cc/150?img=9" },
+                { no:5, nama:"Eko Prasetyo", hp:"082233445566", poin:13900, foto:"https://i.pravatar.cc/150?img=12" },
+                { no:6, nama:"Fani Oktavia", hp:"083344556677", poin:12700, foto:"https://i.pravatar.cc/150?img=15" },
+                { no:7, nama:"Galih Nugroho", hp:"084455667788", poin:11500, foto:"https://i.pravatar.cc/150?img=18" },
+                { no:8, nama:"Hani Rahmawati", hp:"085566778899", poin:10200, foto:"https://i.pravatar.cc/150?img=22" },
+                { no:9, nama:"Iwan Setiawan", hp:"086677889900", poin:9800, foto:"https://i.pravatar.cc/150?img=25" },
+                { no:10, nama:"Juli Handayani", hp:"087788990011", poin:9100, foto:"https://i.pravatar.cc/150?img=28" },
+                { no:50, nama:"Peringkat Lima Puluh", hp:"0812505050", poin:2100, foto:"https://i.pravatar.cc/150?img=50" },
+                { no:99, nama:"Peringkat Sembilan Puluh Sembilan", hp:"0812999999", poin:650, foto:"https://i.pravatar.cc/150?img=90" },
+                { no:100, nama:"Peringkat Seratus", hp:"0812100100", poin:580, foto:"https://i.pravatar.cc/150?img=95" },
+            ];
+
+            // ==================================================
+            // 🔧 FUNGSI - JANGAN DIUBAH
+            // ==================================================
+            function sensor(nilai, jenis) {
+                if (jenis === 'nama') {
+                    let bagian = nilai.split(' ');
+                    return bagian[0] + ' ***';
+                }
+                if (jenis === 'hp') {
+                    return nilai.slice(0,4) + '****' + nilai.slice(-3);
+                }
+                return nilai;
+            }
+
+            daftarPengguna.sort((a,b) => b.poin - a.poin);
+            const wadah = document.getElementById('daftar-peringkat');
+            wadah.innerHTML = '';
+
+            daftarPengguna.forEach(orang => {
+                const no = orang.no;
+                if (no > 100) return;
+
+                let kelasKartu = 'kartu-peringkat bg-kartu border border-slate-700 rounded-xl p-4 flex items-center gap-4';
+                let kelasFoto = 'p-1 rounded-full bg-slate-500';
+                let mahkota = '';
+
+                if (no === 1) {
+                    kelasKartu += ' bingkai-1';
+                    kelasFoto = 'p-1 rounded-full bg-rank1';
+                    mahkota = '<span class="absolute -top-3 left-1/2 -translate-x-1/2 text-rank1 text-2xl">👑</span>';
+                } else if (no === 2) {
+                    kelasKartu += ' bingkai-2';
+                    kelasFoto = 'p-1 rounded-full bg-rank2';
+                    mahkota = '<span class="absolute -top-3 left-1/2 -translate-x-1/2 text-rank2 text-2xl">👑</span>';
+                } else if (no === 3) {
+                    kelasKartu += ' bingkai-3';
+                    kelasFoto = 'p-1 rounded-full bg-rank3';
+                    mahkota = '<span class="absolute -top-3 left-1/2 -translate-x-1/2 text-rank3 text-2xl">👑</span>';
+                }
+
+                const html = `
+                <div class="${kelasKartu}">
+                    <div class="w-10 text-center font-bold text-lg ${no <=3 ? 'text-white' : 'text-slate-400'}">
+                        ${no}
+                    </div>
+                    <div class="relative">
+                        <div class="${kelasFoto}">
+                            <img src="${orang.foto}" alt="Profil" class="w-12 h-12 rounded-full object-cover">
+                        </div>
+                        ${mahkota}
+                    </div>
+                    <div class="flex-grow">
+                        <h3 class="font-semibold text-white">${sensor(orang.nama, 'nama')}</h3>
+                        <p class="text-slate-400 text-sm">${sensor(orang.hp, 'hp')}</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-xl font-bold text-white">${orang.poin.toLocaleString()}</div>
+                        <div class="text-xs text-slate-400">Poin</div>
+                    </div>
+                </div>`;
+                wadah.innerHTML += html;
+            });
+        </script>
+    </section>
+
     <!-- KERANJANG -->
     <section id="keranjang" class="page">
         <h1>KERANJANG BELANJA</h1>
         <p style="color:#aaa;">Nomor Pesanan: <strong id="no-pesanan"></strong> | Tanggal: <span id="tgl"></span></p>
         <div id="keranjang-list"></div>
-        <h3 style="margin:30px 0 15px;">DATA PENGIRIMAN</h3>
+        <h3 style="margin:30px 0 15px; color:#fff;">DATA PENGIRIMAN</h3>
         <div class="form-group"><input type="text" id="nama" placeholder="Nama Lengkap"></div>
         <div class="form-group"><input type="text" id="wa" placeholder="Nomor WhatsApp"></div>
         <div class="form-group"><textarea id="alamat" placeholder="Alamat Lengkap"></textarea></div>
@@ -456,8 +640,8 @@
 
 <footer>
     <div class="footer-links">
-        <a href="https://www.instagram.com/tnxus.club?igsi=MW50ajdpcDMxMGFidg==" target="_blank">Instagram</a>
-        <a href="https://www.tiktok.com/@tnxus.club?_r=1&_t=ZS-997SRcGZHBo" target="_blank">TikTok</a>
+        <a href="https://instagram.com/tnxusclub" target="_blank">Instagram</a>
+        <a href="https://tiktok.com/@tnxusclub" target="_blank">TikTok</a>
         <a href="#">Cara Order</a>
         <a href="#">Customer Service</a>
     </div>
@@ -471,25 +655,27 @@ class SliderUsap {
         this.slides = this.wadah.querySelector('.slides, .kartu-slides');
         this.wadahDots = this.wadah.querySelector('.slider-dots, .kartu-dots');
         this.indeks = 0;
-        this.jumlah = this.slides.querySelectorAll('.slide, .kartu-slide').length;
+        this.jumlah = this.slides ? this.slides.querySelectorAll('.slide, .kartu-slide').length : 0;
         this.awalX = 0; this.akhirX = 0; this.sedangGeser = false;
 
-        this.buatTitik();
-        this.aturEvent();
-        this.perbarui();
+        if(this.jumlah > 0) {
+            this.buatTitik();
+            this.aturEvent();
+            this.perbarui();
+        }
     }
 
     buatTitik() {
         for(let i=0; i<this.jumlah; i++) {
             const titik = document.createElement('button');
             titik.className = this.wadah.classList.contains('box-slider') ? 'dot' : 'kartu-dot';
+            titik.setAttribute('aria-label', `Slide ${i+1}`);
             titik.addEventListener('click', () => this.pindah(i));
             this.wadahDots.appendChild(titik);
         }
     }
 
     aturEvent() {
-        // Sentuh HP
         this.wadah.addEventListener('touchstart', e => {
             this.awalX = e.touches[0].clientX;
             this.sedangGeser = true;
@@ -509,8 +695,8 @@ class SliderUsap {
             this.tentukanArah();
         });
 
-        // Mouse Komputer
         this.wadah.addEventListener('mousedown', e => {
+            e.preventDefault();
             this.awalX = e.clientX;
             this.sedangGeser = true;
             this.slides.style.transition = 'none';
@@ -534,9 +720,9 @@ class SliderUsap {
             if(this.sedangGeser) {
                 this.sedangGeser = false;
                 this.slides.style.transition = 'transform 0.5s ease';
+                this.wadah.style.cursor = 'grab';
                 this.tentukanArah();
             }
-            this.wadah.style.cursor = 'grab';
         });
     }
 
@@ -565,38 +751,41 @@ class SliderUsap {
     pindah(ke) { this.indeks = ke; this.perbarui(); }
 
     perbarui() {
+        if(!this.slides) return;
         this.slides.style.transform = `translateX(-${this.indeks * 100}%)`;
-        this.wadahDots.querySelectorAll('.dot, .kartu-dot').forEach((d,i) => {
+        const titikSemua = this.wadahDots.querySelectorAll('.dot, .kartu-dot');
+        titikSemua.forEach((d,i) => {
             d.classList.toggle('active', i === this.indeks);
         });
     }
 }
 
-// Jalankan SEMUA slider saat halaman siap
+// Jalankan SAAT HALAMAN SIAP
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.box-slider, .kartu-media').forEach(el => {
         new SliderUsap(el);
     });
     document.querySelectorAll('.kartu-produk').forEach(kartu => cekStokKartu(kartu));
+    
+    // Atur Nomor Pesanan
+    const noPesanan = 'TNX' + Date.now();
+    document.getElementById('no-pesanan').textContent = noPesanan;
+    document.getElementById('tgl').textContent = new Date().toLocaleDateString('id-ID');
 });
 
-// === CARA TAMBAH FOTO TIAP PRODUK ===
-// Cari: <div class="kartu-slides">
-// Tambah: <div class="kartu-slide"><img class="kartu-slide-img" src="link-foto.jpg"></div>
-// Titik & usap otomatis berfungsi
-
+// === FUNGSI UTAMA ===
 let keranjang = [];
-let noPesanan = 'TNX' + Date.now();
-document.getElementById('no-pesanan').textContent = noPesanan;
-document.getElementById('tgl').textContent = new Date().toLocaleDateString('id-ID');
 
 function tampilkanHalaman(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
+    const halamanAktif = document.getElementById(id);
+    if(halamanAktif) halamanAktif.classList.add('active');
     document.getElementById('sideMenu').classList.remove('active');
     window.scrollTo(0,0);
 }
-function tampilkanMenu() {
+
+function tampilkanMenu()
+    {
     document.getElementById('sideMenu').classList.toggle('active');
 }
 
@@ -665,83 +854,112 @@ function tambahKeKeranjang(nama, tombol, foto) {
 
     let ukuranEl = info.querySelector('select');
     let ukuran = ukuranEl ? ukuranEl.options[ukuranEl.selectedIndex].text : 'Standar';
-    let harga = info.querySelector('.harga span').textContent;
+    let harga = parseInt(info.querySelector('.harga span').textContent.replace(/\./g, ''));
 
-    keranjang.push({nama, ukuran, harga, jumlah, foto});
-    alert('✅ Ditambahkan ke keranjang!');
-    tampilkanKeranjang();
-    updateJumlahKeranjang();
+    let sudahAda = keranjang.find(x => x.nama === nama && x.ukuran === ukuran);
+    if (sudahAda) {
+        if (sudahAda.jumlah + jumlah > stok) { alert(`⚠️ Total beli melebihi stok (${stok} pcs)`); return; }
+        sudahAda.jumlah += jumlah;
+    } else {
+        keranjang.push({ nama, ukuran, harga, jumlah, foto, stok });
+    }
+    perbaruiKeranjang();
+    alert(`✅ ${nama} (${ukuran}) x${jumlah} dimasukkan!`);
 }
 
-function tampilkanKeranjang() {
-    let area = document.getElementById('keranjang-list');
-    if (keranjang.length === 0) {
-        area.innerHTML = '<p style="color:#aaa; text-align:center; padding:20px;">Keranjang masih kosong.</p>';
-        return;
-    }
-    area.innerHTML = keranjang.map((b, i) => `
+function perbaruiKeranjang() {
+    let wadah = document.getElementById('keranjang-list');
+    wadah.innerHTML = '';
+    let total = 0;
+    keranjang.forEach((barang, i) => {
+        total += barang.harga * barang.jumlah;
+        wadah.innerHTML += `
         <div class="item-keranjang">
-            <img src="${b.foto}" alt="${b.nama}" class="foto-keranjang">
+            <img src="${barang.foto}" class="foto-keranjang" alt="${barang.nama}">
             <div class="info-item">
-                <strong>${b.nama}</strong>
-                <p>Ukuran: ${b.ukuran}</p>
-                <p>Harga: Rp${b.harga.replace(/\./g, ',')}</p>
-                <p>Jumlah: ${b.jumlah}</p>
-                <p style="color:#ff0055; font-weight:bold;">Subtotal: Rp${(parseInt(b.harga.replace(/\./g,'')) * b.jumlah).toLocaleString('id-ID')}</p>
-                <button class="hapus-btn" onclick="hapusItem(${i})">🗑️ Hapus</button>
+                <strong>${barang.nama}</strong>
+                <p>Ukuran: ${barang.ukuran}</p>
+                <p>Harga: Rp${barang.harga.toLocaleString('id-ID')}</p>
+                <p>Jumlah: ${barang.jumlah}</p>
+                <p><strong>Subtotal: Rp${(barang.harga * barang.jumlah).toLocaleString('id-ID')}</strong></p>
+                <button class="hapus-btn" onclick="hapusDariKeranjang(${i})">🗑️ Hapus</button>
             </div>
-        </div>
-    `).join('');
-}
-function hapusItem(i) { keranjang.splice(i,1); tampilkanKeranjang(); updateJumlahKeranjang(); }
-
-function updateJumlahKeranjang() {
-    let total = keranjang.reduce((sum, item) => sum + item.jumlah, 0);
-    document.getElementById('jumlah-keranjang').textContent = total;
+        </div>`;
+    });
+    if (keranjang.length === 0) wadah.innerHTML = '<p style="color:#aaa;text-align:center;">Keranjang masih kosong</p>';
+    wadah.innerHTML += `<p style="text-align:right; font-size:18px; margin-top:20px; color:#fff;">TOTAL: <strong style="color:#ff0055;">Rp${total.toLocaleString('id-ID')}</strong></p>`;
+    document.getElementById('jumlah-keranjang').textContent = keranjang.reduce((s,b)=>s+b.jumlah,0);
 }
 
-function setTimer(elId) {
-    let akhir = new Date();
-    akhir.setDate(akhir.getDate() + 7);
-    function hitung() {
-        let sekarang = new Date();
-        let selisih = akhir - sekarang;
-        if (selisih <= 0) { document.getElementById(elId).textContent = "SELESAI"; return; }
-        let h = Math.floor(selisih/(1000*60*60*24));
-        let j = Math.floor((selisih%(1000*60*60*24))/(1000*60*60));
-        let m = Math.floor((selisih%(1000*60*60))/(1000*60));
-        let d = Math.floor((selisih%(1000*60))/1000);
-        document.getElementById(elId).textContent = `${h}h ${j}j ${m}m ${d}d`;
-    }
-    hitung(); setInterval(hitung, 1000);
+function hapusDariKeranjang(indeks) {
+    keranjang.splice(indeks,1);
+    perbaruiKeranjang();
 }
-setTimer('timer-beranda');
-setTimer('timer-produk');
 
 function kirimKeWA() {
-    let nama = document.getElementById('nama').value;
-    let wa = document.getElementById('wa').value;
-    let alamat = document.getElementById('alamat').value;
-    let gmail = document.getElementById('gmail').value;
+    let nama = document.getElementById('nama').value.trim();
+    let wa = document.getElementById('wa').value.trim();
+    let alamat = document.getElementById('alamat').value.trim();
+    let gmail = document.getElementById('gmail').value.trim();
+    let noPesanan = document.getElementById('no-pesanan').textContent;
+    let tgl = document.getElementById('tgl').textContent;
 
-    if (!nama || !wa || !alamat) { alert("Lengkapi data pengiriman!"); return; }
-    if (keranjang.length === 0) { alert("Keranjang masih kosong!"); return; }
+    if (!nama || !wa || !alamat) { alert('❌ Isi Nama, No WA & Alamat Lengkap!'); return; }
+    if (keranjang.length === 0) { alert('❌ Keranjang kosong!'); return; }
 
-    let teks = `🛒 *PESANAN TNXUS CLUB*%0A`;
-    teks += `No: ${noPesanan}%0ATanggal: ${new Date().toLocaleDateString('id-ID')}%0A%0A`;
-    teks += `👤 Nama: ${nama}%0A📞 WA: ${wa}%0A📍 Alamat: ${alamat}%0A📧 Email: ${gmail}%0A%0A`;
-    teks += `📦 DAFTAR PRODUK:%0A`;
+    let teks = `🛒 *PESANAN BARU TNXUS CLUB* %0A`;
+    teks += `──────────────────────%0A`;
+    teks += `📌 No Pesanan: ${noPesanan}%0A`;
+    teks += `📅 Tanggal: ${tgl}%0A`;
+    teks += `──────────────────────%0A`;
+    teks += `👤 Nama: ${nama}%0A`;
+    teks += `📞 WA: ${wa}%0A`;
+    teks += `📍 Alamat: ${alamat}%0A`;
+    teks += gmail ? `📧 Email: ${gmail}%0A` : '';
+    teks += `──────────────────────%0A`;
+    teks += `📦 DAFTAR BARANG:%0A`;
     let total = 0;
-    keranjang.forEach(p => {
-        let subtotal = parseInt(p.harga.replace(/\./g,'')) * p.jumlah;
-        teks += `• ${p.nama}%0A  └ Ukuran: ${p.ukuran} | Jumlah: ${p.jumlah} | Rp${p.harga}%0A`;
-        total += subtotal;
+    keranjang.forEach(b => {
+        let sub = b.harga * b.jumlah;
+        total += sub;
+        teks += `• ${b.nama} [${b.ukuran}] x${b.jumlah} = Rp${sub.toLocaleString('id-ID')}%0A`;
     });
-    teks += `%0A💰 TOTAL PEMBAYARAN: *Rp${total.toLocaleString('id-ID')}*%0A%0A`;
-    teks += `Terima kasih telah berbelanja di TNXUS CLUB!`;
+    teks += `──────────────────────%0A`;
+    teks += `💰 TOTAL BAYAR: *Rp${total.toLocaleString('id-ID')}*%0A`;
+    teks += `──────────────────────%0A`;
+    teks += `Terima kasih telah berbelanja di TNXUS CLUB! 🙏`;
 
     window.open(`https://wa.me/6281234567890?text=${teks}`, '_blank');
 }
+
+// === TIMER HITUNG MUNDUR (Contoh: 1 Hari) ===
+function aturTimer() {
+    let akhir = new Date();
+    akhir.setDate(akhir.getDate() + 1); // 24 jam dari sekarang
+
+    function hitung() {
+        let sekarang = new Date();
+        let selisih = akhir - sekarang;
+        if (selisih <= 0) {
+            document.querySelectorAll('.preorder-timer').forEach(el => el.textContent = "SELESAI");
+            return;
+        }
+        let jam = Math.floor(selisih/(1000*60*60));
+        let menit = Math.floor((selisih%(1000*60*60))/(1000*60));
+        let detik = Math.floor((selisih%(1000*60))/1000);
+        let format = `${String(jam).padStart(2,'0')}:${String(menit).padStart(2,'0')}:${String(detik).padStart(2,'0')}`;
+        document.querySelectorAll('.preorder-timer').forEach(el => el.textContent = format);
+    }
+    hitung();
+    setInterval(hitung, 1000);
+}
+aturTimer();
+
+// === SLIDER OTOMATIS UTAMA ===
+setInterval(() => {
+    const sliderUtama = document.querySelector('.box-slider');
+    if (sliderUtama && sliderUtama.sliderInst) sliderUtama.sliderInst.geser(1);
+}, 4000);
 </script>
 
 </body>
