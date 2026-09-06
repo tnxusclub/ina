@@ -84,17 +84,18 @@
             margin: 20px auto; border-radius: 12px; overflow: hidden; background: #111;
         }
 
-        /* === SLIDER FOTO 1:1 — GESER PAKAI JARI === */
+        /* === SLIDER FOTO 1:1 — GESER JARI + MOUSE === */
         .box-slider {
             width: 100%; max-width: 450px;
             aspect-ratio: 1 / 1;
             margin: 20px auto; border-radius: 12px; overflow: hidden; background: #111;
-            position: relative; touch-action: pan-y;
+            position: relative; touch-action: pan-y; cursor: grab; user-select: none;
         }
+        .box-slider:active { cursor: grabbing; }
         .slider { width: 100%; height: 100%; overflow: hidden; }
         .slides { display: flex; height: 100%; }
         .slide { width: 100%; flex-shrink: 0; }
-        .slide-img { width: 100%; height: 100%; object-fit: cover; display: block; user-select: none; -webkit-user-drag: none; }
+        .slide-img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
         .slider-dots {
             position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
             display: flex; gap: 6px; z-index: 5;
@@ -170,12 +171,13 @@
         
         .kartu-media {
             position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: #000;
-            touch-action: pan-y;
+            touch-action: pan-y; cursor: grab; user-select: none;
         }
+        .kartu-media:active { cursor: grabbing; }
         .kartu-slider { width: 100%; height: 100%; overflow: hidden; }
         .kartu-slides { display: flex; height: 100%; }
         .kartu-slide { width: 100%; flex-shrink: 0; }
-        .kartu-slide-img { width: 100%; height: 100%; object-fit: cover; display: block; user-select: none; -webkit-user-drag: none; }
+        .kartu-slide-img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
         .kartu-dots {
             position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
             display: flex; gap: 4px; z-index: 3;
@@ -386,13 +388,13 @@
         <h1>TNXUS CLUB</h1>
         <p class="desc">Kaos Premium • Bahan Berkualitas • Desain Eksklusif</p>
 
-        <!-- SLIDER UTAMA — GESER PAKAI JARI -->
+        <!-- SLIDER UTAMA — GESER JARI + MOUSE -->
         <div class="box-slider" data-slider="utama">
             <div class="slider">
                 <div class="slides">
-                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-slide-1.jpeg" alt="Foto 1" loading="lazy"></div>
-                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-slide-2.jpeg" alt="Foto 2" loading="lazy"></div>
-                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-slide-3.jpeg" alt="Foto 3" loading="lazy"></div>
+                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto1.jpeg" alt="Foto 1" loading="lazy"></div>
+                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto2.jpeg" alt="Foto 2" loading="lazy"></div>
+                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto3.jpeg" alt="Foto 3" loading="lazy"></div>
                 </div>
             </div>
             <div class="slider-dots"></div>
@@ -722,7 +724,6 @@
 const DAFTAR_KODE_DISKON = Object.freeze({
     "TNXUS10": 10000,
     "HEMAT5": 5000,
-    "DISKON15": 15000,
     "TNXUSCLUB": 20000
     // Tambah kode diskon baru di sini: "KODE": nominal
 });
@@ -736,7 +737,7 @@ let kodeTerpakai = null;
 const TANGGAL_AKHIR_PO = new Date("2026-09-10 23:59:59").getTime();
 let poSelesai = false;
 
-// === KELAS SLIDER — GESER PAKAI JARI SAJA, TIDAK OTOMATIS ===
+// === KELAS SLIDER — GESER PAKAI JARI (HP) + GESER MOUSE (DESKTOP) ===
 class SliderUsap {
     constructor(elemen) {
         this.wadah = elemen;
@@ -753,6 +754,7 @@ class SliderUsap {
             this.lebarSlide = this.wadah.offsetWidth;
             this.buatTitik();
             this.aturEventSentuh();
+            this.aturEventMouse();
             this.perbarui(false);
         }
     }
@@ -765,12 +767,13 @@ class SliderUsap {
             tombol.style.border = 'none';
             tombol.style.background = 'rgba(255,255,255,0.3)';
             tombol.style.padding = '0';
+            tombol.style.cursor = 'pointer';
+            tombol.addEventListener('click', () => this.pindahKe(i));
             this.wadahTitik.appendChild(tombol);
         }
     }
 
     aturEventSentuh() {
-        // Sentuh mulai
         this.wadah.addEventListener('touchstart', (e) => {
             this.awalX = e.touches[0].clientX;
             this.sedangGeser = true;
@@ -778,7 +781,6 @@ class SliderUsap {
             this.lebarSlide = this.wadah.offsetWidth;
         }, { passive: true });
 
-        // Sedang digeser
         this.wadah.addEventListener('touchmove', (e) => {
             if (!this.sedangGeser) return;
             this.bergerakX = e.touches[0].clientX - this.awalX;
@@ -786,22 +788,49 @@ class SliderUsap {
             this.slides.style.transform = `translateX(${geser}%)`;
         }, { passive: true });
 
-        // Lepas sentuh → tentukan pindah atau kembali
-        this.wadah.addEventListener('touchend', () => {
-            if (!this.sedangGeser) return;
-            this.sedangGeser = false;
-            this.slides.style.transition = 'transform 0.3s ease-out';
+        this.wadah.addEventListener('touchend', () => this.selesaiGeser(), { passive: true });
+    }
 
-            const ambang = this.lebarSlide / 4;
-            if (this.bergerakX < -ambang) {
-                this.berikutnya();
-            } else if (this.bergerakX > ambang) {
-                this.sebelumnya();
-            } else {
-                this.perbarui(true);
-            }
-            this.bergerakX = 0;
-        }, { passive: true });
+    aturEventMouse() {
+        this.wadah.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            this.awalX = e.clientX;
+            this.sedangGeser = true;
+            this.slides.style.transition = 'none';
+            this.lebarSlide = this.wadah.offsetWidth;
+            this.wadah.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!this.sedangGeser) return;
+            this.bergerakX = e.clientX - this.awalX;
+            const geser = -this.indeks * 100 + (this.bergerakX / this.lebarSlide) * 100;
+            this.slides.style.transform = `translateX(${geser}%)`;
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (!this.sedangGeser) return;
+            this.wadah.style.cursor = 'grab';
+            this.selesaiGeser();
+        });
+
+        this.wadah.style.cursor = 'grab';
+        this.wadah.style.userSelect = 'none';
+    }
+
+    selesaiGeser() {
+        this.sedangGeser = false;
+        this.slides.style.transition = 'transform 0.3s ease-out';
+
+        const ambang = this.lebarSlide / 4;
+        if (this.bergerakX < -ambang) {
+            this.berikutnya();
+        } else if (this.bergerakX > ambang) {
+            this.sebelumnya();
+        } else {
+            this.perbarui(true);
+        }
+        this.bergerakX = 0;
     }
 
     perbarui(animasi = true) {
@@ -811,15 +840,9 @@ class SliderUsap {
         titik.forEach((t, i) => t.classList.toggle('active', i === this.indeks));
     }
 
-    berikutnya() {
-        this.indeks = (this.indeks + 1) % this.jumlah;
-        this.perbarui(true);
-    }
-
-    sebelumnya() {
-        this.indeks = (this.indeks - 1 + this.jumlah) % this.jumlah;
-        this.perbarui(true);
-    }
+    pindahKe(urutan) { this.indeks = urutan; this.perbarui(true); }
+    berikutnya() { this.indeks = (this.indeks + 1) % this.jumlah; this.perbarui(true); }
+    sebelumnya() { this.indeks = (this.indeks - 1 + this.jumlah) % this.jumlah; this.perbarui(true); }
 }
 
 // === FUNGSI TIMER ===
@@ -1074,8 +1097,9 @@ document.addEventListener('DOMContentLoaded', () => {
     aturTimer();
     setInterval(aturTimer, 1000);
 
-    // ✅ SEMUA SLIDER HANYA GESER PAKAI JARI — TIDAK OTOMATIS
-    const sliderUtama = new SliderUsap(document.querySelector('.box-slider'));
+    // ✅ SEMUA SLIDER — GESER JARI + MOUSE, TIDAK OTOMATIS
+    const sliderEl = document.querySelector('.box-slider');
+    if (sliderEl) new SliderUsap(sliderEl);
     document.querySelectorAll('.kartu-media').forEach(el => new SliderUsap(el));
 
     if (poSelesai) kunciSemuaPreOrder();
