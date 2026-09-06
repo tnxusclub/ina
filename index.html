@@ -84,7 +84,7 @@
             margin: 20px auto; border-radius: 12px; overflow: hidden; background: #111;
         }
 
-        /* === SLIDER FOTO (1:1, LAMBAT, LANCAR) === */
+        /* === SLIDER FOTO 1:1 — HANYA SENTUH, TIDAK OTOMATIS === */
         .box-slider {
             width: 100%; max-width: 450px;
             aspect-ratio: 1 / 1;
@@ -386,7 +386,7 @@
         <h1>TNXUS CLUB</h1>
         <p class="desc">Kaos Premium • Bahan Berkualitas • Desain Eksklusif</p>
 
-        <!-- SLIDER UTAMA -->
+        <!-- SLIDER UTAMA — SENTUH MANUAL -->
         <div class="box-slider" data-slider="utama">
             <div class="slider">
                 <div class="slides">
@@ -593,7 +593,7 @@
         </footer>
 
         <script>
-            // DATA PENGGUNA AFILIASI
+            // DATA PENGGUNA AFILIASI — HANYA 20
             const daftarPengguna = [
                 { no:1, nama:"Budi Santoso", poin:18500, foto:"https://i.pravatar.cc/150?img=11" },
                 { no:2, nama:"Siti Aminah", poin:17200, foto:"https://i.pravatar.cc/150?img=5" },
@@ -617,9 +617,9 @@
                 { no:20, nama:"Tio Pratama", poin:4200, foto:"https://i.pravatar.cc/150?img=50" },
             ];
 
-            // FUNGSI SENSOR NAMA
+            // FUNGSI SENSOR NAMA: B*********O
             function sensorNama(nama) {
-                nama = nama.trim().toLowerCase();
+                nama = nama.trim();
                 if (nama.length <= 2) return nama;
                 const depan = nama[0];
                 const belakang = nama[nama.length - 1];
@@ -627,14 +627,13 @@
                 return `${depan}${bintang}${belakang}`;
             }
 
+            // Urutkan & Tampilkan Hanya 20 Teratas
             daftarPengguna.sort((a,b) => b.poin - a.poin);
             const wadah = document.getElementById('daftar-peringkat');
             wadah.innerHTML = '';
 
-            daftarPengguna.forEach(orang => {
-                const no = orang.no;
-                if (no > 20) return;
-
+            daftarPengguna.slice(0, 20).forEach((orang, idx) => {
+                const no = idx + 1;
                 let kelasKartu = 'kartu-peringkat bg-kartu border border-slate-700 rounded-xl p-4 flex items-center gap-4';
                 let kelasFoto = 'p-1 rounded-full bg-slate-500';
                 let mahkota = '';
@@ -684,7 +683,7 @@
         
         <div id="keranjang-list"></div>
 
-        <!-- ✅ BAGIAN KODE DISKON (MUDAH DIATUR) -->
+        <!-- ✅ BAGIAN KODE DISKON — MUDAH DIATUR -->
         <div class="kotak-diskon">
             <h3 style="margin-bottom:12px; color:#fff;">🎁 Kode Diskon</h3>
             <input type="text" id="input-kode" placeholder="Masukkan kode unik...">
@@ -718,18 +717,26 @@
 
 <script>
 // ==================================================
-// ⚙️ PENGATURAN KODE DISKON (AMAN & MUDAH)
+// ⚙️ PENGATURAN KODE DISKON — UBAH DISINI
 // ==================================================
 const DAFTAR_KODE_DISKON = Object.freeze({
     "TNXUS10": 10000,
-    "HEMAT5000": 5000,
-    "BARU15": 15000,
-    "VIP20": 20000
+    "HEMAT5": 5000,
+    "DISKON15": 15000,
+    "TNXUSCLUB": 20000
+    // Tambah kode diskon baru di sini: "KODE": nominal
 });
-let kodeTerpakai = null;
 let nilaiDiskon = 0;
+let kodeTerpakai = null;
 
-// === KELAS SLIDER (AMAN & LANCAR) ===
+// ==================================================
+// ⏳ PENGATURAN TIMER — UBAH TANGGAL BERAKHIR DISINI
+// Format: "TAHUN-BULAN-TANGGAL JAM:MENIT:DETIK"
+// ==================================================
+const TANGGAL_AKHIR_PO = new Date("2026-09-10 23:59:59").getTime();
+let poSelesai = false;
+
+// === KELAS SLIDER — HANYA SENTUH, TIDAK OTOMATIS ===
 class SliderUsap {
     constructor(elemen) {
         this.wadah = elemen;
@@ -738,10 +745,12 @@ class SliderUsap {
         this.indeks = 0;
         this.jumlah = this.slides ? this.slides.querySelectorAll('.slide, .kartu-slide').length : 0;
         this.sedangGeser = false;
+        this.awalX = 0;
+        this.akhirX = 0;
 
         if (this.jumlah > 0) {
             this.buatTitik();
-            this.aturSentuh();
+            this.aturEventSentuh();
             this.perbarui();
         }
     }
@@ -756,16 +765,26 @@ class SliderUsap {
         }
     }
 
-    aturSentuh() {
-        let xAwal = null;
-        this.wadah.addEventListener('touchstart', e => { xAwal = e.touches[0].clientX; }, { passive: true });
-        this.wadah.addEventListener('touchend', e => {
-            if (!xAwal) return;
-            const xAkhir = e.changedTouches[0].clientX;
-            const selisih = xAwal - xAkhir;
-            if (Math.abs(selisih) > 50) selisih > 0 ? this.berikutnya() : this.sebelumnya();
-            xAwal = null;
+    aturEventSentuh() {
+        this.wadah.addEventListener('touchstart', e => {
+            this.awalX = e.touches[0].clientX;
+            this.sedangGeser = true;
         }, { passive: true });
+
+        this.wadah.addEventListener('touchend', e => {
+            if (!this.sedangGeser) return;
+            this.akhirX = e.changedTouches[0].clientX;
+            this.prosesGeser();
+            this.sedangGeser = false;
+        }, { passive: true });
+    }
+
+    prosesGeser() {
+        const selisih = this.awalX - this.akhirX;
+        const ambang = 50;
+        if (Math.abs(selisih) > ambang) {
+            selisih > 0 ? this.berikutnya() : this.sebelumnya();
+        }
     }
 
     perbarui() {
@@ -777,18 +796,9 @@ class SliderUsap {
     pindahKe(urutan) { if (!this.sedangGeser) { this.indeks = urutan; this.perbarui(); } }
     berikutnya() { if (!this.sedangGeser) this.indeks = (this.indeks + 1) % this.jumlah; this.perbarui(); }
     sebelumnya() { if (!this.sedangGeser) this.indeks = (this.indeks - 1 + this.jumlah) % this.jumlah; this.perbarui(); }
-
-    putarOtomatis(ms = 4000) { this.interval = setInterval(() => this.berikutnya(), ms); }
-    berhentiOtomatis() { clearInterval(this.interval); }
 }
 
-// ==================================================
-// ⏳ PENGATURAN TIMER (BERJALAN LANCAR & KUNCI OTOMATIS)
-// Format: "TAHUN-BULAN-TANGGAL JAM:MENIT:DETIK"
-// ==================================================
-const TANGGAL_AKHIR_PO = new Date("2026-09-10 15:00:00").getTime();
-let poSelesai = false;
-
+// === FUNGSI TIMER ===
 function aturTimer() {
     const sekarang = new Date().getTime();
     const sisa = TANGGAL_AKHIR_PO - sekarang;
@@ -809,7 +819,6 @@ function aturTimer() {
         statusTimer.classList.add('habis');
 
         semuaTimerProduk.forEach(el => el.textContent = "HABIS");
-
         kunciSemuaPreOrder();
         return;
     }
@@ -834,7 +843,7 @@ function aturTimer() {
     semuaTimerProduk.forEach(el => el.textContent = tampil);
 }
 
-// 🔒 KUNCI SEMUA PRODUK PRE ORDER JIKA WAKTU HABIS
+// === KUNCI PRODUK PO SAAT HABIS ===
 function kunciSemuaPreOrder() {
     const produkPO = document.querySelectorAll('.kartu-produk[data-tipe="preorder"]');
     produkPO.forEach(kartu => {
@@ -871,7 +880,7 @@ function gantiHarga(pilih) {
     info.querySelector('.harga span').textContent = parseInt(pilih.value).toLocaleString('id-ID');
 }
 
-// === UBAH JUMLAH BELI (AMAN & CEK STOK) ===
+// === UBAH JUMLAH BELI ===
 function ubahJumlah(tombol, langkah) {
     const kartu = tombol.closest('.kartu-produk');
     if (kartu.classList.contains('kunci')) return;
@@ -884,7 +893,7 @@ function ubahJumlah(tombol, langkah) {
     input.value = nilai;
 }
 
-// 🛒 KERANJANG BELANJA (AMAN)
+// === KERANJANG ===
 let keranjang = [];
 
 function tambahKeKeranjang(nama, tombol, foto) {
@@ -962,7 +971,7 @@ function perbaruiTampilanKeranjang() {
 
 function hapusDariKeranjang(indeks) { keranjang.splice(indeks, 1); perbaruiTampilanKeranjang(); }
 
-// ✅ SISTEM KODE DISKON (AMAN)
+// === CEK KODE DISKON ===
 function cekKodeDiskon() {
     const input = document.getElementById('input-kode').value.trim().toUpperCase();
     const pesan = document.getElementById('pesan-diskon');
@@ -986,7 +995,7 @@ function cekKodeDiskon() {
     perbaruiTampilanKeranjang();
 }
 
-// 📤 KIRIM KE WHATSAPP
+// === KIRIM KE WHATSAPP ===
 function kirimKeWA() {
     const nama = document.getElementById('nama').value.trim();
     const wa = document.getElementById('wa').value.trim();
@@ -1029,27 +1038,18 @@ function kirimKeWA() {
     window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(teks)}`, '_blank');
 }
 
-// 🚀 JALANKAN SEMUA SAAT HALAMAN SIAP
+// === JALANKAN SAAT HALAMAN SIAP ===
 document.addEventListener('DOMContentLoaded', () => {
-    // Nomor Pesanan
     document.getElementById('no-pesanan').textContent = 'TNX' + Date.now();
     document.getElementById('tgl').textContent = new Date().toLocaleString('id-ID');
 
-    // Jalankan Timer & Perbarui Setiap Detik
     aturTimer();
     setInterval(aturTimer, 1000);
 
-    // Jalankan Slider Utama
+    // SLIDER HANYA SENTUH — TIDAK OTOMATIS
     const sliderUtama = new SliderUsap(document.querySelector('.box-slider'));
-    sliderUtama.putarOtomatis(4000);
+    document.querySelectorAll('.kartu-media').forEach(el => new SliderUsap(el));
 
-    // Jalankan Slider Produk
-    document.querySelectorAll('.kartu-media').forEach(el => {
-        const s = new SliderUsap(el);
-        if (s.jumlah > 1) s.putarOtomatis(4000);
-    });
-
-    // Cek Sekali Lagi Produk PO Jika Timer Sudah Habis
     if (poSelesai) kunciSemuaPreOrder();
 });
 </script>
