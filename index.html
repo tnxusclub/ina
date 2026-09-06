@@ -84,7 +84,7 @@
             margin: 20px auto; border-radius: 12px; overflow: hidden; background: #111;
         }
 
-        /* === SLIDER FOTO 1:1 — HANYA SENTUH, TIDAK OTOMATIS === */
+        /* === SLIDER FOTO 1:1 — GESER PAKAI JARI === */
         .box-slider {
             width: 100%; max-width: 450px;
             aspect-ratio: 1 / 1;
@@ -92,16 +92,16 @@
             position: relative; touch-action: pan-y;
         }
         .slider { width: 100%; height: 100%; overflow: hidden; }
-        .slides { display: flex; height: 100%; transition: transform 0.5s ease; }
+        .slides { display: flex; height: 100%; }
         .slide { width: 100%; flex-shrink: 0; }
-        .slide-img { width: 100%; height: 100%; object-fit: cover; display: block; user-select: none; }
+        .slide-img { width: 100%; height: 100%; object-fit: cover; display: block; user-select: none; -webkit-user-drag: none; }
         .slider-dots {
             position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
             display: flex; gap: 6px; z-index: 5;
         }
         .dot {
             width: 8px; height: 8px; border-radius: 50%;
-            background: rgba(255,255,255,0.4); border: none; cursor: pointer;
+            background: rgba(255,255,255,0.4); border: none; cursor: pointer; padding: 0;
         }
         .dot.active { background: #ff0055; width: 18px; border-radius: 4px; }
 
@@ -109,7 +109,7 @@
         h1 { text-align: center; color: #ff0055; margin: 15px 0; font-size: 28px; }
         .desc { text-align: center; color: #aaa; margin-bottom: 30px; }
 
-        /* === TIMER (DENGAN KOTAK RAPI) === */
+        /* === TIMER === */
         .timer-wrapper {
             background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
             border: 2px solid #ff0055; border-radius: 15px;
@@ -173,16 +173,16 @@
             touch-action: pan-y;
         }
         .kartu-slider { width: 100%; height: 100%; overflow: hidden; }
-        .kartu-slides { display: flex; height: 100%; transition: transform 0.5s ease; }
+        .kartu-slides { display: flex; height: 100%; }
         .kartu-slide { width: 100%; flex-shrink: 0; }
-        .kartu-slide-img { width: 100%; height: 100%; object-fit: cover; display: block; user-select: none; }
+        .kartu-slide-img { width: 100%; height: 100%; object-fit: cover; display: block; user-select: none; -webkit-user-drag: none; }
         .kartu-dots {
             position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
             display: flex; gap: 4px; z-index: 3;
         }
         .kartu-dot {
             width: 6px; height: 6px; border-radius: 50%;
-            background: rgba(255,255,255,0.4); border: none; cursor: pointer;
+            background: rgba(255,255,255,0.4); border: none; cursor: pointer; padding: 0;
         }
         .kartu-dot.active { background: #ff0055; width: 14px; border-radius: 3px; }
 
@@ -386,13 +386,13 @@
         <h1>TNXUS CLUB</h1>
         <p class="desc">Kaos Premium • Bahan Berkualitas • Desain Eksklusif</p>
 
-        <!-- SLIDER UTAMA — SENTUH MANUAL -->
+        <!-- SLIDER UTAMA — GESER PAKAI JARI -->
         <div class="box-slider" data-slider="utama">
             <div class="slider">
                 <div class="slides">
-                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-slide-1.jpeg" alt="Foto 1" loading="lazy"></div>
-                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-slide-2.jpeg" alt="Foto 2" loading="lazy"></div>
-                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-slide-3.jpeg" alt="Foto 3" loading="lazy"></div>
+                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto1.jpeg" alt="Foto 1" loading="lazy"></div>
+                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto2.jpeg" alt="Foto 2" loading="lazy"></div>
+                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto3.jpeg" alt="Foto 3" loading="lazy"></div>
                 </div>
             </div>
             <div class="slider-dots"></div>
@@ -736,7 +736,7 @@ let kodeTerpakai = null;
 const TANGGAL_AKHIR_PO = new Date("2026-09-10 23:59:59").getTime();
 let poSelesai = false;
 
-// === KELAS SLIDER — HANYA SENTUH, TIDAK OTOMATIS ===
+// === KELAS SLIDER — GESER PAKAI JARI SAJA, TIDAK OTOMATIS ===
 class SliderUsap {
     constructor(elemen) {
         this.wadah = elemen;
@@ -746,12 +746,14 @@ class SliderUsap {
         this.jumlah = this.slides ? this.slides.querySelectorAll('.slide, .kartu-slide').length : 0;
         this.sedangGeser = false;
         this.awalX = 0;
-        this.akhirX = 0;
+        this.bergerakX = 0;
+        this.lebarSlide = 0;
 
         if (this.jumlah > 0) {
+            this.lebarSlide = this.wadah.offsetWidth;
             this.buatTitik();
             this.aturEventSentuh();
-            this.perbarui();
+            this.perbarui(false);
         }
     }
 
@@ -760,42 +762,64 @@ class SliderUsap {
             const tombol = document.createElement('button');
             tombol.className = this.wadah.classList.contains('box-slider') ? 'dot' : 'kartu-dot';
             tombol.setAttribute('aria-label', `Slide ${i + 1}`);
-            tombol.addEventListener('click', () => this.pindahKe(i));
+            tombol.style.border = 'none';
+            tombol.style.background = 'rgba(255,255,255,0.3)';
+            tombol.style.padding = '0';
             this.wadahTitik.appendChild(tombol);
         }
     }
 
     aturEventSentuh() {
-        this.wadah.addEventListener('touchstart', e => {
+        // Sentuh mulai
+        this.wadah.addEventListener('touchstart', (e) => {
             this.awalX = e.touches[0].clientX;
             this.sedangGeser = true;
+            this.slides.style.transition = 'none';
+            this.lebarSlide = this.wadah.offsetWidth;
         }, { passive: true });
 
-        this.wadah.addEventListener('touchend', e => {
+        // Sedang digeser
+        this.wadah.addEventListener('touchmove', (e) => {
             if (!this.sedangGeser) return;
-            this.akhirX = e.changedTouches[0].clientX;
-            this.prosesGeser();
+            this.bergerakX = e.touches[0].clientX - this.awalX;
+            const geser = -this.indeks * 100 + (this.bergerakX / this.lebarSlide) * 100;
+            this.slides.style.transform = `translateX(${geser}%)`;
+        }, { passive: true });
+
+        // Lepas sentuh → tentukan pindah atau kembali
+        this.wadah.addEventListener('touchend', () => {
+            if (!this.sedangGeser) return;
             this.sedangGeser = false;
+            this.slides.style.transition = 'transform 0.3s ease-out';
+
+            const ambang = this.lebarSlide / 4;
+            if (this.bergerakX < -ambang) {
+                this.berikutnya();
+            } else if (this.bergerakX > ambang) {
+                this.sebelumnya();
+            } else {
+                this.perbarui(true);
+            }
+            this.bergerakX = 0;
         }, { passive: true });
     }
 
-    prosesGeser() {
-        const selisih = this.awalX - this.akhirX;
-        const ambang = 50;
-        if (Math.abs(selisih) > ambang) {
-            selisih > 0 ? this.berikutnya() : this.sebelumnya();
-        }
-    }
-
-    perbarui() {
+    perbarui(animasi = true) {
+        if (animasi) this.slides.style.transition = 'transform 0.3s ease-out';
         this.slides.style.transform = `translateX(-${this.indeks * 100}%)`;
         const titik = this.wadahTitik.querySelectorAll('.dot, .kartu-dot');
         titik.forEach((t, i) => t.classList.toggle('active', i === this.indeks));
     }
 
-    pindahKe(urutan) { if (!this.sedangGeser) { this.indeks = urutan; this.perbarui(); } }
-    berikutnya() { if (!this.sedangGeser) this.indeks = (this.indeks + 1) % this.jumlah; this.perbarui(); }
-    sebelumnya() { if (!this.sedangGeser) this.indeks = (this.indeks - 1 + this.jumlah) % this.jumlah; this.perbarui(); }
+    berikutnya() {
+        this.indeks = (this.indeks + 1) % this.jumlah;
+        this.perbarui(true);
+    }
+
+    sebelumnya() {
+        this.indeks = (this.indeks - 1 + this.jumlah) % this.jumlah;
+        this.perbarui(true);
+    }
 }
 
 // === FUNGSI TIMER ===
@@ -814,9 +838,11 @@ function aturTimer() {
         document.getElementById('m').textContent = '00';
         document.getElementById('s').textContent = '00';
 
-        wadahTimer.classList.add('habis');
-        statusTimer.textContent = "WAKTU HABIS";
-        statusTimer.classList.add('habis');
+        if (wadahTimer) wadahTimer.classList.add('habis');
+        if (statusTimer) {
+            statusTimer.textContent = "WAKTU HABIS";
+            statusTimer.classList.add('habis');
+        }
 
         semuaTimerProduk.forEach(el => el.textContent = "HABIS");
         kunciSemuaPreOrder();
@@ -824,9 +850,11 @@ function aturTimer() {
     }
 
     poSelesai = false;
-    wadahTimer.classList.remove('habis');
-    statusTimer.textContent = "MASIH BERJALAN";
-    statusTimer.classList.remove('habis');
+    if (wadahTimer) wadahTimer.classList.remove('habis');
+    if (statusTimer) {
+        statusTimer.textContent = "MASIH BERJALAN";
+        statusTimer.classList.remove('habis');
+    }
 
     const hari = Math.floor(sisa / (1000 * 60 * 60 * 24));
     const jam = Math.floor((sisa % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -834,10 +862,10 @@ function aturTimer() {
     const detik = Math.floor((sisa % (1000 * 60)) / 1000);
 
     const f = n => String(n).padStart(2, '0');
-    document.getElementById('d').textContent = f(hari);
-    document.getElementById('h').textContent = f(jam);
-    document.getElementById('m').textContent = f(menit);
-    document.getElementById('s').textContent = f(detik);
+    if (document.getElementById('d')) document.getElementById('d').textContent = f(hari);
+    if (document.getElementById('h')) document.getElementById('h').textContent = f(jam);
+    if (document.getElementById('m')) document.getElementById('m').textContent = f(menit);
+    if (document.getElementById('s')) document.getElementById('s').textContent = f(detik);
 
     const tampil = `${f(hari)}:${f(jam)}:${f(menit)}`;
     semuaTimerProduk.forEach(el => el.textContent = tampil);
@@ -1046,7 +1074,7 @@ document.addEventListener('DOMContentLoaded', () => {
     aturTimer();
     setInterval(aturTimer, 1000);
 
-    // SLIDER HANYA SENTUH — TIDAK OTOMATIS
+    // ✅ SEMUA SLIDER HANYA GESER PAKAI JARI — TIDAK OTOMATIS
     const sliderUtama = new SliderUsap(document.querySelector('.box-slider'));
     document.querySelectorAll('.kartu-media').forEach(el => new SliderUsap(el));
 
