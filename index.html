@@ -28,11 +28,12 @@
         .box-logo{width:100%;max-width:280px;aspect-ratio:1/1;margin:20px auto;border-radius:12px;overflow:hidden;background:#111}
         .box-slider{width:100%;max-width:450px;aspect-ratio:1/1;margin:20px auto;border-radius:12px;overflow:hidden;background:#111;position:relative;touch-action:pan-y;cursor:grab;user-select:none}
         .box-slider:active{cursor:grabbing}
-        .slides{display:flex;height:100%}
+        .slides{display:flex;height:100%;transition:transform .3s ease-out}
+        .slides.geser-aktif{transition:none}
         .slide{width:100%;flex-shrink:0}
         .slide-img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
         .slider-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:5}
-        .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4);border:none;cursor:pointer;padding:0}
+        .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4);border:none;cursor:pointer;padding:0;transition:all .2s}
         .dot.active{background:#ff0055;width:18px;border-radius:4px}
         video{width:100%;height:100%;object-fit:cover}
         h1{text-align:center;color:#ff0055;margin:15px 0;font-size:28px}
@@ -57,11 +58,12 @@
         .kartu-produk.kunci{opacity:.6;border-color:#333}
         .kartu-media{position:relative;aspect-ratio:1/1;overflow:hidden;background:#000;touch-action:pan-y;cursor:grab;user-select:none}
         .kartu-media:active{cursor:grabbing}
-        .kartu-slides{display:flex;height:100%}
+        .kartu-slides{display:flex;height:100%;transition:transform .3s ease-out}
+        .kartu-slides.geser-aktif{transition:none}
         .kartu-slide{width:100%;flex-shrink:0}
         .kartu-slide-img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
         .kartu-dots{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);display:flex;gap:4px;z-index:3}
-        .kartu-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);border:none;cursor:pointer;padding:0}
+        .kartu-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);border:none;cursor:pointer;padding:0;transition:all .2s}
         .kartu-dot.active{background:#ff0055;width:14px;border-radius:3px}
         .kartu-info{padding:15px}
         .kartu-info h3{margin-bottom:8px;color:#fff}
@@ -111,52 +113,7 @@
         .footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:25px}
         .footer-links a{color:#aaa;text-decoration:none}
         .footer-links a:hover{color:#ff0055}
-    <style>
-/* === SLIDE GESER FOTO PRODUK === */
-.wadah-slide {
-    overflow: hidden;
-    touch-action: pan-y;
-    user-select: none;
-    -webkit-user-select: none;
-    width: 100%;
-    aspect-ratio: 1 / 1; /* Tetap 1:1 */
-    position: relative;
-}
-.isi-slide {
-    display: flex;
-    transition: transform 0.3s ease-out;
-    will-change: transform;
-    height: 100%;
-}
-.isi-slide.geser-aktif {
-    transition: none;
-}
-.foto-item {
-    min-width: 100%;
-    height: 100%;
-    object-fit: cover;
-    flex-shrink: 0;
-}
-/* Indikator titik */
-.indikator-dot {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 8px;
-}
-.dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.4);
-    cursor: pointer;
-}
-.dot.aktif {
-    background: #fff;
-}
-</style>
+    </style>
 </head>
 <body>
 
@@ -179,9 +136,9 @@
         <h1>TNXUS CLUB</h1><p class="desc">Kaos Premium • Bahan Berkualitas • Desain Eksklusif</p>
         <div class="box-slider">
             <div class="slides">
-                <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-slide-1.jpeg" alt="Foto 1" loading="lazy"></div>
-                <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-slide-2.jpeg" alt="Foto 2" loading="lazy"></div>
-                <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-slide-3.jpeg" alt="Foto 3" loading="lazy"></div>
+                <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto1.jpeg" alt="Foto 1" loading="lazy"></div>
+                <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto2.jpeg" alt="Foto 2" loading="lazy"></div>
+                <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto3.jpeg" alt="Foto 3" loading="lazy"></div>
             </div>
             <div class="slider-dots"></div>
         </div>
@@ -202,30 +159,19 @@
                     <span class="timer-label">PRE ORDER</span>
                     <span class="stok-label">Stok: <span class="stok-val">—</span></span>
                     <div class="kartu-slides">
-                        <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/rose-thorn-1.jpeg" alt="Produk" loading="lazy"></div>
-                        <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/rose-thorn-2.jpeg" alt="Produk" loading="lazy"></div>
-                         <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/rose-thorn-3.jpeg" alt="Produk" loading="lazy"></div>
-                    </div>
+                        <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/po1.jpeg" alt="Produk" loading="lazy"></div>
+                        <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto2.jpeg" alt="Produk" loading="lazy"></div>
                     </div>
                     <div class="kartu-dots"></div>
                 </div>
                 <div class="kartu-info">
-                    <h3>TNXUS ROSE & THORN</h3>
+                    <h3>Kaos TNXUS Edisi Special</h3>
                     <p class="desc">Katun 24s • Sablon DTF</p>
                     <p class="info-stok">✅ Tersedia: <span class="stok-val">—</span> pcs</p>
-                    <div class="ukuran"><select onchange="gantiHarga(this)">
-                        <option value="95000">WHITE SIZE S - Rp95.000</option>
-                        <option value="100000">WHITE SIZE M - Rp100.000</option>
-                        <option value="105000">WHITE SIZE L - Rp105.000</option>
-                        <option value="110000">WHITE SIZE XL - Rp110.000</option>
-                        <option value="95000">BLACK SIZE S - Rp95.000</option>
-                        <option value="100000">BLACK SIZE M - Rp100.000</option>
-                        <option value="105000">BLACK SIZE L - Rp105.000</option>
-                        <option value="110000">BLACK SIZE XL - Rp110.000</option>
-                    </select></div>
+                    <div class="ukuran"><select onchange="gantiHarga(this)"><option value="95000">S - Rp95.000</option><option value="100000">M - Rp100.000</option><option value="105000">L - Rp105.000</option><option value="110000">XL - Rp110.000</option></select></div>
                     <div class="harga">Rp<span>95.000</span></div>
                     <div class="jumlah-group"><button class="jumlah-btn" onclick="ubahJumlah(this,-1)">−</button><input type="number" class="jumlah-input" value="1" min="1" readonly><button class="jumlah-btn" onclick="ubahJumlah(this,1)">+</button></div>
-                    <button class="btn-cart" onclick="tambahKeKeranjang('TNXUS ROSE & THORN',this,'https://raw.githubusercontent.com/tnxusclub/ina/main/rose-thorn-1.jpeg')">+ Keranjang</button>
+                    <button class="btn-cart" onclick="tambahKeKeranjang('Kaos TNXUS Edisi Special',this,'https://raw.githubusercontent.com/tnxusclub/ina/main/po1.jpeg')">+ Keranjang</button>
                 </div>
             </div>
         </div>
@@ -403,17 +349,110 @@ let nilaiDiskon=0, kodeTerpakai=null, keranjang=[], poSelesai=false, stokData={}
 // ==================================================
 const TANGGAL_AKHIR_PO = new Date("2026-09-15 23:59:59").getTime();
 
-// === SLIDER GESER ===
+// === SLIDER GESER — JARI DI HP & KURSOR DI KOMPUTER ===
 class SliderUsap {
-    constructor(e){this.wadah=e;this.slides=this.wadah.querySelector('.slides,.kartu-slides');this.wadahTitik=this.wadah.querySelector('.slider-dots,.kartu-dots');this.indeks=0;this.jumlah=this.slides?this.slides.querySelectorAll('.slide,.kartu-slide').length:0;this.sedangGeser=false;this.awalX=0;this.bergerakX=0;this.lebarSlide=0;this.jumlah>0&&(this.lebarSlide=this.wadah.offsetWidth,this.buatTitik(),this.aturEventSentuh(),this.aturEventMouse(),this.perbarui(!1))}
-    buatTitik(){for(let i=0;i<this.jumlah;i++){const t=document.createElement('button');t.className=this.wadah.classList.contains('box-slider')?'dot':'kartu-dot',t.style.border='none',t.style.background='rgba(255,255,255,.3)',t.style.padding='0',t.style.cursor='pointer',t.addEventListener('click',()=>this.pindahKe(i)),this.wadahTitik.appendChild(t)}}
-    aturEventSentuh(){this.wadah.addEventListener('touchstart',e=>{this.awalX=e.touches[0].clientX,this.sedangGeser=!0,this.slides.style.transition='none',this.lebarSlide=this.wadah.offsetWidth},{passive:!0}),this.wadah.addEventListener('touchmove',e=>{if(!this.sedangGeser)return;this.bergerakX=e.touches[0].clientX-this.awalX;const t=-this.indeks*100+(this.bergerakX/this.lebarSlide)*100;this.slides.style.transform=`translateX(${t}%)`},{passive:!0}),this.wadah.addEventListener('touchend',()=>this.selesaiGeser(),{passive:!0})}
-    aturEventMouse(){this.wadah.addEventListener('mousedown',e=>{e.preventDefault(),this.awalX=e.clientX,this.sedangGeser=!0,this.slides.style.transition='none',this.lebarSlide=this.wadah.offsetWidth,this.wadah.style.cursor='grabbing'}),document.addEventListener('mousemove',e=>{if(!this.sedangGeser)return;this.bergerakX=e.clientX-this.awalX;const t=-this.indeks*100+(this.bergerakX/this.lebarSlide)*100;this.slides.style.transform=`translateX(${t}%)`}),document.addEventListener('mouseup',()=>{this.sedangGeser&&(this.wadah.style.cursor='grab',this.selesaiGeser())}),this.wadah.style.cursor='grab',this.wadah.style.userSelect='none'}
-    selesaiGeser(){this.sedangGeser=!1,this.slides.style.transition='transform .3s ease-out';const e=this.lebarSlide/4;this.bergerakX<-e?this.berikutnya():this.bergerakX>e?this.sebelumnya():this.perbarui(!0),this.bergerakX=0}
-    perbarui(e=!0){e&&(this.slides.style.transition='transform .3s ease-out'),this.slides.style.transform=`translateX(-${this.indeks*100}%)`;const t=this.wadahTitik.querySelectorAll('.dot,.kartu-dot');t.forEach((e,i)=>e.classList.toggle('active',i===this.indeks))}
-    pindahKe(e){this.indeks=e,this.perbarui(!0)}
-    berikutnya(){this.indeks=(this.indeks+1)%this.jumlah,this.perbarui(!0)}
-    sebelumnya(){this.indeks=(this.indeks-1+this.jumlah)%this.jumlah,this.perbarui(!0)}
+    constructor(wadah) {
+        this.wadah = wadah;
+        this.slides = wadah.querySelector('.slides, .kartu-slides');
+        this.wadahTitik = wadah.querySelector('.slider-dots, .kartu-dots');
+        this.indeks = 0;
+        this.jumlah = this.slides ? this.slides.querySelectorAll('.slide, .kartu-slide').length : 0;
+        this.sedangGeser = false;
+        this.awalX = 0;
+        this.bergerakX = 0;
+        this.lebarSlide = 0;
+
+        if (this.jumlah === 0) return;
+        
+        this.lebarSlide = this.wadah.offsetWidth;
+        this.buatTitik();
+        this.aturEventSentuh();
+        this.aturEventMouse();
+        this.perbarui(false);
+    }
+
+    buatTitik() {
+        for (let i = 0; i < this.jumlah; i++) {
+            const btn = document.createElement('button');
+            btn.className = this.wadah.classList.contains('box-slider') ? 'dot' : 'kartu-dot';
+            btn.addEventListener('click', () => this.pindahKe(i));
+            this.wadahTitik.appendChild(btn);
+        }
+    }
+
+    aturEventSentuh() {
+        // Geser pakai jari di HP Android
+        this.wadah.addEventListener('touchstart', e => {
+            this.awalX = e.touches[0].clientX;
+            this.sedangGeser = true;
+            this.slides.classList.add('geser-aktif');
+            this.lebarSlide = this.wadah.offsetWidth;
+        }, { passive: true });
+
+        this.wadah.addEventListener('touchmove', e => {
+            if (!this.sedangGeser) return;
+            this.bergerakX = e.touches[0].clientX - this.awalX;
+            const geser = -this.indeks * 100 + (this.bergerakX / this.lebarSlide) * 100;
+            this.slides.style.transform = `translateX(${geser}%)`;
+        }, { passive: true });
+
+        this.wadah.addEventListener('touchend', () => this.selesaiGeser(), { passive: true });
+    }
+
+    aturEventMouse() {
+        // Geser pakai kursor di komputer
+        this.wadah.addEventListener('mousedown', e => {
+            e.preventDefault();
+            this.awalX = e.clientX;
+            this.sedangGeser = true;
+            this.slides.classList.add('geser-aktif');
+            this.lebarSlide = this.wadah.offsetWidth;
+            this.wadah.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('mousemove', e => {
+            if (!this.sedangGeser) return;
+            this.bergerakX = e.clientX - this.awalX;
+            const geser = -this.indeks * 100 + (this.bergerakX / this.lebarSlide) * 100;
+            this.slides.style.transform = `translateX(${geser}%)`;
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (!this.sedangGeser) return;
+            this.wadah.style.cursor = 'grab';
+            this.selesaiGeser();
+        });
+    }
+
+    selesaiGeser() {
+        this.sedangGeser = false;
+        this.slides.classList.remove('geser-aktif');
+        const batas = this.lebarSlide / 4;
+
+        if (this.bergerakX < -batas) {
+            this.indeks = Math.min(this.indeks + 1, this.jumlah - 1);
+        } else if (this.bergerakX > batas) {
+            this.indeks = Math.max(this.indeks - 1, 0);
+        }
+        
+        this.bergerakX = 0;
+        this.perbarui(true);
+    }
+
+    perbarui(animasi = true) {
+        if (!animasi) this.slides.style.transition = 'none';
+        else this.slides.style.transition = 'transform 0.3s ease-out';
+        
+        this.slides.style.transform = `translateX(-${this.indeks * 100}%)`;
+        
+        const semuaTitik = this.wadahTitik.querySelectorAll('.dot, .kartu-dot');
+        semuaTitik.forEach((titik, i) => titik.classList.toggle('active', i === this.indeks));
+    }
+
+    pindahKe(indeks) {
+        this.indeks = indeks;
+        this.perbarui(true);
+    }
 }
 
 // === TIMER ===
@@ -460,22 +499,19 @@ function kunciSemuaPreOrder(){
     });
 }
 
-// === 🔄 AMBIL STOK DARI GOOGLE SHEETS — UTAMA ===
+// === 🔄 AMBIL STOK DARI GOOGLE SHEETS ===
 async function ambilStokSemuaProduk(){
     try{
-        // Tambah ?t=... agar tidak ambil data lama dari cache
         const res = await fetch(URL_WEBAPP + "?t=" + Date.now());
         if(!res.ok) throw new Error("Gagal terhubung ke server");
         
         stokData = await res.json();
-        console.log("✅ Stok terbaru dari Sheets:", stokData);
+        console.log("✅ Stok terbaru:", stokData);
 
-        // Terapkan ke semua kartu produk
         document.querySelectorAll('.kartu-produk').forEach(kartu=>{
             const nama = kartu.dataset.nama?.trim() || '';
-            const stok = stokData[nama] ?? 0; // 0 jika tidak ditemukan
+            const stok = stokData[nama] ?? 0;
             
-            // Update semua tampilan angka stok
             kartu.querySelectorAll('.stok-val').forEach(e=>e.textContent=stok);
 
             const infoStok = kartu.querySelector('.info-stok');
@@ -484,7 +520,6 @@ async function ambilStokSemuaProduk(){
             const btnJml = kartu.querySelectorAll('.jumlah-btn');
             const selectUkuran = kartu.querySelector('select');
 
-            // Atur kondisi habis/tersedia
             if(stok <= 0){
                 kartu.classList.add('habis');
                 infoStok&&(infoStok.innerHTML='❌ STOK HABIS',infoStok.classList.add('habis'),infoStok.classList.remove('kunci'));
@@ -496,7 +531,6 @@ async function ambilStokSemuaProduk(){
                 kartu.classList.remove('habis');
                 infoStok&&(infoStok.innerHTML=`✅ Tersedia: ${stok} pcs`,infoStok.classList.remove('habis','kunci'));
                 
-                // Buka kembali jika bukan pre-order yang sudah tutup
                 if(!poSelesai && !kartu.classList.contains('kunci')){
                     btnBeli&&(btnBeli.disabled=!1,btnBeli.textContent='+ Keranjang');
                     inputJml&&(inputJml.disabled=!1);
@@ -526,7 +560,7 @@ async function kurangiStok(){
             const hasil = await res.json();
             if(!hasil.sukses){
                 alert(`❌ ${item.nama}: ${hasil.pesan}`);
-                await ambilStokSemuaProduk(); // Refresh stok terbaru
+                await ambilStokSemuaProduk();
                 return false;
             }
         }catch(e){
@@ -718,93 +752,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if(poSelesai) kunciSemuaPreOrder();
 });
-
-   // === KODE SLIDE GESER DENGAN JARI ===
-class SliderGeser {
-    constructor(el) {
-        this.wadah = el;
-        this.isi = el.querySelector('.isi-slide');
-        this.item = el.querySelectorAll('.foto-item');
-        this.dots = el.querySelectorAll('.dot');
-        this.total = this.item.length;
-        this.indeks = 0;
-        this.posisiAwal = 0;
-        this.posisiSekarang = 0;
-        this.sedangGeser = false;
-        
-        this.tambahEvent();
-        this.perbaruiPosisi();
-    }
-
-    tambahEvent() {
-        // Sentuhan HP
-        this.isi.addEventListener('touchstart', e => this.mulaiGeser(e.touches[0].clientX));
-        this.isi.addEventListener('touchmove', e => this.sedangMenggeser(e.touches[0].clientX));
-        this.isi.addEventListener('touchend', () => this.selesaiGeser());
-        
-        // Mouse di Komputer
-        this.isi.addEventListener('mousedown', e => {
-            e.preventDefault();
-            this.mulaiGeser(e.clientX);
-        });
-        this.isi.addEventListener('mousemove', e => {
-            if(!this.sedangGeser) return;
-            e.preventDefault();
-            this.sedangMenggeser(e.clientX);
-        });
-        this.isi.addEventListener('mouseup', () => this.selesaiGeser());
-        this.isi.addEventListener('mouseleave', () => this.selesaiGeser());
-        
-        // Klik titik indikator
-        this.dots.forEach((dot, i) => {
-            dot.addEventListener('click', () => {
-                this.indeks = i;
-                this.perbaruiPosisi(true);
-            });
-        });
-    }
-
-    mulaiGeser(x) {
-        this.sedangGeser = true;
-        this.posisiAwal = x;
-        this.isi.classList.add('geser-aktif');
-    }
-
-    sedangMenggeser(x) {
-        if(!this.sedangGeser) return;
-        const selisih = x - this.posisiAwal;
-        const lebar = this.wadah.offsetWidth;
-        this.posisiSekarang = selisih / lebar;
-        this.isi.style.transform = `translateX(calc(${-this.indeks * 100}% + ${this.posisiSekarang * 100}%))`;
-    }
-
-    selesaiGeser() {
-        if(!this.sedangGeser) return;
-        this.sedangGeser = false;
-        this.isi.classList.remove('geser-aktif');
-        
-        if(this.posisiSekarang < -0.25) this.indeks = Math.min(this.indeks + 1, this.total - 1);
-        else if(this.posisiSekarang > 0.25) this.indeks = Math.max(this.indeks - 1, 0);
-        
-        this.posisiSekarang = 0;
-        this.perbaruiPosisi(true);
-    }
-
-    perbaruiPosisi(animasi = false) {
-        if(!animasi) this.isi.style.transition = 'none';
-        else this.isi.style.transition = 'transform 0.3s ease-out';
-        
-        this.isi.style.transform = `translateX(${-this.indeks * 100}%)`;
-        
-        this.dots.forEach((dot, i) => dot.classList.toggle('aktif', i === this.indeks));
-    }
-}
-
-// === AKTIFKAN SEMUA SLIDE FOTO PRODUK ===
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.wadah-slide').forEach(el => new SliderGeser(el));
-}); 
-    
 </script>
 
 </body>
