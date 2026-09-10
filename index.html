@@ -7,405 +7,143 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        rank1: '#FFD700',
-                        rank2: '#C0C0C0',
-                        rank3: '#CD7F32',
-                        gelap: '#0F172A',
-                        kartu: '#1E293B',
-                    }
-                }
-            }
-        }
+        tailwind.config = { theme: { extend: { colors: { rank1:'#FFD700', rank2:'#C0C0C0', rank3:'#CD7F32', gelap:'#0F172A', kartu:'#1E293B' } } }
     </script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: #000; color: #fff; min-height: 100vh; padding-top: 48px; }
-
-        /* === BANNER ATAS (WARNA BERUBAH & TETAP DI ATAS) === */
-        .top-notice {
-            position: fixed; top: 0; left: 0; width: 100%;
-            padding: 12px; text-align: center;
-            font-weight: bold; font-size: 15px; z-index: 999;
-            background: linear-gradient(45deg, red, blue, green, yellow, purple);
-            background-size: 400% 400%;
-            animation: gradientShift 8s ease infinite;
-        }
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* === TOMBOL HEADER (TETAP DI ATAS) === */
-        .header-buttons {
-            position: fixed; top: 48px; right: 15px; z-index: 998;
-            display: flex; gap: 10px;
-        }
-        .btn-header {
-            background: #222; border: 1px solid #444; color: white;
-            padding: 10px 16px; border-radius: 6px; cursor: pointer;
-            font-weight: bold; transition: 0.3s;
-        }
-        .btn-header:hover { background: #ff0055; border-color: #ff0055; }
-
-        /* === MENU SAMPING (GESER DARI KANAN) === */
-        .side-menu {
-            position: fixed; top: 48px; right: -320px;
-            width: 300px; height: calc(100vh - 48px);
-            background: #111; z-index: 997;
-            padding: 30px 20px; transition: right 0.4s ease;
-        }
-        .side-menu.active { right: 0; }
-        .side-menu a {
-            display: block; color: white; text-decoration: none;
-            padding: 14px 0; border-bottom: 1px solid #222; font-size: 18px;
-        }
-        .side-menu a:hover { color: #ff0055; padding-left: 8px; }
-        .side-menu a.afiliasi-link { color: #ffcc00; }
-        .side-menu a.afiliasi-link:hover { color: #ffdd44; }
-
-        /* === KONTEN UTAMA === */
-        main {
-            padding: 20px;
-            max-width: 1200px; margin: 90px auto 0;
-            min-height: calc(100vh - 140px);
-        }
-        .page { display: none; }
-        .page.active { display: block; }
-
-        /* === KOTAK VIDEO LOGO (KECIL) === */
-        .box-logo {
-            width: 100%; max-width: 280px;
-            aspect-ratio: 1 / 1;
-            margin: 20px auto; border-radius: 12px; overflow: hidden; background: #111;
-        }
-
-        /* === SLIDER FOTO 1:1 — GESER JARI + MOUSE === */
-        .box-slider {
-            width: 100%; max-width: 450px;
-            aspect-ratio: 1 / 1;
-            margin: 20px auto; border-radius: 12px; overflow: hidden; background: #111;
-            position: relative; touch-action: pan-y; cursor: grab; user-select: none;
-        }
-        .box-slider:active { cursor: grabbing; }
-        .slider { width: 100%; height: 100%; overflow: hidden; }
-        .slides { display: flex; height: 100%; }
-        .slide { width: 100%; flex-shrink: 0; }
-        .slide-img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
-        .slider-dots {
-            position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
-            display: flex; gap: 6px; z-index: 5;
-        }
-        .dot {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: rgba(255,255,255,0.4); border: none; cursor: pointer; padding: 0;
-        }
-        .dot.active { background: #ff0055; width: 18px; border-radius: 4px; }
-
-        video { width: 100%; height: 100%; object-fit: cover; }
-        h1 { text-align: center; color: #ff0055; margin: 15px 0; font-size: 28px; }
-        .desc { text-align: center; color: #aaa; margin-bottom: 30px; }
-
-        /* === TIMER === */
-        .timer-wrapper {
-            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
-            border: 2px solid #ff0055; border-radius: 15px;
-            padding: 20px 30px; margin: 20px auto; max-width: 400px;
-            text-align: center; box-shadow: 0 0 15px rgba(255,0,85,0.3);
-        }
-        .timer-wrapper.habis {
-            border-color: #666; background: #1a1a1a;
-            box-shadow: none;
-        }
-        .timer-label-header {
-            color: #ff6699; font-size: 14px; margin-bottom: 15px;
-            letter-spacing: 2px; text-transform: uppercase;
-        }
-        .timer-wrapper.habis .timer-label-header { color: #888; }
-        .preorder-timer {
-            font-size: 28px; color: #fff; font-weight: bold;
-            text-shadow: 0 0 8px #ff0055; font-family: monospace;
-            display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
-        }
-        .timer-wrapper.habis .preorder-timer { color: #888; text-shadow: none; }
-        .timer-bagian {
-            background: #111; padding: 8px 12px; border-radius: 8px; min-width: 55px;
-        }
-        .timer-label { font-size: 11px; color: #aaa; margin-top: 4px; }
-        .status-timer {
-            margin-top: 12px; font-size: 14px; font-weight: bold; color: #ff0055;
-        }
-        .status-timer.habis { color: #666; }
-
-        /* === LABEL PRODUK === */
-        .timer-label {
-            background: rgba(255,0,0,0.85); color: white; font-size: 13px;
-            padding: 4px 8px; border-radius: 4px;
-            position: absolute; top: 10px; left: 10px; z-index: 3;
-        }
-        .stok-label {
-            position: absolute; top: 10px; right: 10px; z-index: 3;
-            background: rgba(0,200,80,0.9); color: white; font-size: 12px;
-            padding: 4px 8px; border-radius: 4px; font-weight: bold;
-        }
-        .stok-habis { background: rgba(100,100,100,0.9); }
-        .habis-overlay {
-            position: absolute; inset: 0; background: rgba(0,0,0,0.6); z-index: 4;
-            display: flex; align-items: center; justify-content: center;
-            color: #ff4444; font-size: 22px; font-weight: bold;
-        }
-
-        /* === PRODUK & AKSESORIS (UKURAN BINGKAI SAMA) === */
-        .produk-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; margin: 40px 0; }
-        .kartu-produk {
-            background: #111; border-radius: 12px; overflow: hidden;
-            border: 1px solid #222; transition: 0.3s;
-        }
-        .kartu-produk:hover { border-color: #ff0055; transform: translateY(-5px); }
-        .kartu-produk.habis { opacity: 0.7; border-color: #333; }
-        .kartu-produk.kunci { opacity: 0.6; border-color: #333; }
-        
-        .kartu-media {
-            position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: #000;
-            touch-action: pan-y; cursor: grab; user-select: none;
-        }
-        .kartu-media:active { cursor: grabbing; }
-        .kartu-slider { width: 100%; height: 100%; overflow: hidden; }
-        .kartu-slides { display: flex; height: 100%; }
-        .kartu-slide { width: 100%; flex-shrink: 0; }
-        .kartu-slide-img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
-        .kartu-dots {
-            position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
-            display: flex; gap: 4px; z-index: 3;
-        }
-        .kartu-dot {
-            width: 6px; height: 6px; border-radius: 50%;
-            background: rgba(255,255,255,0.4); border: none; cursor: pointer; padding: 0;
-        }
-        .kartu-dot.active { background: #ff0055; width: 14px; border-radius: 3px; }
-
-        .kartu-info { padding: 15px; }
-        .kartu-info h3 { margin-bottom: 8px; color: #fff; }
-        .desk { color: #aaa; font-size: 14px; margin-bottom: 10px; }
-        .info-stok { font-size: 14px; margin: 8px 0; color: #4ec96e; }
-        .info-stok.habis { color: #888; }
-        .info-stok.kunci { color: #ff6600; }
-        .ukuran { margin: 10px 0; }
-        .ukuran select {
-            width: 100%; padding: 8px; background: #222; color: white;
-            border: 1px solid #333; border-radius: 6px;
-        }
-        .ukuran select:disabled { opacity: 0.5; cursor: not-allowed; }
-        .harga { font-size: 20px; font-weight: bold; color: #ff0055; margin: 12px 0; }
-
-        /* === TOMBOL JUMLAH & KERANJANG === */
-        .jumlah-group { display: flex; align-items: center; gap: 10px; margin: 15px 0; }
-        .jumlah-btn {
-            width: 36px; height: 36px; background: #222; border: 1px solid #444;
-            color: white; font-size: 18px; border-radius: 6px; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .jumlah-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-        .jumlah-btn:not(:disabled):hover { background: #ff0055; border-color: #ff0055; }
-        .jumlah-input {
-            width: 50px; height: 36px; text-align: center;
-            background: #1a1a1a; border: 1px solid #333; color: white;
-            border-radius: 6px; font-size: 16px;
-        }
-        .jumlah-input:disabled { opacity: 0.4; cursor: not-allowed; }
-        .btn-cart {
-            width: 100%; background: #ff0055; border: none; color: white;
-            padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer;
-            transition: 0.2s;
-        }
-        .btn-cart:disabled { 
-            background: #444; cursor: not-allowed; 
-            color: #999;
-        }
-        .btn-cart:not(:disabled):hover { background: #ff3377; }
-
-        /* === KERANJANG & DISKON === */
-        #keranjang-list { margin: 20px 0; }
-        .item-keranjang {
-            background: #111; padding: 15px; border-radius: 10px;
-            margin-bottom: 15px; border: 1px solid #222;
-            display: flex; gap: 15px; align-items: flex-start;
-        }
-        .foto-keranjang {
-            width: 80px; height: 80px; aspect-ratio: 1/1; border-radius: 8px;
-            object-fit: cover; background: #000;
-        }
-        .info-item { flex: 1; }
-        .info-item strong { color: #fff; font-size: 16px; }
-        .info-item p { color: #aaa; font-size: 14px; margin: 4px 0; }
-        .hapus-btn {
-            background: none; border: none; color: #ff4444;
-            font-size: 14px; cursor: pointer; margin-top: 8px;
-        }
-        .hapus-btn:hover { color: #ff0000; text-decoration: underline; }
-
-        .kotak-diskon {
-            background: #111; border: 1px solid #222; border-radius: 10px;
-            padding: 15px; margin: 20px 0;
-        }
-        .kotak-diskon input {
-            width: 100%; padding: 12px; background: #0a0a0a; border: 1px solid #333;
-            border-radius: 6px; color: white; font-size: 15px; margin-bottom: 10px;
-            text-transform:uppercase;
-        }
-        .btn-diskon {
-            background: #ff9500; border: none; padding: 10px 18px;
-            border-radius: 6px; color: black; font-weight: bold; cursor: pointer;
-        }
-        .btn-diskon:hover { background: #ffb340; }
-        .pesan-diskon { font-size: 14px; margin-top: 8px; }
-        .berhasil { color: #4ec96e; }
-        .gagal { color: #ff4444; }
-        .rincian-harga {
-            background: #0f0f0f; padding: 15px; border-radius: 8px; margin: 15px 0;
-            border: 1px solid #222;
-        }
-        .baris-harga {
-            display: flex; justify-content: space-between; padding: 6px 0;
-            color: #ccc; font-size: 15px;
-        }
-        .baris-harga.total {
-            font-size: 19px; font-weight: bold; color: #ff0055; border-top: 1px solid #222; padding-top: 10px;
-        }
-
-        .form-group { margin: 12px 0; }
-        .form-group input, .form-group textarea {
-            width: 100%; padding: 12px; background: #111;
-            border: 1px solid #333; border-radius: 6px;
-            color: white; font-size: 15px;
-        }
-        .btn-checkout {
-            background: #25d366; border: none; width: 100%; padding: 14px;
-            border-radius: 8px; color: white; font-size: 16px;
-            font-weight: bold; cursor: pointer;
-        }
-        .btn-checkout:disabled { background: #222; cursor: not-allowed; }
-
-        /* === HALAMAN AFILIASI === */
-        #afiliasi {
-            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 100%);
-            margin: -20px -20px -60px -20px;
-            padding: 20px;
-            min-height: calc(100vh - 90px);
-        }
-        #afiliasi h1 { color: #fff; font-size: clamp(1.7rem,4vw,2.4rem); }
-        #afiliasi p { color: #cbd5e1; }
-        .kartu-peringkat { transition: transform 0.2s, box-shadow 0.2s; }
-        .kartu-peringkat:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-        .bingkai-1 { box-shadow: 0 0 22px rgba(255,215,0,0.5); border-color: #FFD700 !important; }
-        .bingkai-2 { box-shadow: 0 0 18px rgba(192,192,192,0.5); border-color: #C0C0C0 !important; }
-        .bingkai-3 { box-shadow: 0 0 18px rgba(205,127,50,0.5); border-color: #CD7F32 !important; }
-        .bg-kartu { background-color: #1E293B; }
-        .text-slate-300 { color: #cbd5e1; }
-        .text-slate-400 { color: #94a3b8; }
-        .text-slate-500 { color: #64748b; }
-        .bg-slate-500 { background-color: #64748b; }
-        .bg-rank1 { background-color: #FFD700; }
-        .bg-rank2 { background-color: #C0C0C0; }
-        .bg-rank3 { background-color: #CD7F32; }
-        .text-rank1 { color: #FFD700; }
-        .text-rank2 { color: #C0C0C0; }
-        .text-rank3 { color: #CD7F32; }
-        .space-y-3 > * + * { margin-top: 0.75rem; }
-        .relative { position: relative; }
-        .absolute { position: absolute; }
-        .-top-3 { top: -0.75rem; }
-        .left-1\/2 { left: 50%; }
-        .-translate-x-1\/2 { transform: translateX(-50%); }
-        .text-2xl { font-size: 1.5rem; }
-        .w-10 { width: 2.5rem; }
-        .w-12 { width: 3rem; height: 3rem; }
-        .h-12 { height: 3rem; }
-        .p-1 { padding: 0.25rem; }
-        .rounded-full { border-radius: 9999px; }
-        .border-slate-700 { border-color: #334155; }
-        .rounded-xl { border-radius: 0.75rem; }
-        .p-4 { padding: 1rem; }
-        .flex { display: flex; }
-        .items-center { align-items: center; }
-        .gap-4 { gap: 1rem; }
-        .flex-grow { flex-grow: 1; }
-        .text-right { text-align: right; }
-        .font-bold { font-weight: 700; }
-        .font-semibold { font-weight: 600; }
-        .text-lg { font-size: 1.125rem; }
-        .text-xl { font-size: 1.25rem; }
-        .text-sm { font-size: 0.875rem; }
-        .text-xs { font-size: 0.75rem; }
-        .object-cover { object-fit: cover; }
-        .max-w-3xl { max-width: 48rem; }
-        .mx-auto { margin-left: auto; margin-right: auto; }
-        .px-4 { padding-left: 1rem; padding-right: 1rem; }
-        .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
-        .pb-16 { padding-bottom: 4rem; }
-        .pt-12 { padding-top: 3rem; }
-
-        /* === FOOTER === */
-        footer {
-            background: #0a0a0a; padding: 30px; margin-top: 60px;
-            border-top: 1px solid #222;
-        }
-        .footer-links {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 25px;
-        }
-        .footer-links a { color: #aaa; text-decoration: none; }
-        .footer-links a:hover { color: #ff0055; }
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+        body{background:#000;color:#fff;padding-top:48px;min-height:100vh}
+        .top-notice{position:fixed;top:0;left:0;width:100%;padding:12px;text-align:center;font-weight:bold;font-size:15px;z-index:999;background:linear-gradient(45deg,red,blue,green,yellow,purple);background-size:400% 400%;animation:gradientShift 8s ease infinite}
+        @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+        .header-buttons{position:fixed;top:48px;right:15px;z-index:998;display:flex;gap:10px}
+        .btn-header{background:#222;border:1px solid #444;color:white;padding:10px 16px;border-radius:6px;cursor:pointer;font-weight:bold;transition:.3s}
+        .btn-header:hover{background:#ff0055;border-color:#ff0055}
+        .side-menu{position:fixed;top:48px;right:-320px;width:300px;height:calc(100vh - 48px);background:#111;z-index:997;padding:30px 20px;transition:right .4s ease}
+        .side-menu.active{right:0}
+        .side-menu a{display:block;color:white;text-decoration:none;padding:14px 0;border-bottom:1px solid #222;font-size:18px}
+        .side-menu a:hover{color:#ff0055;padding-left:8px}
+        .side-menu a.afiliasi-link{color:#ffcc00}
+        main{padding:20px;max-width:1200px;margin:90px auto 0;min-height:calc(100vh - 140px)}
+        .page{display:none}
+        .page.active{display:block}
+        .box-logo{width:100%;max-width:280px;aspect-ratio:1/1;margin:20px auto;border-radius:12px;overflow:hidden;background:#111}
+        .box-slider{width:100%;max-width:450px;aspect-ratio:1/1;margin:20px auto;border-radius:12px;overflow:hidden;background:#111;position:relative;touch-action:pan-y;cursor:grab;user-select:none}
+        .box-slider:active{cursor:grabbing}
+        .slides{display:flex;height:100%}
+        .slide{width:100%;flex-shrink:0}
+        .slide-img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+        .slider-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:5}
+        .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4);border:none;cursor:pointer;padding:0}
+        .dot.active{background:#ff0055;width:18px;border-radius:4px}
+        video{width:100%;height:100%;object-fit:cover}
+        h1{text-align:center;color:#ff0055;margin:15px 0;font-size:28px}
+        .desc{text-align:center;color:#aaa;margin-bottom:30px}
+        .timer-wrapper{background:linear-gradient(145deg,#1a1a1a,#2a2a2a);border:2px solid #ff0055;border-radius:15px;padding:20px 30px;margin:20px auto;max-width:400px;text-align:center;box-shadow:0 0 15px rgba(255,0,85,.3)}
+        .timer-wrapper.habis{border-color:#666;background:#1a1a1a;box-shadow:none}
+        .timer-label-header{color:#ff6699;font-size:14px;margin-bottom:15px;letter-spacing:2px;text-transform:uppercase}
+        .preorder-timer{font-size:28px;color:#fff;font-weight:bold;text-shadow:0 0 8px #ff0055;font-family:monospace;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+        .timer-bagian{background:#111;padding:8px 12px;border-radius:8px;min-width:55px}
+        .timer-label{font-size:11px;color:#aaa;margin-top:4px}
+        .status-timer{margin-top:12px;font-size:14px;font-weight:bold;color:#ff0055}
+        .status-timer.habis{color:#666}
+        .timer-label,.stok-label{position:absolute;top:10px;z-index:3;font-size:12px;padding:4px 8px;border-radius:4px;font-weight:bold}
+        .timer-label{left:10px;background:rgba(255,0,0,.85);color:white}
+        .stok-label{right:10px;background:rgba(0,200,80,.9);color:white}
+        .stok-habis{background:rgba(100,100,100,.9)}
+        .habis-overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:4;display:flex;align-items:center;justify-content:center;color:#ff4444;font-size:22px;font-weight:bold}
+        .produk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px;margin:40px 0}
+        .kartu-produk{background:#111;border-radius:12px;overflow:hidden;border:1px solid #222;transition:.3s}
+        .kartu-produk:hover{border-color:#ff0055;transform:translateY(-5px)}
+        .kartu-produk.habis{opacity:.7;border-color:#333}
+        .kartu-produk.kunci{opacity:.6;border-color:#333}
+        .kartu-media{position:relative;aspect-ratio:1/1;overflow:hidden;background:#000;touch-action:pan-y;cursor:grab;user-select:none}
+        .kartu-media:active{cursor:grabbing}
+        .kartu-slides{display:flex;height:100%}
+        .kartu-slide{width:100%;flex-shrink:0}
+        .kartu-slide-img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+        .kartu-dots{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);display:flex;gap:4px;z-index:3}
+        .kartu-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);border:none;cursor:pointer;padding:0}
+        .kartu-dot.active{background:#ff0055;width:14px;border-radius:3px}
+        .kartu-info{padding:15px}
+        .kartu-info h3{margin-bottom:8px;color:#fff}
+        .info-stok{font-size:14px;margin:8px 0;color:#4ec96e}
+        .info-stok.habis{color:#ff4444}
+        .info-stok.kunci{color:#ff8800}
+        .ukuran{margin:10px 0}
+        .ukuran select{width:100%;padding:8px;background:#222;color:white;border:1px solid #333;border-radius:6px}
+        .ukuran select:disabled{opacity:.5;cursor:not-allowed}
+        .harga{font-size:20px;font-weight:bold;color:#ff0055;margin:12px 0}
+        .jumlah-group{display:flex;align-items:center;gap:10px;margin:15px 0}
+        .jumlah-btn{width:36px;height:36px;background:#222;border:1px solid #444;color:white;font-size:18px;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+        .jumlah-btn:disabled{opacity:.4;cursor:not-allowed}
+        .jumlah-btn:not(:disabled):hover{background:#ff0055;border-color:#ff0055}
+        .jumlah-input{width:50px;height:36px;text-align:center;background:#1a1a1a;border:1px solid #333;color:white;border-radius:6px;font-size:16px}
+        .jumlah-input:disabled{opacity:.4;cursor:not-allowed}
+        .btn-cart{width:100%;background:#ff0055;border:none;color:white;padding:12px;border-radius:8px;font-weight:bold;cursor:pointer;transition:.2s}
+        .btn-cart:disabled{background:#444;cursor:not-allowed;color:#999}
+        .btn-cart:not(:disabled):hover{background:#ff3377}
+        #keranjang-list{margin:20px 0}
+        .item-keranjang{background:#111;padding:15px;border-radius:10px;margin-bottom:15px;border:1px solid #222;display:flex;gap:15px;align-items:flex-start}
+        .foto-keranjang{width:80px;height:80px;border-radius:8px;object-fit:cover;background:#000}
+        .info-item{flex:1}
+        .info-item strong{color:#fff;font-size:16px}
+        .info-item p{color:#aaa;font-size:14px;margin:4px 0}
+        .hapus-btn{background:none;border:none;color:#ff4444;font-size:14px;cursor:pointer;margin-top:8px}
+        .hapus-btn:hover{color:#f00;text-decoration:underline}
+        .kotak-diskon{background:#111;border:1px solid #222;border-radius:10px;padding:15px;margin:20px 0}
+        .kotak-diskon input{width:100%;padding:12px;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:white;font-size:15px;margin-bottom:10px;text-transform:uppercase}
+        .btn-diskon{background:#ff9500;border:none;padding:10px 18px;border-radius:6px;color:black;font-weight:bold;cursor:pointer}
+        .btn-diskon:hover{background:#ffb340}
+        .pesan-diskon{font-size:14px;margin-top:8px}
+        .berhasil{color:#4ec96e}
+        .gagal{color:#ff4444}
+        .rincian-harga{background:#0f0f0f;padding:15px;border-radius:8px;margin:15px 0;border:1px solid #222}
+        .baris-harga{display:flex;justify-content:space-between;padding:6px 0;color:#ccc;font-size:15px}
+        .baris-harga.total{font-size:19px;font-weight:bold;color:#ff0055;border-top:1px solid #222;padding-top:10px}
+        .form-group{margin:12px 0}
+        .form-group input,.form-group textarea{width:100%;padding:12px;background:#111;border:1px solid #333;border-radius:6px;color:white;font-size:15px}
+        .btn-checkout{background:#25d366;border:none;width:100%;padding:14px;border-radius:8px;color:white;font-size:16px;font-weight:bold;cursor:pointer}
+        .btn-checkout:disabled{background:#222;cursor:not-allowed}
+        #afiliasi{background:linear-gradient(135deg,#0F172A 0%,#1E1B4B 100%);margin:-20px -20px -60px -20px;padding:20px;min-height:calc(100vh - 90px)}
+        .bingkai-1{box-shadow:0 0 22px rgba(255,215,0,.5);border-color:#FFD700!important}
+        .bingkai-2{box-shadow:0 0 18px rgba(192,192,192,.5);border-color:#C0C0C0!important}
+        .bingkai-3{box-shadow:0 0 18px rgba(205,127,50,.5);border-color:#CD7F32!important}
+        footer{background:#0a0a0a;padding:30px;margin-top:60px;border-top:1px solid #222}
+        .footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:25px}
+        .footer-links a{color:#aaa;text-decoration:none}
+        .footer-links a:hover{color:#ff0055}
     </style>
 </head>
 <body>
 
 <div class="top-notice">PREMIUM HIGH QUALITY 100% ORIGINAL</div>
-
 <div class="header-buttons">
     <button class="btn-header" onclick="tampilkanMenu()">MENU</button>
     <button class="btn-header" onclick="tampilkanHalaman('keranjang')">KERANJANG (<span id="jumlah-keranjang">0</span>)</button>
 </div>
-
 <div id="sideMenu" class="side-menu">
-    <a href="#" onclick="tampilkanHalaman('beranda'); return false;">BERANDA</a>
-    <a href="#" onclick="tampilkanHalaman('produk'); return false;">PRODUK & BRAND</a>
-    <a href="#" onclick="tampilkanHalaman('aksesoris'); return false;">AKSESORIS</a>
-    <a href="#" onclick="tampilkanHalaman('afiliasi'); return false;" class="afiliasi-link">⭐ PERINGKAT AFILIASI</a>
+    <a href="#" onclick="tampilkanHalaman('beranda');return false;">BERANDA</a>
+    <a href="#" onclick="tampilkanHalaman('produk');return false;">PRODUK & BRAND</a>
+    <a href="#" onclick="tampilkanHalaman('aksesoris');return false;">AKSESORIS</a>
+    <a href="#" onclick="tampilkanHalaman('afiliasi');return false;" class="afiliasi-link">⭐ PERINGKAT AFILIASI</a>
 </div>
 
 <main>
     <!-- BERANDA -->
     <section id="beranda" class="page active">
-        <div class="box-logo">
-            <video autoplay loop muted playsinline>
-                <source src="https://raw.githubusercontent.com/tnxusclub/ina/main/video-logo.mp4" type="video/mp4">
-            </video>
-        </div>
-        <h1>TNXUS CLUB</h1>
-        <p class="desc">TRUSH • NEVER STOP • EXCEPTION • UNDERSTAND • STAY TRUE</p>
-
-        <!-- SLIDER UTAMA — GESER JARI + MOUSE -->
-        <div class="box-slider" data-slider="utama">
-            <div class="slider">
-                <div class="slides">
-                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-slide-1.jpeg" alt="Foto 1" loading="lazy"></div>
-                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-slide-2.jpeg" alt="Foto 2" loading="lazy"></div>
-                    <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-slide-3.jpeg" alt="Foto 3" loading="lazy"></div>
-                </div>
+        <div class="box-logo"><video autoplay loop muted playsinline><source src="https://raw.githubusercontent.com/tnxusclub/ina/main/video-logo.mp4" type="video/mp4"></video></div>
+        <h1>TNXUS CLUB</h1><p class="desc">Kaos Premium • Bahan Berkualitas • Desain Eksklusif</p>
+        <div class="box-slider">
+            <div class="slides">
+                <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto1.jpeg" alt="Foto 1" loading="lazy"></div>
+                <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto2.jpeg" alt="Foto 2" loading="lazy"></div>
+                <div class="slide"><img class="slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto3.jpeg" alt="Foto 3" loading="lazy"></div>
             </div>
             <div class="slider-dots"></div>
         </div>
-
-        <h2 style="text-align:center; margin:30px 0; color:#fff;">⏳ PRODUK PRE ORDER</h2>
-        
-        <!-- TIMER UTAMA -->
+        <h2 style="text-align:center;margin:30px 0;color:#fff;">⏳ PRODUK PRE ORDER</h2>
         <div class="timer-wrapper" id="wadah-timer">
             <div class="timer-label-header">WAKTU TERSISA</div>
-            <div class="preorder-timer" id="timer-beranda">
+            <div class="preorder-timer">
                 <div class="timer-bagian"><span id="d">00</span><div class="timer-label">Hari</div></div>
                 <div class="timer-bagian"><span id="h">00</span><div class="timer-label">Jam</div></div>
                 <div class="timer-bagian"><span id="m">00</span><div class="timer-label">Menit</div></div>
@@ -413,124 +151,70 @@
             </div>
             <div class="status-timer" id="status-timer">BERJALAN</div>
         </div>
-
         <div class="produk-grid">
-            <!-- PRODUK PO 1 -->
-            <div class="kartu-produk" data-stok="15" data-tipe="preorder">
-                <div class="kartu-media" data-slider="kartu">
+            <div class="kartu-produk" data-nama="Kaos TNXUS Edisi Special" data-tipe="preorder">
+                <div class="kartu-media">
                     <span class="timer-label">PRE ORDER</span>
-                    <span class="stok-label">Stok: <span class="stok-val">15</span></span>
-                    <div class="kartu-slider">
-                        <div class="kartu-slides">
-                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-produk-1.jpeg" alt="Produk 1" loading="lazy"></div>
-                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-produk-2.jpeg" alt="Produk 2" loading="lazy"></div>
-                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-produk-3.jpeg" alt="produk 3" loading="lazy"></div>
-                        </div>
+                    <span class="stok-label">Stok: <span class="stok-val">—</span></span>
+                    <div class="kartu-slides">
+                        <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/po1.jpeg" alt="Produk" loading="lazy"></div>
+                        <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto2.jpeg" alt="Produk" loading="lazy"></div>
                     </div>
                     <div class="kartu-dots"></div>
                 </div>
                 <div class="kartu-info">
-                    <h3>TNXUS ROSE & THORN</h3>
+                    <h3>Kaos TNXUS Edisi Special</h3>
                     <p class="desc">Katun 24s • Sablon DTF</p>
-                    <p class="info-stok">✅ Tersedia: <span class="stok-val">15</span> pcs</p>
-                    <div class="ukuran">
-                        <select onchange="gantiHarga(this)">
-                            <option value="95000">WHITE size S - Rp95.000</option>
-                            <option value="100000">WHITE size M - Rp100.000</option>
-                            <option value="105000">WHITE size L - Rp105.000</option>
-                            <option value="110000">WHITE size XL - Rp110.000</option>
-                            <option value="95000">BLACK size S - Rp95.000</option>
-                            <option value="100000">BLACK size M - Rp100.000</option>
-                            <option value="105000">BLACK size L - Rp105.000</option>
-                            <option value="110000">BLACK size XL - Rp110.000</option>
-                        </select>
-                    </div>
+                    <p class="info-stok">✅ Tersedia: <span class="stok-val">—</span> pcs</p>
+                    <div class="ukuran"><select onchange="gantiHarga(this)"><option value="95000">S - Rp95.000</option><option value="100000">M - Rp100.000</option><option value="105000">L - Rp105.000</option><option value="110000">XL - Rp110.000</option></select></div>
                     <div class="harga">Rp<span>95.000</span></div>
-                    <div class="jumlah-group">
-                        <button class="jumlah-btn" onclick="ubahJumlah(this, -1)">−</button>
-                        <input type="number" class="jumlah-input" value="1" min="1" readonly>
-                        <button class="jumlah-btn" onclick="ubahJumlah(this, 1)">+</button>
-                    </div>
-                    <button class="btn-cart" onclick="tambahKeKeranjang('Kaos TNXUS Edisi Spesial', this, 'https://raw.githubusercontent.com/tnxusclub/ina/main/foto-produk-1.jpeg')">+ Keranjang</button>
+                    <div class="jumlah-group"><button class="jumlah-btn" onclick="ubahJumlah(this,-1)">−</button><input type="number" class="jumlah-input" value="1" min="1" readonly><button class="jumlah-btn" onclick="ubahJumlah(this,1)">+</button></div>
+                    <button class="btn-cart" onclick="tambahKeKeranjang('Kaos TNXUS Edisi Special',this,'https://raw.githubusercontent.com/tnxusclub/ina/main/po1.jpeg')">+ Keranjang</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PRODUK & BRAND -->
+    <!-- PRODUK -->
     <section id="produk" class="page">
         <h1>PRODUK & BRAND</h1>
-        <h2 style="margin:40px 0 20px; color:#fff;">PRE ORDER</h2>
+        <h2 style="margin:40px 0 20px;color:#fff;">PRE ORDER</h2>
         <div class="produk-grid">
-            <div class="kartu-produk" data-stok="8" data-tipe="preorder">
-                <div class="kartu-media" data-slider="kartu">
-                    <span class="timer-label">PRE ORDER • <span id="timer-produk">--:--:--</span></span>
-                    <span class="stok-label">Stok: <span class="stok-val">8</span></span>
-                    <div class="kartu-slider">
-                        <div class="kartu-slides">
-                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-produk-1.jpeg" alt="Produk PO" loading="lazy"></div>
-                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-produk-2.jpeg" alt="Produk PO" loading="lazy"></div>
-                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto-produk-3.jpeg" alt="Produk PO" loading="lazy"></div>
-                        </div>
-                    </div>
+            <div class="kartu-produk" data-nama="Kaos TNXUS PO 01" data-tipe="preorder">
+                <div class="kartu-media">
+                    <span class="timer-label">PRE ORDER</span>
+                    <span class="stok-label">Stok: <span class="stok-val">—</span></span>
+                    <div class="kartu-slides"><div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/po1.jpeg" alt="PO" loading="lazy"></div></div>
                     <div class="kartu-dots"></div>
                 </div>
                 <div class="kartu-info">
-                    <h3>Kaos TNXUS PO 01</h3>
-                    <p class="desc">Bahan Tebal Nyaman</p>
-                    <p class="info-stok">✅ Tersedia: <span class="stok-val">8</span> pcs</p>
-                    <div class="ukuran">
-                        <select onchange="gantiHarga(this)">
-                            <option value="95000">WHITE size S - Rp95.000</option>
-                            <option value="100000">WHITE size M - Rp100.000</option>
-                            <option value="105000">WHITE size L - Rp105.000</option>
-                            <option value="110000">WHITE size XL - Rp110.000</option>
-                            <option value="95000">BLACK size S - Rp95.000</option>
-                            <option value="100000">BLACK size M - Rp100.000</option>
-                            <option value="105000">BLACK size L - Rp105.000</option>
-                            <option value="110000">BLACK size XL - Rp110.000</option>
-                        </select>
-                    </div>
+                    <h3>Kaos TNXUS PO 01</h3><p class="desc">Bahan Tebal Nyaman</p>
+                    <p class="info-stok">✅ Tersedia: <span class="stok-val">—</span> pcs</p>
+                    <div class="ukuran"><select onchange="gantiHarga(this)"><option value="90000">S - Rp90.000</option><option value="95000">M - Rp95.000</option><option value="100000">L - Rp100.000</option></select></div>
                     <div class="harga">Rp<span>90.000</span></div>
-                    <div class="jumlah-group">
-                        <button class="jumlah-btn" onclick="ubahJumlah(this, -1)">−</button>
-                        <input type="number" class="jumlah-input" value="1" min="1" readonly>
-                        <button class="jumlah-btn" onclick="ubahJumlah(this, 1)">+</button>
-                    </div>
-                    <button class="btn-cart" onclick="tambahKeKeranjang('Kaos TNXUS PO 01', this, 'https://raw.githubusercontent.com/tnxusclub/ina/main/po1.jpeg')">+ Keranjang</button>
+                    <div class="jumlah-group"><button class="jumlah-btn" onclick="ubahJumlah(this,-1)">−</button><input type="number" class="jumlah-input" value="1" min="1" readonly><button class="jumlah-btn" onclick="ubahJumlah(this,1)">+</button></div>
+                    <button class="btn-cart" onclick="tambahKeKeranjang('Kaos TNXUS PO 01',this,'https://raw.githubusercontent.com/tnxusclub/ina/main/po1.jpeg')">+ Keranjang</button>
                 </div>
             </div>
         </div>
-        <h2 style="margin:60px 0 20px; color:#fff;">READY STOCK</h2>
+        <h2 style="margin:60px 0 20px;color:#fff;">READY STOCK</h2>
         <div class="produk-grid">
-            <div class="kartu-produk" data-stok="25" data-tipe="biasa">
-                <div class="kartu-media" data-slider="kartu">
-                    <span class="stok-label">Stok: <span class="stok-val">0</span></span>
-                    <div class="kartu-slider">
-                        <div class="kartu-slides">
-                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/belum-ada.jpeg" alt="Ready 1" loading="lazy"></div>
-                           
-                        </div>
+            <div class="kartu-produk" data-nama="Kaos TNXUS Basic" data-tipe="biasa">
+                <div class="kartu-media">
+                    <span class="stok-label">Stok: <span class="stok-val">—</span></span>
+                    <div class="kartu-slides">
+                        <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/ready1.jpeg" alt="Ready" loading="lazy"></div>
+                        <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto3.jpeg" alt="Ready" loading="lazy"></div>
                     </div>
                     <div class="kartu-dots"></div>
                 </div>
                 <div class="kartu-info">
-                    <h3>Tidak Tersedia</h3>
-                    <p class="desc">Tidak Tersedia</p>
-                    <p class="info-stok">✅ Tersedia: <span class="stok-val">0</span> pcs</p>
-                    <div class="ukuran">
-                        <select onchange="gantiHarga(this)">
-                            <option value="no data</option>
-                            
-                        </select>
-                    </div>
+                    <h3>Kaos TNXUS Basic</h3><p class="desc">Tersedia Langsung</p>
+                    <p class="info-stok">✅ Tersedia: <span class="stok-val">—</span> pcs</p>
+                    <div class="ukuran"><select onchange="gantiHarga(this)"><option value="85000">M - Rp85.000</option><option value="90000">L - Rp90.000</option></select></div>
                     <div class="harga">Rp<span>85.000</span></div>
-                    <div class="jumlah-group">
-                        <button class="jumlah-btn" onclick="ubahJumlah(this, -1)">−</button>
-                        <input type="number" class="jumlah-input" value="1" min="1" readonly>
-                        <button class="jumlah-btn" onclick="ubahJumlah(this, 1)">+</button>
-                    </div>
-                    <button class="btn-cart" onclick="tambahKeKeranjang('Kaos TNXUS Basic', this, 'https://raw.githubusercontent.com/tnxusclub/ina/main/belum-ada.jpeg')">+ Keranjang</button>
+                    <div class="jumlah-group"><button class="jumlah-btn" onclick="ubahJumlah(this,-1)">−</button><input type="number" class="jumlah-input" value="1" min="1" readonly><button class="jumlah-btn" onclick="ubahJumlah(this,1)">+</button></div>
+                    <button class="btn-cart" onclick="tambahKeKeranjang('Kaos TNXUS Basic',this,'https://raw.githubusercontent.com/tnxusclub/ina/main/ready1.jpeg')">+ Keranjang</button>
                 </div>
             </div>
         </div>
@@ -540,178 +224,98 @@
     <section id="aksesoris" class="page">
         <h1>AKSESORIS</h1>
         <div class="produk-grid">
-            <div class="kartu-produk" data-stok="0" data-tipe="biasa">
-                <div class="kartu-media" data-slider="kartu">
-                    <span class="stok-label stok-habis">Stok: <span class="stok-val">0</span></span>
-                    <div class="kartu-slider">
-                        <div class="kartu-slides">
-                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/topi.jpeg" alt="Topi" loading="lazy"></div>
-                        </div>
-                    </div>
-                    <div class="habis-overlay">HABIS</div>
+            <div class="kartu-produk" data-nama="Topi TNXUS" data-tipe="biasa">
+                <div class="kartu-media">
+                    <span class="stok-label">Stok: <span class="stok-val">—</span></span>
+                    <div class="kartu-slides"><div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/topi.jpeg" alt="Topi" loading="lazy"></div></div>
                     <div class="kartu-dots"></div>
                 </div>
                 <div class="kartu-info">
-                    <h3>Topi TNXUS</h3>
-                    <p class="desc">Bahan Kuat & Stylish</p>
-                    <p class="info-stok habis">❌ Stok Habis</p>
+                    <h3>Topi TNXUS</h3><p class="desc">Bahan Kuat & Stylish</p>
+                    <p class="info-stok">✅ Tersedia: <span class="stok-val">—</span> pcs</p>
                     <div class="harga">Rp<span>35.000</span></div>
-                    <div class="jumlah-group">
-                        <button class="jumlah-btn" onclick="ubahJumlah(this, -1)" disabled>−</button>
-                        <input type="number" class="jumlah-input" value="1" min="1" readonly disabled>
-                        <button class="jumlah-btn" onclick="ubahJumlah(this, 1)" disabled>+</button>
-                    </div>
-                    <button class="btn-cart" onclick="tambahKeKeranjang('Topi TNXUS', this, 'https://raw.githubusercontent.com/tnxusclub/ina/main/topi.jpeg')" disabled>HABIS</button>
+                    <div class="jumlah-group"><button class="jumlah-btn" onclick="ubahJumlah(this,-1)">−</button><input type="number" class="jumlah-input" value="1" min="1" readonly><button class="jumlah-btn" onclick="ubahJumlah(this,1)">+</button></div>
+                    <button class="btn-cart" onclick="tambahKeKeranjang('Topi TNXUS',this,'https://raw.githubusercontent.com/tnxusclub/ina/main/topi.jpeg')">+ Keranjang</button>
                 </div>
             </div>
-            <div class="kartu-produk" data-stok="12" data-tipe="biasa">
-                <div class="kartu-media" data-slider="kartu">
-                    <span class="stok-label">Stok: <span class="stok-val">12</span></span>
-                    <div class="kartu-slider">
-                        <div class="kartu-slides">
-                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/tas.jpeg" alt="Tas" loading="lazy"></div>
-                            <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto1.jpeg" alt="Tas 2" loading="lazy"></div>
-                        </div>
+            <div class="kartu-produk" data-nama="Tas TNXUS" data-tipe="biasa">
+                <div class="kartu-media">
+                    <span class="stok-label">Stok: <span class="stok-val">—</span></span>
+                    <div class="kartu-slides">
+                        <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/tas.jpeg" alt="Tas" loading="lazy"></div>
+                        <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/foto1.jpeg" alt="Tas" loading="lazy"></div>
                     </div>
                     <div class="kartu-dots"></div>
                 </div>
                 <div class="kartu-info">
-                    <h3>Tas TNXUS</h3>
-                    <p class="desc">Tahan Air</p>
-                    <p class="info-stok">✅ Tersedia: <span class="stok-val">12</span> pcs</p>
+                    <h3>Tas TNXUS</h3><p class="desc">Tahan Air</p>
+                    <p class="info-stok">✅ Tersedia: <span class="stok-val">—</span> pcs</p>
                     <div class="harga">Rp<span>50.000</span></div>
-                    <div class="jumlah-group">
-                        <button class="jumlah-btn" onclick="ubahJumlah(this, -1)">−</button>
-                        <input type="number" class="jumlah-input" value="1" min="1" readonly>
-                        <button class="jumlah-btn" onclick="ubahJumlah(this, 1)">+</button>
-                    </div>
-                    <button class="btn-cart" onclick="tambahKeKeranjang('Tas TNXUS', this, 'https://raw.githubusercontent.com/tnxusclub/ina/main/tas.jpeg')">+ Keranjang</button>
+                    <div class="jumlah-group"><button class="jumlah-btn" onclick="ubahJumlah(this,-1)">−</button><input type="number" class="jumlah-input" value="1" min="1" readonly><button class="jumlah-btn" onclick="ubahJumlah(this,1)">+</button></div>
+                    <button class="btn-cart" onclick="tambahKeKeranjang('Tas TNXUS',this,'https://raw.githubusercontent.com/tnxusclub/ina/main/tas.jpeg')">+ Keranjang</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ✅ HALAMAN AFILIASI -->
+    <!-- AFILIASI -->
     <section id="afiliasi" class="page">
-        <header class="pt-12 pb-8 text-center">
-            <h1 class="font-bold text-white mb-2">🏆 Papan Peringkat Afiliasi</h1>
-            <p class="text-slate-300">PERINGKAT 20 BESAR • TNXUS CLUB</p>
-        </header>
-
-        <main class="max-w-3xl mx-auto px-4 pb-16">
-            <div id="daftar-peringkat" class="space-y-3"></div>
-        </main>
-
-        <footer class="text-center text-slate-500 text-sm py-8">
-        TRUSH • NEVER STOP • EXCEPTION • UNDERSTAND • STAY TRUE
-        </footer>
-
+        <header class="pt-12 pb-8 text-center"><h1 class="font-bold text-white mb-2">🏆 Papan Peringkat Afiliasi</h1><p class="text-slate-300">Hanya 20 Terbaik • Nama Disensor</p></header>
+        <main class="max-w-3xl mx-auto px-4 pb-16"><div id="daftar-peringkat" class="space-y-3"></div></main>
+        <footer class="text-center text-slate-500 text-sm py-8">Sistem Afiliasi Toko Kaos • Semarang</footer>
         <script>
-            // DATA PENGGUNA AFILIASI — HANYA 20
             const daftarPengguna = [
-                { no:1, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
-                { no:2, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
-                { no:3, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
-                { no:4, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
-                { no:5, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
-                { no:6, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
-                { no:7, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
-                { no:8, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
-                { no:9, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
-                { no:10, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
-                { no:11, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
-                { no:12, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
-                { no:13, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
-                { no:14, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
-                { no:15, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
-                { no:16, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
-                { no:17, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
-                { no:18, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
-                { no:19, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
-                { no:20, nama:"-", poin:0, foto:"https://raw.githubusercontent.com/tnxusclub/ina/main/profil-kosong.jpeg" },
+                {no:1,nama:"Budi Santoso",poin:18500,foto:"https://i.pravatar.cc/150?img=11"},
+                {no:2,nama:"Siti Aminah",poin:17200,foto:"https://i.pravatar.cc/150?img=5"},
+                {no:3,nama:"Andi Wijaya",poin:16800,foto:"https://i.pravatar.cc/150?img=3"},
+                {no:4,nama:"Dewi Lestari",poin:14500,foto:"https://i.pravatar.cc/150?img=9"},
+                {no:5,nama:"Eko Prasetyo",poin:13900,foto:"https://i.pravatar.cc/150?img=12"},
+                {no:6,nama:"Fani Oktavia",poin:12700,foto:"https://i.pravatar.cc/150?img=15"},
+                {no:7,nama:"Galih Nugroho",poin:11500,foto:"https://i.pravatar.cc/150?img=18"},
+                {no:8,nama:"Hani Rahmawati",poin:10200,foto:"https://i.pravatar.cc/150?img=22"},
+                {no:9,nama:"Iwan Setiawan",poin:9800,foto:"https://i.pravatar.cc/150?img=25"},
+                {no:10,nama:"Juli Handayani",poin:9100,foto:"https://i.pravatar.cc/150?img=28"},
+                {no:11,nama:"Kiki Amalia",poin:8700,foto:"https://i.pravatar.cc/150?img=31"},
+                {no:12,nama:"Lukman Hakim",poin:8200,foto:"https://i.pravatar.cc/150?img=33"},
+                {no:13,nama:"Maya Sari",poin:7900,foto:"https://i.pravatar.cc/150?img=35"},
+                {no:14,nama:"Nando Firmansyah",poin:7400,foto:"https://i.pravatar.cc/150?img=38"},
+                {no:15,nama:"Oki Rahmat",poin:6800,foto:"https://i.pravatar.cc/150?img=40"},
+                {no:16,nama:"Putri Wulandari",poin:6200,foto:"https://i.pravatar.cc/150?img=42"},
+                {no:17,nama:"Qori Aini",poin:5700,foto:"https://i.pravatar.cc/150?img=44"},
+                {no:18,nama:"Riko Saputra",poin:5100,foto:"https://i.pravatar.cc/150?img=46"},
+                {no:19,nama:"Sari Dewi",poin:4600,foto:"https://i.pravatar.cc/150?img=48"},
+                {no:20,nama:"Tio Pratama",poin:4200,foto:"https://i.pravatar.cc/150?img=50"}
             ];
-
-            // FUNGSI SENSOR NAMA: B*********O
-            function sensorNama(nama) {
-                nama = nama.trim();
-                if (nama.length <= 2) return nama;
-                const depan = nama[0];
-                const belakang = nama[nama.length - 1];
-                const bintang = '*'.repeat(Math.max(8, nama.length - 2));
-                return `${depan}${bintang}${belakang}`;
-            }
-
-            // Urutkan & Tampilkan Hanya 20 Teratas
-            daftarPengguna.sort((a,b) => b.poin - a.poin);
-            const wadah = document.getElementById('daftar-peringkat');
-            wadah.innerHTML = '';
-
-            daftarPengguna.slice(0, 20).forEach((orang, idx) => {
-                const no = idx + 1;
-                let kelasKartu = 'kartu-peringkat bg-kartu border border-slate-700 rounded-xl p-4 flex items-center gap-4';
-                let kelasFoto = 'p-1 rounded-full bg-slate-500';
-                let mahkota = '';
-
-                if (no === 1) {
-                    kelasKartu += ' bingkai-1';
-                    kelasFoto = 'p-1 rounded-full bg-rank1';
-                    mahkota = '<span class="absolute -top-3 left-1/2 -translate-x-1/2 text-rank1 text-2xl">👑</span>';
-                } else if (no === 2) {
-                    kelasKartu += ' bingkai-2';
-                    kelasFoto = 'p-1 rounded-full bg-rank2';
-                    mahkota = '<span class="absolute -top-3 left-1/2 -translate-x-1/2 text-rank2 text-2xl">👑</span>';
-                } else if (no === 3) {
-                    kelasKartu += ' bingkai-3';
-                    kelasFoto = 'p-1 rounded-full bg-rank3';
-                    mahkota = '<span class="absolute -top-3 left-1/2 -translate-x-1/2 text-rank3 text-2xl">👑</span>';
-                }
-
-                const html = `
-                <div class="${kelasKartu}">
-                    <div class="w-10 text-center font-bold text-lg ${no <=3 ? 'text-white' : 'text-slate-400'}">
-                        ${no}
-                    </div>
-                    <div class="relative">
-                        <div class="${kelasFoto}">
-                            <img src="${orang.foto}" alt="Profil" class="w-12 h-12 rounded-full object-cover" loading="lazy">
-                        </div>
-                        ${mahkota}
-                    </div>
-                    <div class="flex-grow">
-                        <h3 class="font-semibold text-white">${sensorNama(orang.nama)}</h3>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-xl font-bold text-white">${orang.poin.toLocaleString()}</div>
-                        <div class="text-xs text-slate-400">Poin</div>
-                    </div>
-                </div>`;
-                wadah.innerHTML += html;
+            function sensorNama(nama){nama=nama.trim();if(nama.length<=2)return nama;return nama[0]+'*'.repeat(Math.max(8,nama.length-2))+nama[nama.length-1]}
+            daftarPengguna.sort((a,b)=>b.poin-a.poin);
+            const wadah=document.getElementById('daftar-peringkat');
+            daftarPengguna.slice(0,20).forEach((orang,idx)=>{
+                const no=idx+1;let kelas='bg-kartu border border-slate-700 rounded-xl p-4 flex items-center gap-4 kartu-peringkat',rankClass='',mahkota='';
+                if(no===1){kelas+=' bingkai-1';rankClass='bg-rank1';mahkota='👑'}
+                else if(no===2){kelas+=' bingkai-2';rankClass='bg-rank2';mahkota='👑'}
+                else if(no===3){kelas+=' bingkai-3';rankClass='bg-rank3';mahkota='👑'}
+                wadah.innerHTML+=`<div class="${kelas}"><div class="w-10 text-center font-bold text-lg ${no<=3?'text-white':'text-slate-400'}">${no}</div><div class="relative"><div class="${rankClass||'bg-slate-500'} p-1 rounded-full"><img src="${orang.foto}" class="w-12 h-12 rounded-full object-cover" loading="lazy"></div><span class="absolute -top-3 left-1/2 -translate-x-1/2 text-2xl">${mahkota}</span></div><div class="flex-grow"><h3 class="font-semibold text-white">${sensorNama(orang.nama)}</h3></div><div class="text-right"><div class="text-xl font-bold text-white">${orang.poin.toLocaleString()}</div><div class="text-xs text-slate-400">Poin</div></div></div>`;
             });
         </script>
     </section>
 
-    <!-- KERANJANG (DENGAN KODE DISKON) -->
+    <!-- KERANJANG -->
     <section id="keranjang" class="page">
         <h1>KERANJANG BELANJA</h1>
-        <p style="color:#aaa;">Nomor Pesanan: <strong id="no-pesanan"></strong> | Tanggal: <span id="tgl"></span></p>
-        
+        <p style="color:#aaa;">No. Pesanan: <strong id="no-pesanan"></strong> | <span id="tgl"></span></p>
         <div id="keranjang-list"></div>
-
-        <!-- ✅ BAGIAN KODE DISKON — MUDAH DIATUR -->
         <div class="kotak-diskon">
-            <h3 style="margin-bottom:12px; color:#fff;">🎁 Kode Diskon</h3>
+            <h3 style="margin-bottom:12px;color:#fff;">🎁 Kode Diskon</h3>
             <input type="text" id="input-kode" placeholder="Masukkan kode unik...">
             <button class="btn-diskon" onclick="cekKodeDiskon()">Gunakan</button>
             <div id="pesan-diskon" class="pesan-diskon"></div>
         </div>
-
         <div class="rincian-harga">
             <div class="baris-harga">Subtotal: <span id="subtotal">Rp0</span></div>
             <div class="baris-harga" id="baris-potongan" style="display:none;">Diskon: <span id="potongan">-Rp0</span></div>
             <div class="baris-harga total">TOTAL: <span id="total-bayar">Rp0</span></div>
         </div>
-
-        <h3 style="margin:30px 0 15px; color:#fff;">DATA PENGIRIMAN</h3>
+        <h3 style="margin:30px 0 15px;color:#fff;">DATA PENGIRIMAN</h3>
         <div class="form-group"><input type="text" id="nama" placeholder="Nama Lengkap"></div>
         <div class="form-group"><input type="text" id="wa" placeholder="Nomor WhatsApp"></div>
         <div class="form-group"><textarea id="alamat" placeholder="Alamat Lengkap"></textarea></div>
@@ -731,274 +335,205 @@
 
 <script>
 // ==================================================
-// ⚙️ PENGATURAN KODE DISKON — UBAH DISINI
+// 🔗 URL GOOGLE APPS SCRIPT — SUDAH DIISI BENAR
 // ==================================================
-const DAFTAR_KODE_DISKON = Object.freeze({
-    "TNXUS10": 10000,
-    "HEMAT5": 5000,
-    "TNXUSCLUB": 20000
-    // Tambah kode diskon baru di sini: "KODE": nominal
-});
-let nilaiDiskon = 0;
-let kodeTerpakai = null;
+const URL_WEBAPP = "https://script.google.com/macros/s/AKfycbyhnEcjXWipsSKnDhAQ9yOdRY0QUFSMnCdBvZ_wAUsWOdtpUy7fY4hPeQh-kyTVHAxe/exec";
+
+const DAFTAR_KODE_DISKON = Object.freeze({ "TNXUS10":10000, "HEMAT5":5000, "TNXUSCLUB":20000 });
+let nilaiDiskon=0, kodeTerpakai=null, keranjang=[], poSelesai=false, stokData={};
 
 // ==================================================
-// ⏳ PENGATURAN TIMER — UBAH TANGGAL BERAKHIR DISINI
-// Format: "TAHUN-BULAN-TANGGAL JAM:MENIT:DETIK"
+// ⏳ UBAH TANGGAL BERAKHIR PRE-ORDER
 // ==================================================
-const TANGGAL_AKHIR_PO = new Date("2026-09-10 23:59:59").getTime();
-let poSelesai = false;
+const TANGGAL_AKHIR_PO = new Date("2026-09-15 23:59:59").getTime();
 
-// === KELAS SLIDER — GESER PAKAI JARI (HP) + GESER MOUSE (DESKTOP) ===
+// === SLIDER GESER ===
 class SliderUsap {
-    constructor(elemen) {
-        this.wadah = elemen;
-        this.slides = this.wadah.querySelector('.slides, .kartu-slides');
-        this.wadahTitik = this.wadah.querySelector('.slider-dots, .kartu-dots');
-        this.indeks = 0;
-        this.jumlah = this.slides ? this.slides.querySelectorAll('.slide, .kartu-slide').length : 0;
-        this.sedangGeser = false;
-        this.awalX = 0;
-        this.bergerakX = 0;
-        this.lebarSlide = 0;
-
-        if (this.jumlah > 0) {
-            this.lebarSlide = this.wadah.offsetWidth;
-            this.buatTitik();
-            this.aturEventSentuh();
-            this.aturEventMouse();
-            this.perbarui(false);
-        }
-    }
-
-    buatTitik() {
-        for (let i = 0; i < this.jumlah; i++) {
-            const tombol = document.createElement('button');
-            tombol.className = this.wadah.classList.contains('box-slider') ? 'dot' : 'kartu-dot';
-            tombol.setAttribute('aria-label', `Slide ${i + 1}`);
-            tombol.style.border = 'none';
-            tombol.style.background = 'rgba(255,255,255,0.3)';
-            tombol.style.padding = '0';
-            tombol.style.cursor = 'pointer';
-            tombol.addEventListener('click', () => this.pindahKe(i));
-            this.wadahTitik.appendChild(tombol);
-        }
-    }
-
-    aturEventSentuh() {
-        this.wadah.addEventListener('touchstart', (e) => {
-            this.awalX = e.touches[0].clientX;
-            this.sedangGeser = true;
-            this.slides.style.transition = 'none';
-            this.lebarSlide = this.wadah.offsetWidth;
-        }, { passive: true });
-
-        this.wadah.addEventListener('touchmove', (e) => {
-            if (!this.sedangGeser) return;
-            this.bergerakX = e.touches[0].clientX - this.awalX;
-            const geser = -this.indeks * 100 + (this.bergerakX / this.lebarSlide) * 100;
-            this.slides.style.transform = `translateX(${geser}%)`;
-        }, { passive: true });
-
-        this.wadah.addEventListener('touchend', () => this.selesaiGeser(), { passive: true });
-    }
-
-    aturEventMouse() {
-        this.wadah.addEventListener('mousedown', (e) => {
-            e.preventDefault();
-            this.awalX = e.clientX;
-            this.sedangGeser = true;
-            this.slides.style.transition = 'none';
-            this.lebarSlide = this.wadah.offsetWidth;
-            this.wadah.style.cursor = 'grabbing';
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            if (!this.sedangGeser) return;
-            this.bergerakX = e.clientX - this.awalX;
-            const geser = -this.indeks * 100 + (this.bergerakX / this.lebarSlide) * 100;
-            this.slides.style.transform = `translateX(${geser}%)`;
-        });
-
-        document.addEventListener('mouseup', () => {
-            if (!this.sedangGeser) return;
-            this.wadah.style.cursor = 'grab';
-            this.selesaiGeser();
-        });
-
-        this.wadah.style.cursor = 'grab';
-        this.wadah.style.userSelect = 'none';
-    }
-
-    selesaiGeser() {
-        this.sedangGeser = false;
-        this.slides.style.transition = 'transform 0.3s ease-out';
-
-        const ambang = this.lebarSlide / 4;
-        if (this.bergerakX < -ambang) {
-            this.berikutnya();
-        } else if (this.bergerakX > ambang) {
-            this.sebelumnya();
-        } else {
-            this.perbarui(true);
-        }
-        this.bergerakX = 0;
-    }
-
-    perbarui(animasi = true) {
-        if (animasi) this.slides.style.transition = 'transform 0.3s ease-out';
-        this.slides.style.transform = `translateX(-${this.indeks * 100}%)`;
-        const titik = this.wadahTitik.querySelectorAll('.dot, .kartu-dot');
-        titik.forEach((t, i) => t.classList.toggle('active', i === this.indeks));
-    }
-
-    pindahKe(urutan) { this.indeks = urutan; this.perbarui(true); }
-    berikutnya() { this.indeks = (this.indeks + 1) % this.jumlah; this.perbarui(true); }
-    sebelumnya() { this.indeks = (this.indeks - 1 + this.jumlah) % this.jumlah; this.perbarui(true); }
+    constructor(e){this.wadah=e;this.slides=this.wadah.querySelector('.slides,.kartu-slides');this.wadahTitik=this.wadah.querySelector('.slider-dots,.kartu-dots');this.indeks=0;this.jumlah=this.slides?this.slides.querySelectorAll('.slide,.kartu-slide').length:0;this.sedangGeser=false;this.awalX=0;this.bergerakX=0;this.lebarSlide=0;this.jumlah>0&&(this.lebarSlide=this.wadah.offsetWidth,this.buatTitik(),this.aturEventSentuh(),this.aturEventMouse(),this.perbarui(!1))}
+    buatTitik(){for(let i=0;i<this.jumlah;i++){const t=document.createElement('button');t.className=this.wadah.classList.contains('box-slider')?'dot':'kartu-dot',t.style.border='none',t.style.background='rgba(255,255,255,.3)',t.style.padding='0',t.style.cursor='pointer',t.addEventListener('click',()=>this.pindahKe(i)),this.wadahTitik.appendChild(t)}}
+    aturEventSentuh(){this.wadah.addEventListener('touchstart',e=>{this.awalX=e.touches[0].clientX,this.sedangGeser=!0,this.slides.style.transition='none',this.lebarSlide=this.wadah.offsetWidth},{passive:!0}),this.wadah.addEventListener('touchmove',e=>{if(!this.sedangGeser)return;this.bergerakX=e.touches[0].clientX-this.awalX;const t=-this.indeks*100+(this.bergerakX/this.lebarSlide)*100;this.slides.style.transform=`translateX(${t}%)`},{passive:!0}),this.wadah.addEventListener('touchend',()=>this.selesaiGeser(),{passive:!0})}
+    aturEventMouse(){this.wadah.addEventListener('mousedown',e=>{e.preventDefault(),this.awalX=e.clientX,this.sedangGeser=!0,this.slides.style.transition='none',this.lebarSlide=this.wadah.offsetWidth,this.wadah.style.cursor='grabbing'}),document.addEventListener('mousemove',e=>{if(!this.sedangGeser)return;this.bergerakX=e.clientX-this.awalX;const t=-this.indeks*100+(this.bergerakX/this.lebarSlide)*100;this.slides.style.transform=`translateX(${t}%)`}),document.addEventListener('mouseup',()=>{this.sedangGeser&&(this.wadah.style.cursor='grab',this.selesaiGeser())}),this.wadah.style.cursor='grab',this.wadah.style.userSelect='none'}
+    selesaiGeser(){this.sedangGeser=!1,this.slides.style.transition='transform .3s ease-out';const e=this.lebarSlide/4;this.bergerakX<-e?this.berikutnya():this.bergerakX>e?this.sebelumnya():this.perbarui(!0),this.bergerakX=0}
+    perbarui(e=!0){e&&(this.slides.style.transition='transform .3s ease-out'),this.slides.style.transform=`translateX(-${this.indeks*100}%)`;const t=this.wadahTitik.querySelectorAll('.dot,.kartu-dot');t.forEach((e,i)=>e.classList.toggle('active',i===this.indeks))}
+    pindahKe(e){this.indeks=e,this.perbarui(!0)}
+    berikutnya(){this.indeks=(this.indeks+1)%this.jumlah,this.perbarui(!0)}
+    sebelumnya(){this.indeks=(this.indeks-1+this.jumlah)%this.jumlah,this.perbarui(!0)}
 }
 
-// === FUNGSI TIMER ===
-function aturTimer() {
+// === TIMER ===
+function aturTimer(){
     const sekarang = new Date().getTime();
     const sisa = TANGGAL_AKHIR_PO - sekarang;
-
     const wadahTimer = document.getElementById('wadah-timer');
     const statusTimer = document.getElementById('status-timer');
-    const semuaTimerProduk = document.querySelectorAll('#timer-produk');
 
-    if (sisa <= 0) {
+    if(sisa <= 0){
         poSelesai = true;
-        document.getElementById('d').textContent = '00';
-        document.getElementById('h').textContent = '00';
-        document.getElementById('m').textContent = '00';
-        document.getElementById('s').textContent = '00';
-
-        if (wadahTimer) wadahTimer.classList.add('habis');
-        if (statusTimer) {
-            statusTimer.textContent = "WAKTU HABIS";
-            statusTimer.classList.add('habis');
-        }
-
-        semuaTimerProduk.forEach(el => el.textContent = "HABIS");
+        ['d','h','m','s'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='00'});
+        if(wadahTimer) wadahTimer.classList.add('habis');
+        if(statusTimer){ statusTimer.textContent = "WAKTU HABIS"; statusTimer.classList.add('habis'); }
         kunciSemuaPreOrder();
         return;
     }
 
     poSelesai = false;
-    if (wadahTimer) wadahTimer.classList.remove('habis');
-    if (statusTimer) {
-        statusTimer.textContent = "MASIH BERJALAN";
-        statusTimer.classList.remove('habis');
-    }
+    if(wadahTimer) wadahTimer.classList.remove('habis');
+    if(statusTimer){ statusTimer.textContent = "MASIH BERJALAN"; statusTimer.classList.remove('habis'); }
 
     const hari = Math.floor(sisa / (1000 * 60 * 60 * 24));
     const jam = Math.floor((sisa % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const menit = Math.floor((sisa % (1000 * 60 * 60)) / (1000 * 60));
     const detik = Math.floor((sisa % (1000 * 60)) / 1000);
+    const f = n => n < 10 ? '0' + n : n;
 
-    const f = n => String(n).padStart(2, '0');
-    if (document.getElementById('d')) document.getElementById('d').textContent = f(hari);
-    if (document.getElementById('h')) document.getElementById('h').textContent = f(jam);
-    if (document.getElementById('m')) document.getElementById('m').textContent = f(menit);
-    if (document.getElementById('s')) document.getElementById('s').textContent = f(detik);
-
-    const tampil = `${f(hari)}:${f(jam)}:${f(menit)}`;
-    semuaTimerProduk.forEach(el => el.textContent = tampil);
-}
-
-// === KUNCI PRODUK PO SAAT HABIS ===
-function kunciSemuaPreOrder() {
-    const produkPO = document.querySelectorAll('.kartu-produk[data-tipe="preorder"]');
-    produkPO.forEach(kartu => {
-        kartu.classList.add('kunci');
-        const tombolBeli = kartu.querySelector('.btn-cart');
-        const inputJumlah = kartu.querySelector('.jumlah-input');
-        const tombolPlusMinus = kartu.querySelectorAll('.jumlah-btn');
-        const pilihUkuran = kartu.querySelector('select');
-        const infoStok = kartu.querySelector('.info-stok');
-
-        if (tombolBeli) tombolBeli.disabled = true;
-        if (inputJumlah) inputJumlah.disabled = true;
-        tombolPlusMinus.forEach(btn => btn.disabled = true);
-        if (pilihUkuran) pilihUkuran.disabled = true;
-        if (infoStok) {
-            infoStok.innerHTML = "❌ PRE ORDER TELAH BERAKHIR";
-            infoStok.classList.add('kunci');
-        }
+    ['d','h','m','s'].forEach((id,i)=>{
+        const val=[hari,jam,menit,detik][i];
+        const el=document.getElementById(id);if(el)el.textContent=f(val);
     });
 }
 
-// === FUNGSI MENU & HALAMAN ===
-function tampilkanMenu() { document.getElementById('sideMenu').classList.toggle('active'); }
-function tampilkanHalaman(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    document.getElementById('sideMenu').classList.remove('active');
-    window.scrollTo(0, 0);
+function kunciSemuaPreOrder(){
+    document.querySelectorAll('.kartu-produk[data-tipe="preorder"]').forEach(e=>{
+        e.classList.add('kunci');
+        const t=e.querySelector('.btn-cart'),n=e.querySelector('.jumlah-input'),o=e.querySelectorAll('.jumlah-btn'),s=e.querySelector('select'),i=e.querySelector('.info-stok');
+        t&&(t.disabled=!0,t.textContent="WAKTU HABIS");
+        n&&(n.disabled=!0);
+        o.forEach(e=>e.disabled=!0);
+        s&&(s.disabled=!0);
+        i&&(i.innerHTML="❌ PRE ORDER TELAH BERAKHIR",i.classList.add('kunci'));
+    });
 }
 
-// === UBAH HARGA BERDASARKAN UKURAN ===
-function gantiHarga(pilih) {
-    const info = pilih.closest('.kartu-info');
-    info.querySelector('.harga span').textContent = parseInt(pilih.value).toLocaleString('id-ID');
-}
+// === 🔄 AMBIL STOK DARI GOOGLE SHEETS — UTAMA ===
+async function ambilStokSemuaProduk(){
+    try{
+        // Tambah ?t=... agar tidak ambil data lama dari cache
+        const res = await fetch(URL_WEBAPP + "?t=" + Date.now());
+        if(!res.ok) throw new Error("Gagal terhubung ke server");
+        
+        stokData = await res.json();
+        console.log("✅ Stok terbaru dari Sheets:", stokData);
 
-// === UBAH JUMLAH BELI ===
-function ubahJumlah(tombol, langkah) {
-    const kartu = tombol.closest('.kartu-produk');
-    if (kartu.classList.contains('kunci')) return;
+        // Terapkan ke semua kartu produk
+        document.querySelectorAll('.kartu-produk').forEach(kartu=>{
+            const nama = kartu.dataset.nama?.trim() || '';
+            const stok = stokData[nama] ?? 0; // 0 jika tidak ditemukan
+            
+            // Update semua tampilan angka stok
+            kartu.querySelectorAll('.stok-val').forEach(e=>e.textContent=stok);
 
-    const input = kartu.querySelector('.jumlah-input');
-    const stok = parseInt(kartu.dataset.stok);
-    let nilai = parseInt(input.value) + langkah;
-    if (nilai < 1) nilai = 1;
-    if (nilai > stok) nilai = stok;
-    input.value = nilai;
-}
+            const infoStok = kartu.querySelector('.info-stok');
+            const btnBeli = kartu.querySelector('.btn-cart');
+            const inputJml = kartu.querySelector('.jumlah-input');
+            const btnJml = kartu.querySelectorAll('.jumlah-btn');
+            const selectUkuran = kartu.querySelector('select');
 
-// === KERANJANG ===
-let keranjang = [];
-
-function tambahKeKeranjang(nama, tombol, foto) {
-    const kartu = tombol.closest('.kartu-produk');
-    const stok = parseInt(kartu.dataset.stok);
-
-    if (kartu.classList.contains('kunci') || poSelesai) {
-        alert("❌ Produk ini sudah tidak bisa dipesan (Waktu Habis)!");
-        return;
+            // Atur kondisi habis/tersedia
+            if(stok <= 0){
+                kartu.classList.add('habis');
+                infoStok&&(infoStok.innerHTML='❌ STOK HABIS',infoStok.classList.add('habis'),infoStok.classList.remove('kunci'));
+                btnBeli&&(btnBeli.disabled=!0,btnBeli.textContent='STOK HABIS');
+                inputJml&&(inputJml.disabled=!0);
+                btnJml.forEach(e=>e.disabled=!0);
+                selectUkuran&&(selectUkuran.disabled=!0);
+            }else{
+                kartu.classList.remove('habis');
+                infoStok&&(infoStok.innerHTML=`✅ Tersedia: ${stok} pcs`,infoStok.classList.remove('habis','kunci'));
+                
+                // Buka kembali jika bukan pre-order yang sudah tutup
+                if(!poSelesai && !kartu.classList.contains('kunci')){
+                    btnBeli&&(btnBeli.disabled=!1,btnBeli.textContent='+ Keranjang');
+                    inputJml&&(inputJml.disabled=!1);
+                    btnJml.forEach(e=>e.disabled=!1);
+                    selectUkuran&&(selectUkuran.disabled=!1);
+                }
+            }
+        });
+    }catch(e){
+        console.error('❌ Gagal ambil stok:', e);
     }
-    if (stok <= 0) { alert("❌ Maaf, stok habis!"); return; }
+}
 
-    const ukuranEl = kartu.querySelector('select');
-    const ukuranTeks = ukuranEl.options[ukuranEl.selectedIndex].text;
-    const harga = parseInt(ukuranEl.value);
-    const jumlah = parseInt(kartu.querySelector('.jumlah-input').value);
+// === KURANGI STOK SAAT CHECKOUT ===
+async function kurangiStok(){
+    for(const item of keranjang){
+        try{
+            const formData = new FormData();
+            formData.append("nama_produk", item.nama);
+            formData.append("kurangi", item.jumlah);
 
-    const ada = keranjang.find(i => i.nama === nama && i.ukuran === ukuranTeks);
-    if (ada) {
-        if (ada.jumlah + jumlah > stok) { alert("⚠️ Jumlah melebihi stok tersedia!"); return; }
+            const res = await fetch(URL_WEBAPP, {
+                method: "POST",
+                body: formData
+            });
+            
+            const hasil = await res.json();
+            if(!hasil.sukses){
+                alert(`❌ ${item.nama}: ${hasil.pesan}`);
+                await ambilStokSemuaProduk(); // Refresh stok terbaru
+                return false;
+            }
+        }catch(e){
+            alert(`❌ Gagal update stok: ${e}`);
+            await ambilStokSemuaProduk();
+            return false;
+        }
+    }
+    return true;
+}
+
+// === FUNGSI UMUM ===
+function tampilkanMenu(){document.getElementById('sideMenu').classList.toggle('active')}
+function tampilkanHalaman(e){document.querySelectorAll('.page').forEach(t=>t.classList.remove('active')),document.getElementById(e).classList.add('active'),document.getElementById('sideMenu').classList.remove('active'),window.scrollTo(0,0)}
+function gantiHarga(e){const t=e.closest('.kartu-info');t.querySelector('.harga span').textContent=parseInt(e.value).toLocaleString('id-ID')}
+function ubahJumlah(e,t){
+    const kartu=e.closest('.kartu-produk');
+    if(kartu.classList.contains('kunci'))return;
+    const nama=kartu.dataset.nama?.trim();
+    const stokMaksimal=stokData[nama]??999;
+    const input=kartu.querySelector('.jumlah-input');
+    let val=parseInt(input.value)+t;
+    val=Math.max(1,Math.min(val,stokMaksimal));
+    input.value=val;
+}
+function tambahKeKeranjang(nama,tombol,foto){
+    const kartu=tombol.closest('.kartu-produk');
+    const stok=stokData[nama]??0;
+    
+    if(kartu.classList.contains('kunci')||poSelesai)return void alert('❌ Sudah tidak bisa dipesan!');
+    if(stok<=0)return void alert('❌ Stok habis!');
+    
+    const ukuranEl=kartu.querySelector('select');
+    const ukuranTeks=ukuranEl.options[ukuranEl.selectedIndex].text;
+    const harga=parseInt(ukuranEl.value);
+    const jumlah=parseInt(kartu.querySelector('.jumlah-input').value);
+    
+    if(jumlah>stok)return void alert(`⚠️ Stok hanya tersisa ${stok} pcs!`);
+    
+    const ada=keranjang.find(i=>i.nama===nama&&i.ukuran===ukuranTeks);
+
+    if(ada){
+        if(ada.jumlah + jumlah > stok) return void alert('⚠️ Jumlah melebihi stok yang tersedia!');
         ada.jumlah += jumlah;
     } else {
-        keranjang.push({ nama, ukuran: ukuranTeks, harga, jumlah, foto, stok });
+        keranjang.push({nama, ukuran: ukuranTeks, harga, jumlah, foto});
     }
-
     perbaruiTampilanKeranjang();
-    alert(`✅ Berhasil dimasukkan ke keranjang:\n${nama}\n${ukuranTeks} x${jumlah}`);
+    alert(`✅ Berhasil ditambahkan:\n${nama}\n${ukuranTeks} x${jumlah}`);
 }
 
-function perbaruiTampilanKeranjang() {
+function perbaruiTampilanKeranjang(){
     const wadah = document.getElementById('keranjang-list');
-    const notifJumlah = document.getElementById('jumlah-keranjang');
+    const jumlahKeranjang = document.getElementById('jumlah-keranjang');
     let subtotal = 0;
-
-    const totalBarang = keranjang.reduce((a, b) => a + b.jumlah, 0);
-    notifJumlah.textContent = totalBarang;
+    const totalItem = keranjang.reduce((total, item) => total + item.jumlah, 0);
+    jumlahKeranjang.textContent = totalItem;
     wadah.innerHTML = '';
 
-    if (keranjang.length === 0) {
+    if(keranjang.length === 0){
         wadah.innerHTML = '<p style="color:#aaa;text-align:center;padding:30px;">🛒 Keranjang belanja kosong</p>';
     } else {
-        keranjang.forEach((brg, idx) => {
+        keranjang.forEach((brg, indeks) => {
             subtotal += brg.harga * brg.jumlah;
             wadah.innerHTML += `
             <div class="item-keranjang">
@@ -1009,22 +544,22 @@ function perbaruiTampilanKeranjang() {
                     <p>Harga: Rp${brg.harga.toLocaleString('id-ID')}</p>
                     <p>Jumlah: ${brg.jumlah}</p>
                     <p>Subtotal: <strong>Rp${(brg.harga * brg.jumlah).toLocaleString('id-ID')}</strong></p>
-                    <button class="hapus-btn" onclick="hapusDariKeranjang(${idx})">🗑️ Hapus</button>
+                    <button class="hapus-btn" onclick="hapusDariKeranjang(${indeks})">🗑️ Hapus</button>
                 </div>
             </div>`;
         });
     }
 
     document.getElementById('subtotal').textContent = `Rp${subtotal.toLocaleString('id-ID')}`;
-    const barisPotong = document.getElementById('baris-potongan');
-    const tampilPotong = document.getElementById('potongan');
+    const barisPotongan = document.getElementById('baris-potongan');
+    const tampilPotongan = document.getElementById('potongan');
     const totalBayar = document.getElementById('total-bayar');
 
-    if (nilaiDiskon > 0 && kodeTerpakai) {
-        barisPotong.style.display = 'flex';
-        tampilPotong.textContent = `-Rp${nilaiDiskon.toLocaleString('id-ID')}`;
+    if(nilaiDiskon > 0 && kodeTerpakai){
+        barisPotongan.style.display = 'flex';
+        tampilPotongan.textContent = `-Rp${nilaiDiskon.toLocaleString('id-ID')}`;
     } else {
-        barisPotong.style.display = 'none';
+        barisPotongan.style.display = 'none';
         nilaiDiskon = 0;
     }
 
@@ -1032,21 +567,25 @@ function perbaruiTampilanKeranjang() {
     totalBayar.textContent = `Rp${total.toLocaleString('id-ID')}`;
 }
 
-function hapusDariKeranjang(indeks) { keranjang.splice(indeks, 1); perbaruiTampilanKeranjang(); }
+function hapusDariKeranjang(indeks){
+    keranjang.splice(indeks, 1);
+    perbaruiTampilanKeranjang();
+}
 
-// === CEK KODE DISKON ===
-function cekKodeDiskon() {
+function cekKodeDiskon(){
     const input = document.getElementById('input-kode').value.trim().toUpperCase();
     const pesan = document.getElementById('pesan-diskon');
-    nilaiDiskon = 0; kodeTerpakai = null;
+    nilaiDiskon = 0;
+    kodeTerpakai = null;
 
-    if (!input) {
+    if(!input){
         pesan.textContent = "⚠️ Masukkan kode diskon terlebih dahulu!";
         pesan.className = "pesan-diskon gagal";
-        perbaruiTampilanKeranjang(); return;
+        perbaruiTampilanKeranjang();
+        return;
     }
 
-    if (DAFTAR_KODE_DISKON.hasOwnProperty(input)) {
+    if(DAFTAR_KODE_DISKON.hasOwnProperty(input)){
         nilaiDiskon = DAFTAR_KODE_DISKON[input];
         kodeTerpakai = input;
         pesan.textContent = `✅ Berhasil! Diskon Rp${nilaiDiskon.toLocaleString('id-ID')}`;
@@ -1058,8 +597,7 @@ function cekKodeDiskon() {
     perbaruiTampilanKeranjang();
 }
 
-// === KIRIM KE WHATSAPP ===
-function kirimKeWA() {
+async function kirimKeWA(){
     const nama = document.getElementById('nama').value.trim();
     const wa = document.getElementById('wa').value.trim();
     const alamat = document.getElementById('alamat').value.trim();
@@ -1067,8 +605,11 @@ function kirimKeWA() {
     const noPesanan = document.getElementById('no-pesanan').textContent;
     const tglPesanan = document.getElementById('tgl').textContent;
 
-    if (keranjang.length === 0) { alert("🛒 Keranjang masih kosong!"); return; }
-    if (!nama || !wa || !alamat) { alert("⚠️ Isi Nama, No. WA & Alamat Lengkap!"); return; }
+    if(keranjang.length === 0){ alert("🛒 Keranjang masih kosong!"); return; }
+    if(!nama || !wa || !alamat){ alert("⚠️ Isi Nama, No. WA & Alamat Lengkap!"); return; }
+
+    const berhasil = await kurangiStok();
+    if(!berhasil) return;
 
     let teks = `🛒 *PESANAN BARU TNXUS CLUB*%0A`;
     teks += `━━━━━━━━━━━━━━━━━━━━%0A`;
@@ -1078,7 +619,7 @@ function kirimKeWA() {
     teks += `👤 Nama: ${nama}%0A`;
     teks += `📞 WA: ${wa}%0A`;
     teks += `📍 Alamat: ${alamat.replace(/\n/g, "%0A")}%0A`;
-    if (gmail) teks += `✉️ Email: ${gmail}%0A`;
+    if(gmail) teks += `✉️ Email: ${gmail}%0A`;
     teks += `━━━━━━━━━━━━━━━━━━━━%0A`;
     teks += `📦 DAFTAR PESANAN:%0A`;
 
@@ -1091,7 +632,7 @@ function kirimKeWA() {
 
     teks += `━━━━━━━━━━━━━━━━━━━━%0A`;
     teks += `💳 Subtotal: Rp${subtotal.toLocaleString('id-ID')}%0A`;
-    if (kodeTerpakai) teks += `🎁 Diskon [${kodeTerpakai}]: -Rp${nilaiDiskon.toLocaleString('id-ID')}%0A`;
+    if(kodeTerpakai) teks += `🎁 Diskon [${kodeTerpakai}]: -Rp${nilaiDiskon.toLocaleString('id-ID')}%0A`;
     const total = Math.max(0, subtotal - nilaiDiskon);
     teks += `💰 TOTAL BAYAR: *Rp${total.toLocaleString('id-ID')}*%0A`;
     teks += `━━━━━━━━━━━━━━━━━━━━%0A`;
@@ -1099,9 +640,12 @@ function kirimKeWA() {
     teks += `Silakan lakukan pembayaran sesuai nominal di atas.`;
 
     window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(teks)}`, '_blank');
+
+    keranjang = [];
+    perbaruiTampilanKeranjang();
+    await ambilStokSemuaProduk();
 }
 
-// === JALANKAN SAAT HALAMAN SIAP ===
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('no-pesanan').textContent = 'TNX' + Date.now();
     document.getElementById('tgl').textContent = new Date().toLocaleString('id-ID');
@@ -1109,12 +653,14 @@ document.addEventListener('DOMContentLoaded', () => {
     aturTimer();
     setInterval(aturTimer, 1000);
 
-    // ✅ SEMUA SLIDER — GESER JARI + MOUSE, TIDAK OTOMATIS
-    const sliderEl = document.querySelector('.box-slider');
-    if (sliderEl) new SliderUsap(sliderEl);
+    ambilStokSemuaProduk();
+    setInterval(ambilStokSemuaProduk, 10000);
+
+    const sliderUtama = document.querySelector('.box-slider');
+    if(sliderUtama) new SliderUsap(sliderUtama);
     document.querySelectorAll('.kartu-media').forEach(el => new SliderUsap(el));
 
-    if (poSelesai) kunciSemuaPreOrder();
+    if(poSelesai) kunciSemuaPreOrder();
 });
 </script>
 
