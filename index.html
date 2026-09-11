@@ -748,15 +748,15 @@ async function kirimKeWA(){
     if(!berhasil) return;
 
     let teks = "PESANAN BARU TNXUS CLUB\n";
-    teks += "━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
+    teks += "━━━━━━━━━━━━━━━━━━━━━━━\n";
     teks += "No. Pesanan : " + noPesanan + "\n";
     teks += "Tanggal     : " + tglPesanan + "\n";
-    teks += "━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
+    teks += "━━━━━━━━━━━━━━━━━━━━━━━\n";
     teks += "Nama        : " + nama + "\n";
     teks += "WhatsApp    : " + wa + "\n";
     teks += "Alamat     : " + alamat.replace(/\n/g, "\n ") + "\n";
     if(gmail) teks += "Email       : " + gmail + "\n";
-    teks += "━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
+    teks += "━━━━━━━━━━━━━━━━━━━━━━━\n";
     teks += "DAFTAR PESANAN:\n";
 
     let subtotal = 0;
@@ -768,12 +768,11 @@ async function kirimKeWA(){
         teks += "  Rp" + sub.toLocaleString('id-ID') + "\n";
     });
 
-    teks += "━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
     teks += "Subtotal    : Rp" + subtotal.toLocaleString('id-ID') + "\n";
     if(kodeTerpakai) teks += "Diskon (" + kodeTerpakai + ") : -Rp" + nilaiDiskon.toLocaleString('id-ID') + "\n";
     const total = Math.max(0, subtotal - nilaiDiskon);
     teks += "TOTAL BAYAR : Rp" + total.toLocaleString('id-ID') + "\n";
-    teks += "━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
+    teks += "━━━━━━━━━━━━━━━━━━━━━━━\n";
     teks += "Terima Kasih Telah Membeli!\n";
     teks += "Silakan lakukan pembayaran sesuai nominal di atas.";
 
