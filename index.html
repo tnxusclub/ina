@@ -722,32 +722,32 @@ async function kirimKeWA(){
     const berhasil = await kurangiStok();
     if(!berhasil) return;
 
-    let teks = `🛒 *PESANAN BARU TNXUS CLUB*%0A`;
-    teks += `━━━━━━━━━━━━━━━━━━━━%0A`;
-    teks += `📌 No. Pesanan: ${noPesanan}%0A`;
-    teks += `📅 Tanggal: ${tglPesanan}%0A`;
-    teks += `━━━━━━━━━━━━━━━━━━━━%0A`;
-    teks += `👤 Nama: ${nama}%0A`;
-    teks += `📞 WA: ${wa}%0A`;
-    teks += `📍 Alamat: ${alamat.replace(/\n/g, "%0A")}%0A`;
-    if(gmail) teks += `✉️ Email: ${gmail}%0A`;
-    teks += `━━━━━━━━━━━━━━━━━━━━%0A`;
-    teks += `📦 DAFTAR PESANAN:%0A`;
+    let teks = `🛒 *PESANAN BARU TNXUS CLUB*<br>`;
+    teks += `━━━━━━━━━━━━━━━━━━━━<br>`;
+    teks += `📌 No. Pesanan: ${noPesanan}<br>`;
+    teks += `📅 Tanggal: ${tglPesanan}<br>`;
+    teks += `━━━━━━━━━━━━━━━━━━━━<br>`;
+    teks += `👤 Nama: ${nama}<br>`;
+    teks += `📞 WA: ${wa}<br>`;
+    teks += `📍 Alamat: ${alamat.replace(/\n/g, "<br>")}<br>`;
+    if(gmail) teks += `✉️ Email: ${gmail}<br>`;
+    teks += `━━━━━━━━━━━━━━━━━━━━<br>`;
+    teks += `📦 DAFTAR PESANAN:<br>`;
 
     let subtotal = 0;
     keranjang.forEach(item => {
         const sub = item.harga * item.jumlah;
         subtotal += sub;
-        teks += `• ${item.nama}%0A  ${item.ukuran} x${item.jumlah}%0A  Rp${sub.toLocaleString('id-ID')}%0A`;
+        teks += `• ${item.nama}%0A  ${item.ukuran} x${item.jumlah}%0A  Rp${sub.toLocaleString('id-ID')}<br>`;
     });
 
-    teks += `━━━━━━━━━━━━━━━━━━━━%0A`;
-    teks += `💳 Subtotal: Rp${subtotal.toLocaleString('id-ID')}%0A`;
-    if(kodeTerpakai) teks += `🎁 Diskon [${kodeTerpakai}]: -Rp${nilaiDiskon.toLocaleString('id-ID')}%0A`;
+    teks += `━━━━━━━━━━━━━━━━━━━━<br>`;
+    teks += `💳 Subtotal: Rp${subtotal.toLocaleString('id-ID')}<br>`;
+    if(kodeTerpakai) teks += `🎁 Diskon [${kodeTerpakai}]: -Rp${nilaiDiskon.toLocaleString('id-ID')}<br>`;
     const total = Math.max(0, subtotal - nilaiDiskon);
-    teks += `💰 TOTAL BAYAR: *Rp${total.toLocaleString('id-ID')}*%0A`;
-    teks += `━━━━━━━━━━━━━━━━━━━━%0A`;
-    teks += `🙏 Terima Kasih Telah Membeli!%0A`;
+    teks += `💰 TOTAL BAYAR: *Rp${total.toLocaleString('id-ID')}*<br>`;
+    teks += `━━━━━━━━━━━━━━━━━━━━<br>`;
+    teks += `🙏 Terima Kasih Telah Membeli!<br>`;
     teks += `Silakan lakukan pembayaran sesuai nominal di atas.`;
 
     window.open(`https://wa.me/6285188081275?text=${encodeURIComponent(teks)}`, '_blank');
