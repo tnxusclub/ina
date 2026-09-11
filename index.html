@@ -739,45 +739,45 @@ async function kirimKeWA(){
     const noPesanan = document.getElementById('no-pesanan').textContent;
     const tglPesanan = document.getElementById('tgl').textContent;
 
-    if(keranjang.length === 0){ alert("🛒 Keranjang masih kosong!"); return; }
-    if(!nama){ alert("⚠️ Isi Nama Lengkap!"); return; }
-    if(!wa){ alert("⚠️ Isi Nomor WhatsApp!"); return; }
-    if(!alamat){ alert("⚠️ Isi Alamat Lengkap!"); return; }
+    if(keranjang.length === 0){ alert("Keranjang masih kosong!"); return; }
+    if(!nama){ alert("Isi Nama Lengkap!"); return; }
+    if(!wa){ alert("Isi Nomor WhatsApp!"); return; }
+    if(!alamat){ alert("Isi Alamat Lengkap!"); return; }
 
     const berhasil = await kurangiStok();
     if(!berhasil) return;
 
-    let teks = `*📦 PESANAN BARU TNXUS CLUB*%0A`;
-    teks += `━━━━━━━━━━━━━━━━━━━━━━━━━━%0A`;
-    teks += `📌 No. Pesanan : ${noPesanan}%0A`;
-    teks += `📅 Tanggal     : ${tglPesanan}%0A`;
-    teks += `━━━━━━━━━━━━━━━━━━━━━━━━━━%0A`;
-    teks += `👤 Nama        : ${nama}%0A`;
-    teks += `📞 WhatsApp    : ${wa}%0A`;
-    teks += `📍 Alamat     : ${alamat.replace(/\n/g, '%0A ')}%0A`;
-    if(gmail) teks += `✉️ Email       : ${gmail}%0A`;
-    teks += `━━━━━━━━━━━━━━━━━━━━━━━━━━%0A`;
-    teks += `🛒 DAFTAR PESANAN:%0A`;
+    let teks = "PESANAN BARU TNXUS CLUB\n";
+    teks += "━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
+    teks += "No. Pesanan : " + noPesanan + "\n";
+    teks += "Tanggal     : " + tglPesanan + "\n";
+    teks += "━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
+    teks += "Nama        : " + nama + "\n";
+    teks += "WhatsApp    : " + wa + "\n";
+    teks += "Alamat     : " + alamat.replace(/\n/g, "\n ") + "\n";
+    if(gmail) teks += "Email       : " + gmail + "\n";
+    teks += "━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
+    teks += "DAFTAR PESANAN:\n";
 
     let subtotal = 0;
     keranjang.forEach(item => {
         const sub = item.harga * item.jumlah;
         subtotal += sub;
-        teks += `• ${item.nama}%0A`;
-        teks += `  ${item.ukuran} × ${item.jumlah}%0A`;
-        teks += `  Rp${sub.toLocaleString('id-ID')}%0A`;
+        teks += "• " + item.nama + "\n";
+        teks += "  " + item.ukuran + " × " + item.jumlah + "\n";
+        teks += "  Rp" + sub.toLocaleString('id-ID') + "\n";
     });
 
-    teks += `━━━━━━━━━━━━━━━━━━━━━━━━━━%0A`;
-    teks += `💳 Subtotal    : Rp${subtotal.toLocaleString('id-ID')}%0A`;
-    if(kodeTerpakai) teks += `🎁 Diskon (${kodeTerpakai}) : -Rp${nilaiDiskon.toLocaleString('id-ID')}%0A`;
+    teks += "━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
+    teks += "Subtotal    : Rp" + subtotal.toLocaleString('id-ID') + "\n";
+    if(kodeTerpakai) teks += "Diskon (" + kodeTerpakai + ") : -Rp" + nilaiDiskon.toLocaleString('id-ID') + "\n";
     const total = Math.max(0, subtotal - nilaiDiskon);
-    teks += `💰 TOTAL BAYAR : *Rp${total.toLocaleString('id-ID')}*%0A`;
-    teks += `━━━━━━━━━━━━━━━━━━━━━━━━━━%0A`;
-    teks += `🙏 Terima Kasih Telah Membeli!%0A`;
-    teks += `Silakan lakukan pembayaran sesuai nominal di atas.`;
+    teks += "TOTAL BAYAR : Rp" + total.toLocaleString('id-ID') + "\n";
+    teks += "━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
+    teks += "Terima Kasih Telah Membeli!\n";
+    teks += "Silakan lakukan pembayaran sesuai nominal di atas.";
 
-    window.open(`https://wa.me/6285188081275?text=${encodeURIComponent(teks)}`, '_blank');
+    window.open("https://wa.me/6285188081275?text=" + encodeURIComponent(teks), "_blank");
 
     keranjang = [];
     perbaruiTampilanKeranjang();
