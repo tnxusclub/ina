@@ -36,7 +36,9 @@
         .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4);border:none;cursor:pointer;padding:0;transition:all .2s}
         .dot.active{background:#ff0055;width:18px;border-radius:4px}
         video{width:100%;height:100%;object-fit:cover}
-        h1{text-align:center;color:#ff0055;margin:15px 0;font-size:28px}
+        h1{text-align:center;color:#ff0055;margin:15px 0;font-size:28px;position:relative}
+        .tutup-keranjang{position:absolute;right:0;top:0;background:transparent;border:none;color:#888;font-size:24px;cursor:pointer;line-height:1}
+        .tutup-keranjang:hover{color:#ff0055}
         .desc{text-align:center;color:#aaa;margin-bottom:30px}
         .timer-wrapper{background:linear-gradient(145deg,#1a1a1a,#2a2a2a);border:2px solid #ff0055;border-radius:15px;padding:20px 30px;margin:20px auto;max-width:400px;text-align:center;box-shadow:0 0 15px rgba(255,0,85,.3)}
         .timer-wrapper.habis{border-color:#666;background:#1a1a1a;box-shadow:none}
@@ -103,6 +105,7 @@
         .baris-harga.total{font-size:19px;font-weight:bold;color:#ff0055;border-top:1px solid #222;padding-top:10px}
         .form-group{margin:12px 0}
         .form-group input,.form-group textarea{width:100%;padding:12px;background:#111;border:1px solid #333;border-radius:6px;color:white;font-size:15px}
+        .form-group label{font-size:13px;color:#888;margin-bottom:4px;display:block}
         .btn-checkout{background:#25d366;border:none;width:100%;padding:14px;border-radius:8px;color:white;font-size:16px;font-weight:bold;cursor:pointer}
         .btn-checkout:disabled{background:#222;cursor:not-allowed}
         #afiliasi{background:linear-gradient(135deg,#0F172A 0%,#1E1B4B 100%);margin:-20px -20px -60px -20px;padding:20px;min-height:calc(100vh - 90px)}
@@ -172,7 +175,7 @@
                     <div class="ukuran"><select onchange="gantiHarga(this)">
                         <option value="95000">WHITE SIZE S - Rp95.000</option>
                         <option value="100000">WHITE SIZE M - Rp100.000</option>
-                        <option value="105000"> WHITE SIZE L - Rp105.000</option>
+                        <option value="105000">WHITE SIZE L - Rp105.000</option>
                         <option value="110000">WHITE SIZE XL - Rp110.000</option>
                         <option value="95000">BLACK SIZE S - Rp95.000</option>
                         <option value="100000">BLACK SIZE M - Rp100.000</option>
@@ -192,29 +195,31 @@
         <h1>PRODUK & BRAND</h1>
         <h2 style="margin:40px 0 20px;color:#fff;">PRE ORDER</h2>
         <div class="produk-grid">
-            <div class="kartu-produk" data-nama="Kaos TNXUS PO 01" data-tipe="preorder">
+            <div class="kartu-produk" data-nama="TNXUS ROSE & THORN" data-tipe="preorder">
                 <div class="kartu-media">
                     <span class="timer-label">PRE ORDER</span>
                     <span class="stok-label">Stok: <span class="stok-val">—</span></span>
-                    <div class="kartu-slides"><div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/rose-thorn-1.jpeg" alt="PO" loading="lazy"></div></div>
-                     <div class="kartu-slides"><div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/rose-thorn-2.jpeg" alt="PO" loading="lazy"></div></div>
-                     <div class="kartu-slides"><div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/rose-thorn-3.jpeg" alt="PO" loading="lazy"></div></div>
+                    <div class="kartu-slides">
+                        <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/rose-thorn-1.jpeg" alt="PO" loading="lazy"></div>
+                        <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/rose-thorn-2.jpeg" alt="PO" loading="lazy"></div>
+                        <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/rose-thorn-3.jpeg" alt="PO" loading="lazy"></div>
+                    </div>
                     <div class="kartu-dots"></div>
                 </div>
                 <div class="kartu-info">
-                    <h3>Kaos TNXUS PO 01</h3><p class="desc">Bahan Tebal Nyaman</p>
+                    <h3>TNXUS ROSE & THORN</h3><p class="desc">Bahan Tebal Nyaman</p>
                     <p class="info-stok">✅ Tersedia: <span class="stok-val">—</span> pcs</p>
                     <div class="ukuran"><select onchange="gantiHarga(this)">
                         <option value="95000">WHITE SIZE S - Rp95.000</option>
                         <option value="100000">WHITE SIZE M - Rp100.000</option>
-                        <option value="105000"> WHITE SIZE L - Rp105.000</option>
+                        <option value="105000">WHITE SIZE L - Rp105.000</option>
                         <option value="110000">WHITE SIZE XL - Rp110.000</option>
                         <option value="95000">BLACK SIZE S - Rp95.000</option>
                         <option value="100000">BLACK SIZE M - Rp100.000</option>
                         <option value="105000">BLACK SIZE L - Rp105.000</option>
                         <option value="110000">BLACK SIZE XL - Rp110.000</option>
                     </select></div>
-                    <div class="harga">Rp<span>90.000</span></div>
+                    <div class="harga">Rp<span>95.000</span></div>
                     <div class="jumlah-group"><button class="jumlah-btn" onclick="ubahJumlah(this,-1)">−</button><input type="number" class="jumlah-input" value="1" min="1" readonly><button class="jumlah-btn" onclick="ubahJumlah(this,1)">+</button></div>
                     <button class="btn-cart" onclick="tambahKeKeranjang('TNXUS ROSE & THORN',this,'https://raw.githubusercontent.com/tnxusclub/ina/main/rose-thorn-1.jpeg')">+ Keranjang</button>
                 </div>
@@ -250,7 +255,9 @@
             <div class="kartu-produk" data-nama="TNXUS KID" data-tipe="biasa">
                 <div class="kartu-media">
                     <span class="stok-label">Stok: <span class="stok-val">—</span></span>
-                    <div class="kartu-slides"><div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/tnxus-kids.jpeg" alt="TNXUS KID" loading="lazy"></div></div>
+                    <div class="kartu-slides">
+                        <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/tnxus-kids.jpeg" alt="TNXUS KID" loading="lazy"></div>
+                    </div>
                     <div class="kartu-dots"></div>
                 </div>
                 <div class="kartu-info">
@@ -265,8 +272,7 @@
                 <div class="kartu-media">
                     <span class="stok-label">Stok: <span class="stok-val">—</span></span>
                     <div class="kartu-slides">
-                        <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/tnxus-mark.jpeg" alt="Tas" loading="lazy"></div>
-                        
+                        <div class="kartu-slide"><img class="kartu-slide-img" src="https://raw.githubusercontent.com/tnxusclub/ina/main/tnxus-mark.jpeg" alt="Stiker TNXUS" loading="lazy"></div>
                     </div>
                     <div class="kartu-dots"></div>
                 </div>
@@ -324,7 +330,9 @@
 
     <!-- KERANJANG -->
     <section id="keranjang" class="page">
-        <h1>KERANJANG BELANJA</h1>
+        <h1>KERANJANG BELANJA
+            <button class="tutup-keranjang" onclick="tampilkanHalaman('beranda')">&times;</button>
+        </h1>
         <p style="color:#aaa;">No. Pesanan: <strong id="no-pesanan"></strong> | <span id="tgl"></span></p>
         <div id="keranjang-list"></div>
         <div class="kotak-diskon">
@@ -339,10 +347,22 @@
             <div class="baris-harga total">TOTAL: <span id="total-bayar">Rp0</span></div>
         </div>
         <h3 style="margin:30px 0 15px;color:#fff;">DATA PENGIRIMAN</h3>
-        <div class="form-group"><input type="text" id="nama" placeholder="Nama Lengkap"></div>
-        <div class="form-group"><input type="text" id="wa" placeholder="Nomor WhatsApp"></div>
-        <div class="form-group"><textarea id="alamat" placeholder="Alamat Lengkap"></textarea></div>
-        <div class="form-group"><input type="email" id="gmail" placeholder="Email"></div>
+        <div class="form-group">
+            <label>Nama Lengkap <span style="color:#ff4444">*</span></label>
+            <input type="text" id="nama" placeholder="Masukkan nama lengkap">
+        </div>
+        <div class="form-group">
+            <label>Nomor WhatsApp <span style="color:#ff4444">*</span></label>
+            <input type="text" id="wa" placeholder="Contoh: 081234567890">
+        </div>
+        <div class="form-group">
+            <label>Alamat Lengkap <span style="color:#ff4444">*</span></label>
+            <textarea id="alamat" placeholder="Jalan, RT/RW, Desa/Kec, Kab/Kota, Kode Pos"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Email (Opsional)</label>
+            <input type="email" id="gmail" placeholder="Email kamu (tidak wajib)">
+        </div>
         <button class="btn-checkout" onclick="kirimKeWA()">✅ KIRIM KE WHATSAPP</button>
     </section>
 </main>
@@ -358,7 +378,7 @@
 
 <script>
 // ==================================================
-// 🔗 URL GOOGLE APPS SCRIPT — SUDAH DIISI BENAR
+// 🔗 URL GOOGLE APPS SCRIPT
 // ==================================================
 const URL_WEBAPP = "https://script.google.com/macros/s/AKfycbyhnEcjXWipsSKnDhAQ9yOdRY0QUFSMnCdBvZ_wAUsWOdtpUy7fY4hPeQh-kyTVHAxe/exec";
 
@@ -402,7 +422,6 @@ class SliderUsap {
     }
 
     aturEventSentuh() {
-        // Geser pakai jari di HP Android
         this.wadah.addEventListener('touchstart', e => {
             this.awalX = e.touches[0].clientX;
             this.sedangGeser = true;
@@ -421,7 +440,6 @@ class SliderUsap {
     }
 
     aturEventMouse() {
-        // Geser pakai kursor di komputer
         this.wadah.addEventListener('mousedown', e => {
             e.preventDefault();
             this.awalX = e.clientX;
@@ -615,8 +633,13 @@ function tambahKeKeranjang(nama,tombol,foto){
     if(stok<=0)return void alert('❌ Stok habis!');
     
     const ukuranEl=kartu.querySelector('select');
-    const ukuranTeks=ukuranEl.options[ukuranEl.selectedIndex].text;
-    const harga=parseInt(ukuranEl.value);
+    const ukuranTeks=ukuranEl?ukuranEl.options[ukuranEl.selectedIndex].text:'Tanpa Ukuran';
+    let harga;
+    if(ukuranEl){
+        harga=parseInt(ukuranEl.value);
+    }else{
+        harga=parseInt(kartu.querySelector('.harga span').textContent.replace(/\./g,''));
+    }
     const jumlah=parseInt(kartu.querySelector('.jumlah-input').value);
     
     if(jumlah>stok)return void alert(`⚠️ Stok hanya tersisa ${stok} pcs!`);
@@ -717,37 +740,41 @@ async function kirimKeWA(){
     const tglPesanan = document.getElementById('tgl').textContent;
 
     if(keranjang.length === 0){ alert("🛒 Keranjang masih kosong!"); return; }
-    if(!nama || !wa || !alamat){ alert("⚠️ Isi Nama, No. WA & Alamat Lengkap!"); return; }
+    if(!nama){ alert("⚠️ Isi Nama Lengkap!"); return; }
+    if(!wa){ alert("⚠️ Isi Nomor WhatsApp!"); return; }
+    if(!alamat){ alert("⚠️ Isi Alamat Lengkap!"); return; }
 
     const berhasil = await kurangiStok();
     if(!berhasil) return;
 
-    let teks = `*PESANAN BARU TNXUS CLUB*`;
-    teks += `━━━━━━━━━━━━━━━━━━━━<br>`;
-    teks += `📌 No. Pesanan: ${noPesanan}<br>`;
-    teks += `📅 Tanggal: ${tglPesanan}<br>`;
-    teks += `━━━━━━━━━━━━━━━━━━━━<br>`;
-    teks += `👤 Nama: ${nama}<br>`;
-    teks += `📞 WA: ${wa}<br>`;
-    teks += `📍 Alamat: ${alamat.replace(/\n/g, "<br>")}<br>`;
-    if(gmail) teks += `✉️ Email: ${gmail}<br>`;
-    teks += `━━━━━━━━━━━━━━━━━━━━<br>`;
-    teks += `📦 DAFTAR PESANAN:<br>`;
+    let teks = `*📦 PESANAN BARU TNXUS CLUB*%0A`;
+    teks += `━━━━━━━━━━━━━━━━━━━━━━━━━━%0A`;
+    teks += `📌 No. Pesanan : ${noPesanan}%0A`;
+    teks += `📅 Tanggal     : ${tglPesanan}%0A`;
+    teks += `━━━━━━━━━━━━━━━━━━━━━━━━━━%0A`;
+    teks += `👤 Nama        : ${nama}%0A`;
+    teks += `📞 WhatsApp    : ${wa}%0A`;
+    teks += `📍 Alamat     : ${alamat.replace(/\n/g, '%0A ')}%0A`;
+    if(gmail) teks += `✉️ Email       : ${gmail}%0A`;
+    teks += `━━━━━━━━━━━━━━━━━━━━━━━━━━%0A`;
+    teks += `🛒 DAFTAR PESANAN:%0A`;
 
     let subtotal = 0;
     keranjang.forEach(item => {
         const sub = item.harga * item.jumlah;
         subtotal += sub;
-        teks += `• ${item.nama}%0A  ${item.ukuran} x${item.jumlah}%0A  Rp${sub.toLocaleString('id-ID')}<br>`;
+        teks += `• ${item.nama}%0A`;
+        teks += `  ${item.ukuran} × ${item.jumlah}%0A`;
+        teks += `  Rp${sub.toLocaleString('id-ID')}%0A`;
     });
 
-    teks += `━━━━━━━━━━━━━━━━━━━━<br>`;
-    teks += `💳 Subtotal: Rp${subtotal.toLocaleString('id-ID')}<br>`;
-    if(kodeTerpakai) teks += `🎁 Diskon [${kodeTerpakai}]: -Rp${nilaiDiskon.toLocaleString('id-ID')}<br>`;
+    teks += `━━━━━━━━━━━━━━━━━━━━━━━━━━%0A`;
+    teks += `💳 Subtotal    : Rp${subtotal.toLocaleString('id-ID')}%0A`;
+    if(kodeTerpakai) teks += `🎁 Diskon (${kodeTerpakai}) : -Rp${nilaiDiskon.toLocaleString('id-ID')}%0A`;
     const total = Math.max(0, subtotal - nilaiDiskon);
-    teks += `💰 TOTAL BAYAR: *Rp${total.toLocaleString('id-ID')}*<br>`;
-    teks += `━━━━━━━━━━━━━━━━━━━━<br>`;
-    teks += `🙏 Terima Kasih Telah Membeli!<br>`;
+    teks += `💰 TOTAL BAYAR : *Rp${total.toLocaleString('id-ID')}*%0A`;
+    teks += `━━━━━━━━━━━━━━━━━━━━━━━━━━%0A`;
+    teks += `🙏 Terima Kasih Telah Membeli!%0A`;
     teks += `Silakan lakukan pembayaran sesuai nominal di atas.`;
 
     window.open(`https://wa.me/6285188081275?text=${encodeURIComponent(teks)}`, '_blank');
