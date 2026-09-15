@@ -773,8 +773,8 @@ async function kirimKeWA(){
     const total = Math.max(0, subtotal - nilaiDiskon);
     teks += "TOTAL BAYAR : Rp" + total.toLocaleString('id-ID') + "\n";
     teks += "━━━━━━━━━━━━━━━━━━━━━━━\n";
-    teks += "Terima Kasih Telah Membeli!\n";
-    teks += "Silakan lakukan pembayaran sesuai nominal di atas.";
+    teks += "Terima Kasih Sudah Order!\n";
+    teks += "Pesanan anda sudah diajukan, Mohon tunggu balasan dari kami.";
 
     window.open("https://wa.me/6285188081275?text=" + encodeURIComponent(teks), "_blank");
 
