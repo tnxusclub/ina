@@ -771,15 +771,19 @@ async function kirimKeWA(){
         teks += "  Rp" + sub.toLocaleString('id-ID') + "%0A";
     });
 
+    teks += "━━━━━━━━━━━━━━━━━━━━━━━%0A";
     teks += "Subtotal    : Rp" + subtotal.toLocaleString('id-ID') + "%0A";
-    if(kodeTerpakai) teks += "Kode Diskon : " + kodeTerpakai + "%0ADiskon      : -Rp" + nilaiDiskon.toLocaleString('id-ID') + "%0A";
+    if(kodeTerpakai) {
+        teks += "Kode Diskon : " + kodeTerpakai + "%0A";
+        teks += "Diskon      : -Rp" + nilaiDiskon.toLocaleString('id-ID') + "%0A";
+    }
     const total = Math.max(0, subtotal - nilaiDiskon);
     teks += "TOTAL BAYAR : Rp" + total.toLocaleString('id-ID') + "%0A";
     teks += "━━━━━━━━━━━━━━━━━━━━━━━%0A";
     teks += "Terima Kasih Sudah Order!%0A";
     teks += "Pesanan anda sudah diajukan, Mohon tunggu balasan dari kami.";
 
-    window.open("https://wa.me/6285188081275?text=" + teks, "_blank");
+    window.open("https://wa.me/6285188081275?text=" + encodeURIComponent(teks), "_blank");
 
     keranjang = [];
     perbaruiTampilanKeranjang();
