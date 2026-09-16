@@ -95,11 +95,14 @@
         .hapus-btn:hover{color:#f00;text-decoration:underline}
         .kotak-diskon{background:#111;border:1px solid #222;border-radius:10px;padding:15px;margin:20px 0}
         .kotak-diskon input{width:100%;padding:12px;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:white;font-size:15px;margin-bottom:10px;text-transform:uppercase}
-        .btn-diskon{background:#ff9500;border:none;padding:10px 18px;border-radius:6px;color:black;font-weight:bold;cursor:pointer}
+        .btn-diskon{background:#ff9500;border:none;padding:10px 18px;border-radius:6px;color:black;font-weight:bold;cursor:pointer;transition:.2s}
+        .btn-diskon:disabled{opacity:.5;cursor:not-allowed}
         .btn-diskon:hover{background:#ffb340}
         .pesan-diskon{font-size:14px;margin-top:8px;min-height:20px}
         .berhasil{color:#4ec96e}
         .gagal{color:#ff4444}
+        .loading-spinner{display:inline-block;width:16px;height:16px;border:2px solid #333;border-top-color:#ff9500;border-radius:50%;animation:putar .8s linear infinite;margin-right:8px;vertical-align:middle}
+        @keyframes putar{to{transform:rotate(360deg)}}
         .rincian-harga{background:#0f0f0f;padding:15px;border-radius:8px;margin:15px 0;border:1px solid #222}
         .baris-harga{display:flex;justify-content:space-between;padding:6px 0;color:#ccc;font-size:15px}
         .baris-harga.total{font-size:19px;font-weight:bold;color:#ff0055;border-top:1px solid #222;padding-top:10px}
@@ -131,7 +134,7 @@
     <a href="#" onclick="tampilkanHalaman('beranda');return false;">BERANDA</a>
     <a href="#" onclick="tampilkanHalaman('produk');return false;">PRODUK & BRAND</a>
     <a href="#" onclick="tampilkanHalaman('aksesoris');return false;">AKSESORIS</a>
-    <a href="#" onclick="tampilkanHalaman('afiliasi');return false;" class="afiliasi-link">⭐ PERINGKAT AFILIASI</a>
+    <a href="#" onclick="tampilkanHalaman('afiliasi');return false;" class="afiliasi-link">PERINGKAT AFILIASI</a>
 </div>
 
 <div id="notifikasi" class="notifikasi">Berhasil ditambahkan ke keranjang</div>
@@ -148,7 +151,7 @@
             </div>
             <div class="slider-dots"></div>
         </div>
-        <h2 style="text-align:center;margin:30px 0;color:#fff;">⏳ PRODUK PRE ORDER</h2>
+        <h2 style="text-align:center;margin:30px 0;color:#fff;">PRODUK PRE ORDER</h2>
         <div class="timer-wrapper" id="wadah-timer">
             <div class="timer-label-header">WAKTU TERSISA</div>
             <div class="preorder-timer">
@@ -174,7 +177,7 @@
                 <div class="kartu-info">
                     <h3>TNXUS ROSE & THORN</h3>
                     <p class="desc">Katun 24s • Sablon DTF</p>
-                    <p class="info-stok">✅ Tersedia: <span class="stok-val">—</span> pcs</p>
+                    <p class="info-stok">Tersedia: <span class="stok-val">—</span> pcs</p>
                     <div class="ukuran"><select onchange="gantiHarga(this)">
                         <option value="95000">WHITE SIZE S - Rp95.000</option>
                         <option value="100000">WHITE SIZE M - Rp100.000</option>
@@ -210,7 +213,7 @@
                 </div>
                 <div class="kartu-info">
                     <h3>TNXUS ROSE & THORN</h3><p class="desc">Bahan Tebal Nyaman</p>
-                    <p class="info-stok">✅ Tersedia: <span class="stok-val">—</span> pcs</p>
+                    <p class="info-stok">Tersedia: <span class="stok-val">—</span> pcs</p>
                     <div class="ukuran"><select onchange="gantiHarga(this)">
                         <option value="95000">WHITE SIZE S</option>
                         <option value="100000">WHITE SIZE M</option>
@@ -240,7 +243,7 @@
                 </div>
                 <div class="kartu-info">
                     <h3>Kaos TNXUS Basic</h3><p class="desc">Tersedia Langsung</p>
-                    <p class="info-stok">✅ Tersedia: <span class="stok-val">—</span> pcs</p>
+                    <p class="info-stok">Tersedia: <span class="stok-val">—</span> pcs</p>
                     <div class="ukuran"><select onchange="gantiHarga(this)"><option value="85000">M - Rp85.000</option><option value="90000">L - Rp90.000</option></select></div>
                     <div class="harga">Rp<span>85.000</span></div>
                     <div class="jumlah-group"><button class="jumlah-btn" onclick="ubahJumlah(this,-1)">−</button><input type="number" class="jumlah-input" value="1" min="1" readonly><button class="jumlah-btn" onclick="ubahJumlah(this,1)">+</button></div>
@@ -263,7 +266,7 @@
                 </div>
                 <div class="kartu-info">
                     <h3>TNXUS KID</h3><p class="desc">Bahan Kuat & Stylish</p>
-                    <p class="info-stok">✅ Tersedia: <span class="stok-val">—</span> pcs</p>
+                    <p class="info-stok">Tersedia: <span class="stok-val">—</span> pcs</p>
                     <div class="harga">Rp<span>20.000</span></div>
                     <div class="jumlah-group"><button class="jumlah-btn" onclick="ubahJumlah(this,-1)">−</button><input type="number" class="jumlah-input" value="1" min="1" readonly><button class="jumlah-btn" onclick="ubahJumlah(this,1)">+</button></div>
                     <button class="btn-cart" onclick="tambahKeKeranjang('TNXUS KID',this,'https://raw.githubusercontent.com/tnxusclub/ina/main/tnxus-kids.jpeg')">+ Keranjang</button>
@@ -279,7 +282,7 @@
                 </div>
                 <div class="kartu-info">
                     <h3>STIKER TNXUS</h3><p class="desc">Tahan Air</p>
-                    <p class="info-stok">✅ Tersedia: <span class="stok-val">—</span> pcs</p>
+                    <p class="info-stok">Tersedia: <span class="stok-val">—</span> pcs</p>
                     <div class="harga">Rp<span>5.000</span></div>
                     <div class="jumlah-group"><button class="jumlah-btn" onclick="ubahJumlah(this,-1)">−</button><input type="number" class="jumlah-input" value="1" min="1" readonly><button class="jumlah-btn" onclick="ubahJumlah(this,1)">+</button></div>
                     <button class="btn-cart" onclick="tambahKeKeranjang('STIKER TNXUS',this,'https://raw.githubusercontent.com/tnxusclub/ina/main/tnxus-mark.jpeg')">+ Keranjang</button>
@@ -337,7 +340,7 @@
         <div class="kotak-diskon">
             <h3 style="margin-bottom:12px;color:#fff;">Kode Diskon</h3>
             <input type="text" id="input-kode" placeholder="Masukkan kode unik...">
-            <button class="btn-diskon" onclick="cekKodeDiskon()">Gunakan</button>
+            <button class="btn-diskon" id="btn-gunakan-diskon" onclick="cekKodeDiskon()">Gunakan</button>
             <div id="pesan-diskon" class="pesan-diskon"></div>
         </div>
         <div class="rincian-harga">
@@ -377,16 +380,16 @@
 
 <script>
 // ==================================================
-// 🔗 LINK GOOGLE APPS SCRIPT — SATU SUMBER DATA
+// 🔗 LINK GOOGLE APPS SCRIPT
 // ==================================================
-const URL_WEBAPP = "https://script.google.com/macros/s/AKfycbz2Pw5hvXZ1B19_ZruGUCWRYPRfzIPmsSHSvvWfYxhfJeRWrtu3TKicezLnb2adsxahCA/exec";
+const URL_WEBAPP = "https://script.google.com/macros/s/AKfycbym0olUOj-AIw0wxZ5dX6e69voc4CPBtffWvSH_q4ptP7PiJCOXhFMPjaQqNbQILr3bDQ/exec";
 
 let nilaiDiskon=0, kodeTerpakai=null, keranjang=[], poSelesai=false, stokData={};
 
 // ==================================================
 // ⏳ TANGGAL BERAKHIR PRE-ORDER
 // ==================================================
-const TANGGAL_AKHIR_PO = new Date("2026-09-15 23:59:59").getTime();
+const TANGGAL_AKHIR_PO = new Date("2026-09-16 23:59:59").getTime();
 
 function tampilNotifikasi(pesan = "Berhasil ditambahkan ke keranjang") {
     const el = document.getElementById('notifikasi');
@@ -524,7 +527,8 @@ async function ambilStokSemuaProduk(){
     try{
         const res = await fetch(URL_WEBAPP + "?t=" + Date.now());
         if(!res.ok) throw new Error("Gagal terhubung ke server");
-        stokData = await res.json();
+        const teks = await res.text();
+        stokData = JSON.parse(teks);
         document.querySelectorAll('.kartu-produk').forEach(kartu=>{
             const nama = kartu.dataset.nama?.trim() || '';
             const stok = stokData[nama] ?? 0;
@@ -539,15 +543,15 @@ async function ambilStokSemuaProduk(){
                 infoStok&&(infoStok.innerHTML='STOK HABIS',infoStok.classList.add('habis'),infoStok.classList.remove('kunci'));
                 btnBeli&&(btnBeli.disabled=!0,btnBeli.textContent='STOK HABIS');
                 inputJml&&(inputJml.disabled=!0);
-                btnJml.forEach(e=>e.disabled=!0);
+                btnJml.forEach(e=>e.disabled=0);
                 selectUkuran&&(selectUkuran.disabled=!0);
-            }else{
+            } else {
                 kartu.classList.remove('habis');
-                infoStok&&(infoStok.innerHTML=`Tersedia: ${stok} pcs`,infoStok.classList.remove('habis','kunci'));
-                if(!poSelesai && !kartu.classList.contains('kunci')){
+                if(!kartu.classList.contains('kunci')) {
+                    infoStok&&(infoStok.innerHTML=`Tersedia: ${stok} pcs`,infoStok.classList.remove('habis','kunci'));
                     btnBeli&&(btnBeli.disabled=!1,btnBeli.textContent='+ Keranjang');
                     inputJml&&(inputJml.disabled=!1);
-                                        btnJml.forEach(e=>e.disabled=!1);
+                    btnJml.forEach(e=>e.disabled=!1);
                     selectUkuran&&(selectUkuran.disabled=!1);
                 }
             }
@@ -569,9 +573,17 @@ async function kurangiStok(){
                 body: formData
             });
             
-            const hasil = await res.json();
-            if(!hasil.sukses){
-                alert(`${item.nama}: ${hasil.pesan}`);
+            const teks = await res.text();
+            try {
+                const hasil = JSON.parse(teks);
+                if(!hasil.sukses){
+                    alert(`${item.nama}: ${hasil.pesan}`);
+                    await ambilStokSemuaProduk();
+                    return false;
+                }
+            } catch(parseErr) {
+                console.error("Respon bukan JSON:", teks);
+                alert("Gagal memperbarui stok. Coba lagi nanti.");
                 await ambilStokSemuaProduk();
                 return false;
             }
@@ -614,7 +626,7 @@ function tambahKeKeranjang(nama,tombol,foto){
     }
     const jumlah=parseInt(kartu.querySelector('.jumlah-input').value);
     
-    if(jumlah>stok)return void tampilNotifikasi(`Stok hanya tersisa ${stok} pcs!`);
+    if(jumlah>stok)return void tampilNotifikasi(`Jumlah melebihi stok tersedia! Tersisa ${stok} pcs`);
     
     const ada=keranjang.find(i=>i.nama===nama&&i.ukuran===ukuranTeks);
 
@@ -681,8 +693,11 @@ function hapusDariKeranjang(indeks){
 async function cekKodeDiskon(){
     const input = document.getElementById('input-kode').value.trim().toUpperCase();
     const pesan = document.getElementById('pesan-diskon');
+    const btnDiskon = document.getElementById('btn-gunakan-diskon');
+    
     nilaiDiskon = 0;
     kodeTerpakai = null;
+    pesan.innerHTML = '';
 
     if(!input){
         pesan.textContent = "Masukkan kode diskon terlebih dahulu!";
@@ -691,8 +706,13 @@ async function cekKodeDiskon(){
         return;
     }
 
+    btnDiskon.disabled = true;
+    btnDiskon.innerHTML = '<span class="loading-spinner"></span>Memeriksa...';
+
     try {
         const res = await fetch(`${URL_WEBAPP}?cek_kode=${encodeURIComponent(input)}`);
+        if(!res.ok) throw new Error("Server tidak merespon");
+        
         const hasil = await res.json();
         
         if(hasil.sukses && hasil.nilai > 0){
@@ -709,6 +729,8 @@ async function cekKodeDiskon(){
         pesan.className = "pesan-diskon gagal";
     }
     
+    btnDiskon.disabled = false;
+    btnDiskon.textContent = 'Gunakan';
     perbaruiTampilanKeranjang();
 }
 
@@ -728,36 +750,36 @@ async function kirimKeWA(){
     const berhasil = await kurangiStok();
     if(!berhasil) return;
 
-    let teks = "PESANAN BARU TNXUS CLUB\n";
-    teks += "━━━━━━━━━━━━━━━━━━━━━━━\n";
-    teks += "No. Pesanan : " + noPesanan + "\n";
-    teks += "Tanggal     : " + tglPesanan + "\n";
-    teks += "━━━━━━━━━━━━━━━━━━━━━━━\n";
-    teks += "Nama        : " + nama + "\n";
-    teks += "WhatsApp    : " + wa + "\n";
-    teks += "Alamat      : " + alamat.replace(/\n/g, "\n ") + "\n";
-    if(gmail) teks += "Email       : " + gmail + "\n";
-    teks += "━━━━━━━━━━━━━━━━━━━━━━━\n";
-    teks += "DAFTAR PESANAN:\n";
+    let teks = "PESANAN BARU TNXUS CLUB%0A";
+    teks += "━━━━━━━━━━━━━━━━━━━━━━━%0A";
+    teks += "No. Pesanan : " + noPesanan + "%0A";
+    teks += "Tanggal     : " + tglPesanan + "%0A";
+    teks += "━━━━━━━━━━━━━━━━━━━━━━━%0A";
+    teks += "Nama        : " + nama + "%0A";
+    teks += "WhatsApp    : " + wa + "%0A";
+    teks += "Alamat      : " + alamat.replace(/\n/g, "%0A ") + "%0A";
+    if(gmail) teks += "Email       : " + gmail + "%0A";
+    teks += "━━━━━━━━━━━━━━━━━━━━━━━%0A";
+    teks += "DAFTAR PESANAN:%0A";
 
     let subtotal = 0;
     keranjang.forEach(item => {
         const sub = item.harga * item.jumlah;
         subtotal += sub;
-        teks += "• " + item.nama + "\n";
-        teks += "  " + item.ukuran + " × " + item.jumlah + "\n";
-        teks += "  Rp" + sub.toLocaleString('id-ID') + "\n";
+        teks += "• " + item.nama + "%0A";
+        teks += "  " + item.ukuran + " × " + item.jumlah + "%0A";
+        teks += "  Rp" + sub.toLocaleString('id-ID') + "%0A";
     });
 
-    teks += "Subtotal    : Rp" + subtotal.toLocaleString('id-ID') + "\n";
-    if(kodeTerpakai) teks += "Kode Diskon : " + kodeTerpakai + "\nDiskon      : -Rp" + nilaiDiskon.toLocaleString('id-ID') + "\n";
+    teks += "Subtotal    : Rp" + subtotal.toLocaleString('id-ID') + "%0A";
+    if(kodeTerpakai) teks += "Kode Diskon : " + kodeTerpakai + "%0ADiskon      : -Rp" + nilaiDiskon.toLocaleString('id-ID') + "%0A";
     const total = Math.max(0, subtotal - nilaiDiskon);
-    teks += "TOTAL BAYAR : Rp" + total.toLocaleString('id-ID') + "\n";
-    teks += "━━━━━━━━━━━━━━━━━━━━━━━\n";
-    teks += "Terima Kasih Sudah Order!\n";
+    teks += "TOTAL BAYAR : Rp" + total.toLocaleString('id-ID') + "%0A";
+    teks += "━━━━━━━━━━━━━━━━━━━━━━━%0A";
+    teks += "Terima Kasih Sudah Order!%0A";
     teks += "Pesanan anda sudah diajukan, Mohon tunggu balasan dari kami.";
 
-    window.open("https://wa.me/6285188081275?text=" + encodeURIComponent(teks), "_blank");
+    window.open("https://wa.me/6285188081275?text=" + teks, "_blank");
 
     keranjang = [];
     perbaruiTampilanKeranjang();
